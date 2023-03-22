@@ -1,0 +1,58 @@
+body{
+    margin: 0;
+}
+
+nav{
+    background-color: black;
+    padding: 0;
+
+    height: 100px;
+}
+
+ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li{
+    display: inline-block;
+    color: white;
+
+    text-align: center;
+    padding: 5px;
+}
+
+nav ul li:hover{
+    transition: 0.5s;
+    background-color: lightgrey;
+    color: blue;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+main button{
+    width: 30%;
+    margin: 10px;
+}
+
+table{
+    width: 80%;
+}
+
+th{
+    text-align: center;
+}
+
+td{
+    text-align: center;
+}
