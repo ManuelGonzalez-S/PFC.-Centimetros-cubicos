@@ -1,0 +1,22 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+form{
+    font-size: large;
+    border: 1px solid black;
+    width: 60%;
+    padding: 50px;
+}
+
+h2{
+    text-align: center;
+}
+
+#registro{
+    display: none
+}

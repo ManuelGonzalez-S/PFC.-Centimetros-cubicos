@@ -1,0 +1,140 @@
+body{
+    margin: 0;
+}
+
+nav{
+    background-color: black;
+    padding: 0;
+
+    height: 100px;
+}
+
+ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li{
+    display: inline-block;
+    color: white;
+
+    text-align: center;
+    padding: 5px;
+}
+
+nav ul li:hover{
+    transition: 0.5s;
+    background-color: lightgrey;
+    color: blue;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+main button{
+    width: 30%;
+    margin: 10px;
+}
+
+#clasificacion{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+table{
+    width: 80%;
+}
+
+th{
+    text-align: center;
+}
+
+td{
+    text-align: center;
+}
+
+/* Cambia el section donde se encuentran las cards */
+#equipos{
+    padding-top: 20px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Cambia los estilos de las cards */
+#equipos div{
+    border: 1px solid black;
+    margin: 10px;
+    width: 27%;
+    height: 200px;
+
+    transition: 0.7s;
+
+    background-position: center;
+    background-size: cover;
+}
+
+#equipos div:hover{
+    transition: 0.7s;
+    height: 220px;
+    width: 30%;
+
+    filter: brightness(0.5);
+}
+
+#AlfaRomeo{
+    background-image: url(../img/AlfaRomeo.jpg);
+    color: white;
+}
+
+#Alphatauri{
+    background-image: url(../img/Alphatauri.jpg);
+    color: white;
+}
+
+#Alpine{
+    background-image: url(../img/alpine.png);
+}
+
+#AstonMartin{
+    background-image: url(../img/astonmartin.jpg);
+}
+
+#Ferrari{
+    background-image: url(../img/ferrari.jfif);
+}
+
+#Haas{
+    background-image: url(../img/haas.png);
+}
+
+#Mclaren{
+    background-image: url(../img/mclaren.jfif);
+}
+
+#Mercedes{
+    background-image: url(../img/mercedes.jfif);
+}
+
+#RedBull{
+    background-image: url(../img/redbull.png);
+}
+
+#Williams{
+    background-image: url(../img/williams.png);
+}
