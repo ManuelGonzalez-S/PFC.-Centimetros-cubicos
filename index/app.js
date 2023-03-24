@@ -18,6 +18,8 @@ function generarTablaClasificacion(){
 
     let boton = document.getElementById('generarClasificacion');
 
+    let titulos = ['Clasificacion','Piloto','Puntos','Equipo'];
+
     if(tabla != null){
         section.replaceChildren();
         boton.innerHTML = 'Mostrar tabla de clasificaciones';
@@ -32,9 +34,9 @@ function generarTablaClasificacion(){
 
         let pilotos = devolverNombresPilotos();
 
-        for(let i = 0; i < pilotos.length;i++){
+        for(let i = 0; i < titulos.length;i++){
             th = document.createElement('th');
-            th.innerHTML = pilotos[i]
+            th.innerHTML = titulos[i]
             tr.appendChild(th);
         }
 
@@ -47,13 +49,27 @@ function generarTablaClasificacion(){
 
         for(let i = 0;i < pilotos.length;i++){
             tr = document.createElement('tr');
-    
-            for(let j = 0; j < pilotos.length; j++){
-                td = document.createElement('td');
-                td.innerHTML = j;
-    
-                tr.appendChild(td);
-            }
+            
+            td = document.createElement('td');
+            td.innerHTML = i;
+
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = pilotos[i];
+
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = 0;
+
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = 0;
+
+            tr.appendChild(td);
+
             body.appendChild(tr);
         }
 
@@ -90,6 +106,9 @@ function mostrarEquipos(){
 
     let card;
 
+    // let marquee;
+    let p;
+
     let equipos = devolverEquipos();
 
     let idEquipos = devolverEquiposJuntos();
@@ -97,8 +116,17 @@ function mostrarEquipos(){
     for(let i = 0; i < 10; i++){
 
         card = document.createElement('div');
-        // card.innerHTML = equipos[i];
+        // marquee = document.createElement('marquee');
+        p  = document.createElement('p');
+        p.setAttribute('class','infoEquipos');
+
+        p.innerHTML = equipos[i];
+        // marquee.setAttribute('direction','up');
+        // marquee.setAttribute('scrollamount',20)
+
         card.setAttribute('id', idEquipos[i]);
+        // card.appendChild(marquee);
+        card.appendChild(p);
         section.appendChild(card);
     }
 
