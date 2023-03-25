@@ -1,84 +1,128 @@
 
 let main = document.getElementsByTagName('main')[0];
 
-main.addEventListener('load',cargarPagina());
+let body = document.getElementsByTagName('body')[0];
+
+body.addEventListener('load',cargarPagina());
 
 function cargarPagina(){
+
+    generarNoticias();
 
     generarTablaClasificacion();
 
     mostrarEquipos();
 }
 
+function generarNoticias(){
+
+    let section = document.createElement('section');
+    section.setAttribute('id','noticias');
+
+    let div;
+
+    let info;
+
+    let titulo;
+
+    let texto;
+
+    let equipos = devolverEquiposJuntos();
+
+    let imagen;
+
+    for(let i = 0; i < 3; i++){
+        div = document.createElement('div');
+        div.setAttribute('class','noticia')
+
+        imagen = document.createElement('img');
+        imagen.setAttribute('src','../img/' + equipos[i] + '.jpg');
+
+        info = document.createElement('div');
+        info.setAttribute('class','info');
+
+        titulo = document.createElement('h2');
+        titulo.innerHTML = 'Titulo de la noticia';
+
+        texto = document.createElement('p');
+        texto.innerHTML = 'Descripción de la noticia';
+
+        info.appendChild(titulo);
+
+        info.appendChild(texto);
+
+        div.appendChild(imagen);
+
+        div.appendChild(info);
+        
+        section.appendChild(div);
+    }
+
+    main.appendChild(section);
+
+}
+
 function generarTablaClasificacion(){
 
-    let tabla = document.getElementById('tablaClasificacion');
 
-    let section = document.getElementById('clasificacion');
+    let titulos = ['Clasificación','Piloto','Puntos','Equipo'];
+ 
+    let section = document.createElement('section');;
+    section.setAttribute('id','clasificacion');
 
-    let boton = document.getElementById('generarClasificacion');
+    let tabla = document.createElement('table');
+    tabla.setAttribute('id','tablaClasificacion')
 
-    let titulos = ['Clasificacion','Piloto','Puntos','Equipo'];
+    let head = document.createElement('thead');
+    let tr = document.createElement('tr');
+    let th;
 
-    if(tabla != null){
-        section.replaceChildren();
-        boton.innerHTML = 'Mostrar tabla de clasificaciones';
-    }else{
+    let pilotos = devolverNombresPilotos();
 
-        let tabla = document.createElement('table');
-        tabla.setAttribute('id','tablaClasificacion')
-
-        let head = document.createElement('thead');
-        let tr = document.createElement('tr');
-        let th;
-
-        let pilotos = devolverNombresPilotos();
-
-        for(let i = 0; i < titulos.length;i++){
-            th = document.createElement('th');
-            th.innerHTML = titulos[i]
-            tr.appendChild(th);
-        }
-
-        head.appendChild(tr);
-
-
-        let body = document.createElement('tbody');
-        
-        let td;
-
-        for(let i = 0;i < pilotos.length;i++){
-            tr = document.createElement('tr');
-            
-            td = document.createElement('td');
-            td.innerHTML = i;
-
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerHTML = pilotos[i];
-
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerHTML = 0;
-
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerHTML = 0;
-
-            tr.appendChild(td);
-
-            body.appendChild(tr);
-        }
-
-        tabla.appendChild(head);
-        tabla.appendChild(body);
-        section.appendChild(tabla);
-
-        boton.innerHTML = 'Ocultar tabla de clasificaciones';
+    for(let i = 0; i < titulos.length;i++){
+        th = document.createElement('th');
+        th.innerHTML = titulos[i]
+        tr.appendChild(th);
     }
+
+    head.appendChild(tr);
+
+
+    let body = document.createElement('tbody');
+    
+    let td;
+
+    for(let i = 1;i <= pilotos.length;i++){
+        tr = document.createElement('tr');
+        
+        td = document.createElement('td');
+        td.innerHTML = i;
+
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.innerHTML = pilotos[i - 1];
+
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.innerHTML = 0;
+
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.innerHTML = 0;
+
+        tr.appendChild(td);
+
+        body.appendChild(tr);
+    }
+
+    tabla.appendChild(head);
+    tabla.appendChild(body);
+    section.appendChild(tabla);
+
+    main.appendChild(section);
 }
 
 function devolverNombresPilotos(){
@@ -88,7 +132,7 @@ function devolverNombresPilotos(){
 
     pilotos.push('Verstappen');
 
-    pilotos.push('Checo Perez');
+    pilotos.push('Checo Pérez');
 
     pilotos.push('Stroll');
 
@@ -106,7 +150,6 @@ function mostrarEquipos(){
 
     let card;
 
-    // let marquee;
     let p;
 
     let equipos = devolverEquipos();
@@ -116,16 +159,12 @@ function mostrarEquipos(){
     for(let i = 0; i < 10; i++){
 
         card = document.createElement('div');
-        // marquee = document.createElement('marquee');
         p  = document.createElement('p');
         p.setAttribute('class','infoEquipos');
 
         p.innerHTML = equipos[i];
-        // marquee.setAttribute('direction','up');
-        // marquee.setAttribute('scrollamount',20)
 
         card.setAttribute('id', idEquipos[i]);
-        // card.appendChild(marquee);
         card.appendChild(p);
         section.appendChild(card);
     }

@@ -3,10 +3,15 @@ body{
 }
 
 nav{
-    background-color: black;
+    background-color: darkblue;
     padding: 0;
 
     height: 100px;
+
+    position: fixed;
+    width: 100%;
+
+    z-index: 2;
 }
 
 ul{
@@ -23,15 +28,21 @@ nav ul li{
     display: inline-block;
     color: white;
 
+    font-size: 20px;
+
     text-align: center;
     padding: 5px;
+
+    transition: 0.5s;
 }
 
 nav ul li:hover{
     transition: 0.5s;
-    background-color: lightgrey;
+    backdrop-filter: brightness(1.5);
+}
 
-    color: black;
+nav ul a{
+    transition: all 0.5s ease;
 }
 
 main{
@@ -46,6 +57,70 @@ main button{
     margin: 10px;
 }
 
+main section:first-child{
+    padding-top: 110px;
+}
+
+#noticias{
+    width: 100%;
+    padding-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+
+    flex-wrap: wrap;
+}
+
+.noticia{
+    border: 2px solid black;
+
+    width: 80%;
+
+    margin: 5px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    transition: 0.5s;
+}
+
+.noticia:hover{
+    border: 5px solid black;
+
+    transition: 0.5s;
+}
+
+#noticias div img{
+    width: 25%;
+    height: 80%;
+
+    padding: 5px;
+}
+
+#noticias div h2{
+    width: 100%;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.info{
+    flex-direction: column;
+
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+}
+
+.info h2{
+    font-size: 30px;
+}
+
+.info p{
+    font-size: 20px;
+}
+
 #clasificacion{
     width: 100%;
     display: flex;
@@ -56,70 +131,131 @@ main button{
 
 table{
     width: 80%;
+
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 
 th{
     text-align: center;
 }
 
-td{
-    text-align: center;
-}
-
-/* Botoncito */
-#generarClasificacion{
-    border: none;
-    border-radius: 10px;
+tbody tr:nth-child(2n - 1){
     background-color: blue;
     color: white;
-    padding: 1%;
-
-    transition: 0.5s;
 }
 
-/* Botoncito */
-#generarClasificacion:hover{
-    transition: 0.5s;
-
-    padding: 1.5%;
+tbody tr:nth-child(2n){
+    background-color: lightblue;
 }
 
-/* Cambia el section donde se encuentran las cards */
-#equipos{
-    padding-top: 20px;
-    width: 100%;
+td{
+    text-align: center;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
-/* Cambia los estilos de las cards */
-#equipos div{
-    border: 1px solid black;
-    margin: 10px;
-    width: 27%;
-    height: 200px;
+@media screen and (max-width:1000px){
+    /* Cambia el section donde se encuentran las cards */
 
-    transition: 0.7s;
+    thead{
+        font-size: 20px;
+    }
 
-    background-position: center;
-    background-size: cover;
+    tbody{
+        font-size: 18px;
+    }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    #equipos{
+        padding-top: 20px;
+        width: 100%;
 
-    /* Chat GPT */
-    position: relative;
-    overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        z-index: 1;
+    }
+
+    /* Cambia los estilos de las cards */
+    #equipos div{
+        border: 1px solid black;
+        margin: 10px;
+        width: 27%;
+        height: 200px;
+
+        transition: 0.7s;
+
+        background-position: center;
+        background-size: cover;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* Chat GPT */
+        position: relative;
+        overflow: hidden;
+    }
+    #equipos div:hover{
+        transition: 0.7s;
+        height: 220px;
+        width: 30%;
+    }
 }
 
-#equipos div:hover{
-    transition: 0.7s;
-    height: 220px;
-    width: 30%;
+@media screen and (min-width:1000px){
+    /* Cambia el section donde se encuentran las cards */
+
+    thead{
+        font-size: 27px;
+    }
+
+    tbody{
+        font-size: 20px;
+    }
+
+    #equipos{
+        padding-top: 20px;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        z-index: 1;
+    }
+
+    /* Cambia los estilos de las cards */
+    #equipos div{
+        border: 1px solid black;
+        margin: 10px;
+        width: 20%;
+        height: 250px;
+
+        transition: 0.7s;
+
+        background-position: center;
+        background-size: cover;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* Chat GPT */
+        position: relative;
+        overflow: hidden;
+    }
+
+    #equipos div:hover{
+        transition: 0.7s;
+        height: 270px;
+        width: 22%;
+    }
 }
 
 #equipos div:hover .infoEquipos{
@@ -173,7 +309,7 @@ td{
 }
 
 #Alpine{
-    background-image: url(../img/alpine.png);
+    background-image: url(../img/alpine.jpg);
 }
 
 #AstonMartin{
@@ -181,7 +317,7 @@ td{
 }
 
 #Ferrari{
-    background-image: url(../img/ferrari.jfif);
+    background-image: url(../img/ferrari.jpg);
 }
 
 #Haas{
@@ -189,17 +325,17 @@ td{
 }
 
 #Mclaren{
-    background-image: url(../img/mclaren.jfif);
+    background-image: url(../img/mclaren.jpg);
 }
 
 #Mercedes{
-    background-image: url(../img/mercedes.jfif);
+    background-image: url(../img/mercedes.jpg);
 }
 
 #RedBull{
-    background-image: url(../img/redbull.png);
+    background-image: url(../img/redbull.jpg);
 }
 
 #Williams{
-    background-image: url(../img/williams.png);
+    background-image: url(../img/williams.jpg);
 }
