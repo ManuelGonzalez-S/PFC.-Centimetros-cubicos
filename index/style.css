@@ -24,6 +24,18 @@ ul{
     padding: 0;
 }
 
+nav img{
+    height: 100px;
+}
+
+@media screen and (max-width:1000px){
+    
+}
+
+@media screen and (min-width:1000px){
+
+}
+
 nav ul li{
     display: inline-block;
     color: white;
@@ -36,7 +48,7 @@ nav ul li{
     transition: 0.5s;
 }
 
-nav ul li:hover{
+nav ul a li:hover{
     transition: 0.5s;
     backdrop-filter: brightness(1.5);
 }
@@ -81,14 +93,10 @@ main section:first-child{
     display: flex;
     justify-content: space-around;
     align-items: center;
-
-    transition: 0.5s;
 }
 
 .noticia:hover{
     border: 5px solid black;
-
-    transition: 0.5s;
 }
 
 #noticias div img{
@@ -205,6 +213,12 @@ td{
         height: 220px;
         width: 30%;
     }
+
+    #rrss img{
+        width: 10%;
+    
+        filter: invert(1);
+    }
 }
 
 @media screen and (min-width:1000px){
@@ -256,6 +270,12 @@ td{
         height: 270px;
         width: 22%;
     }
+
+    #rrss img{
+        width: 7%;
+    
+        filter: invert(1);
+    }
 }
 
 #equipos div:hover .infoEquipos{
@@ -298,6 +318,8 @@ td{
     color: white;
 
     transition: 0.5s;
+
+    cursor: hand;
 }
 
 #AlfaRomeo{
@@ -338,4 +360,35 @@ td{
 
 #Williams{
     background-image: url(../img/williams.jpg);
+}
+
+footer{
+    background-color: darkblue;
+    color: white;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+footer div{
+    text-align: center;
+
+    width: 30%;
+}
+
+#rrss{
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-evenly;
+}
+
+#copyright{
+    width: 100%;
 }
