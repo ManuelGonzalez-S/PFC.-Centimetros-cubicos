@@ -1,0 +1,60 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table{
+    width: 90%;
+
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.tablaDatos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    width: 70%;
+}
+
+.acciones{
+    display: flex;
+    flex-wrap: wrap;
+    width: 30%;
+}
+
+button{
+    width: 20%;
+    margin: 15px;
+}
+
+.entidad{
+    width: 50%;
+}
+
+th{
+    text-align: center;
+}
+
+
+tbody tr:nth-child(2n - 1){
+    background-color: blue;
+    color: white;
+}
+
+tbody tr:nth-child(2n){
+    background-color: lightblue;
+}
+
+p{
+    width: 100%;
+    text-align: center;
+}
+
+.entidades{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
