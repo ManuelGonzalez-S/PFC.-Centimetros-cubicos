@@ -1,6 +1,6 @@
 
 drop database if exists centimetroscubicos;
-create database if not exists centimetroscubicos;
+create database if not exists centimetroscubicos character set utf8;
 use centimetroscubicos;
 
 create table if not exists Equipos (
@@ -22,7 +22,7 @@ create table if not exists Patrocinadores (
 create table if not exists Pilotos (
   id int not null auto_increment,
   Nombre varchar(45) not null,
-  Puntos varchar(45) not null default 0,
+  Puntos int not null default 0,
   Dorsal int not null,
   nacionalidad varchar(45) not null,
   Equipos_id int not null,
@@ -95,7 +95,7 @@ insert into equipos (nombre) values ('Williams');
 */
 
 insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Lewis Hamilton', default, 44,'Reino Unido',1);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('George Russel', default, 63,'Reino Unido',1);
+insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('George Russell', default, 63,'Reino Unido',1);
 
 insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Esteban Ocon', default, 31,'Francia',2);
 insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Pierre Gasly', default, 10,'Francia',2);
@@ -801,3 +801,22 @@ insert into patrocinadores (Nombre, Equipos_id) values ('Duracell', 10);
 insert into patrocinadores (Nombre, Equipos_id) values ('Sofina', 10);
 insert into patrocinadores (Nombre, Equipos_id) values ('Dorilton Ventures', 10);
 insert into patrocinadores (Nombre, Equipos_id) values ('Umbro', 10);
+
+/*
+	ASIGNACIONES DE PUNTOS (TIEMPO REAL)
+*/
+update pilotos set Puntos = 44 where nombre like ('%Verstappen%');
+update pilotos set Puntos = 43 where nombre like ('%Perez%');
+update pilotos set Puntos = 30 where nombre like ('%Alonso%');
+update pilotos set Puntos = 20 where nombre like ('%Sainz%');
+update pilotos set Puntos = 20 where nombre like ('%Lewis%');
+update pilotos set Puntos = 18 where nombre like ('%Russell%');
+update pilotos set Puntos = 8 where nombre like ('%Stroll%');
+update pilotos set Puntos = 6 where nombre like ('%Leclerc%');
+update pilotos set Puntos = 4 where nombre like ('%Ocon%');
+update pilotos set Puntos = 4 where nombre like ('%Bottas%');
+update pilotos set Puntos = 4 where nombre like ('%Gasly%');
+update pilotos set Puntos = 1 where nombre like ('%Magnussen%');
+update pilotos set Puntos = 1 where nombre like ('%Albon%');
+
+select *,pilotos.puntos as 'puntosPil', Equipos.nombre as 'nombreEquipo' from pilotos inner join Equipos on equipos.id = pilotos.Equipos_id order by pilotos.Puntos desc;
