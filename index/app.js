@@ -1,4 +1,3 @@
-
 let main = document.getElementsByTagName('main')[0];
 
 let body = document.getElementsByTagName('body')[0];

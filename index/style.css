@@ -149,20 +149,19 @@ th{
 }
 
 tbody tr:nth-child(2n - 1){
-    background-color: blue;
+    background-color: rgb(133, 133, 196);
     color: white;
 }
 
 tbody tr:nth-child(2n){
-    background-color: lightblue;
+    background-color: rgb(166, 166, 243);
 }
 
 td{
     text-align: center;
 
-    margin: 0;
-    padding: 0;
-    border: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 @media screen and (max-width:1000px){
@@ -204,7 +203,6 @@ td{
         justify-content: center;
         align-items: center;
 
-        /* Chat GPT */
         position: relative;
         overflow: hidden;
     }
@@ -254,7 +252,6 @@ td{
         justify-content: center;
         align-items: center;
 
-        /* Chat GPT */
         position: relative;
         overflow: hidden;
     }
@@ -264,6 +261,10 @@ td{
         height: 270px;
         width: 22%;
     }
+}
+
+#equipos{
+    margin-bottom: 35px;
 }
 
 #equipos div:hover .infoEquipos{
