@@ -213,12 +213,6 @@ td{
         height: 220px;
         width: 30%;
     }
-
-    #rrss img{
-        width: 10%;
-    
-        filter: invert(1);
-    }
 }
 
 @media screen and (min-width:1000px){
@@ -270,12 +264,6 @@ td{
         height: 270px;
         width: 22%;
     }
-
-    #rrss img{
-        width: 7%;
-    
-        filter: invert(1);
-    }
 }
 
 #equipos div:hover .infoEquipos{
@@ -297,7 +285,6 @@ td{
 
     transition: 0.5s;
 
-    /* Chat GPT */
     position: absolute;
     bottom: 0;
     margin: 0;
@@ -387,6 +374,42 @@ footer div{
     align-items: center;
 
     justify-content: space-evenly;
+}
+
+@media screen and (max-width:1000px){
+    #rrss img{
+        width: 10%;
+    }
+}
+
+@media screen and (min-width:1000px){
+    #rrss img{
+        width: 7%;
+    }
+}
+
+#rrss img{
+    padding: 5px;
+
+    filter: invert(1);
+
+    transition: 0.5s;
+}
+
+@media screen and (max-width:1000px){
+    #rrss img:hover{
+    
+        width: 30px;
+        
+    }
+}
+
+@media screen and (min-width:1000px){
+    #rrss img:hover{
+    
+        width: 43px;
+        
+    }
 }
 
 #copyright{
