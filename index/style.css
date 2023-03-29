@@ -28,14 +28,6 @@ nav img{
     height: 100px;
 }
 
-@media screen and (max-width:1000px){
-    
-}
-
-@media screen and (min-width:1000px){
-
-}
-
 nav ul li{
     display: inline-block;
     color: white;
@@ -211,6 +203,16 @@ td{
         height: 220px;
         width: 30%;
     }
+
+    #rrss img{
+        width: 10%;
+    }
+
+    #rrss img:hover{
+    
+        width: 30px;
+        
+    }
 }
 
 @media screen and (min-width:1000px){
@@ -260,6 +262,16 @@ td{
         transition: 0.7s;
         height: 270px;
         width: 22%;
+    }
+
+    #rrss img{
+        width: 7%;
+    }
+
+    #rrss img:hover{
+    
+        width: 43px;
+        
     }
 }
 
@@ -365,28 +377,28 @@ footer div{
     width: 30%;
 }
 
+footer a{
+    color: white;
+    text-decoration: none;
+
+    transition: 0.5s;
+}
+
+footer a:hover{
+
+    transition: 0.5s;
+
+    text-decoration: underline;
+}
+
 #rrss{
     padding: 5px;
 
     display: flex;
     flex-direction: column;
-
-    display: flex;
     align-items: center;
 
     justify-content: space-evenly;
-}
-
-@media screen and (max-width:1000px){
-    #rrss img{
-        width: 10%;
-    }
-}
-
-@media screen and (min-width:1000px){
-    #rrss img{
-        width: 7%;
-    }
 }
 
 #rrss img{
@@ -395,22 +407,16 @@ footer div{
     filter: invert(1);
 
     transition: 0.5s;
+
+    cursor: pointer;
 }
 
-@media screen and (max-width:1000px){
-    #rrss img:hover{
-    
-        width: 30px;
-        
-    }
-}
+#contacto p:hover{
 
-@media screen and (min-width:1000px){
-    #rrss img:hover{
-    
-        width: 43px;
-        
-    }
+    text-decoration: underline;
+
+    cursor: pointer;
+
 }
 
 #copyright{

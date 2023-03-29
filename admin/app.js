@@ -62,15 +62,17 @@ function crearCabecera() {
     for (equipos in tablaEquipos) {
         tuplas = document.createElement(`tr`)
         tbody.appendChild(tuplas);
+        tdbotones = document.createElement('td');
+        tuplas.appendChild(tdbotones);
         actualizar = document.createElement('button');
         borrar = document.createElement('button');
         editar = document.createElement('button');
         actualizar.innerHTML = 'Actualizar';
         borrar.innerHTML = 'Borrar';
         editar.innerHTML = 'Editar';
-        tuplas.appendChild(actualizar);
-        tuplas.appendChild(borrar);
-        tuplas.appendChild(editar);
+        tdbotones.appendChild(actualizar);
+        tdbotones.appendChild(borrar);
+        tdbotones.appendChild(editar);
         td = document.createElement('td');
         td.innerHTML = equipos;
         tuplas.appendChild(td);

@@ -85,8 +85,6 @@ nav{
     background-color: darkblue;
     padding: 0;
 
-    height: 100px;
-
     position: fixed;
     width: 100%;
 
@@ -97,6 +95,9 @@ ul{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    
+    flex-wrap: wrap;
+
     height: 100%;
 
     margin: 0;
@@ -104,7 +105,7 @@ ul{
 }
 
 nav img{
-    height: 100px;
+    width: 100px;
 }
 
 nav ul li{

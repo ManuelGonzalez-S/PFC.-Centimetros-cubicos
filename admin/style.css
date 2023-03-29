@@ -1,7 +1,27 @@
+nav ul li{
+    list-style: none;
+}
+
+nav img{
+    width: 15%;
+}
+
+nav a button{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 main{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-width:1200px){
+    main{
+        flex-direction: column;
+    }
 }
 
 table{
@@ -21,7 +41,36 @@ table{
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-    width: 70%;
+    
+}
+
+@media screen and (max-width:1000px){
+    .tablaDatos{
+        width: 90%;
+    }
+}
+
+@media screen and (min-width:1000px){
+    .tablaDatos{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:960px){
+
+    tr td:first-child{
+        display: flex;
+        flex-direction: column;
+    }
+
+    tr td:first-child button{
+        width: 90px;
+    }
+}
+
+tr td:first-child{
+    display: flex;
+    align-items: center;
 }
 
 .acciones{
