@@ -1,4 +1,3 @@
-
 let main = document.getElementsByTagName('main')[0];
 
 let body = document.getElementsByTagName('body')[0];
@@ -19,8 +18,7 @@ function cargarPagina(){
 // Genera seccion de noticias
 function generarNoticias(){
 
-    let section = document.createElement('section');
-    section.setAttribute('id','noticias');
+    let section = document.getElementById('noticias');
 
     let div;
 
@@ -71,8 +69,7 @@ function generarTablaClasificacionPilotos(){
 
     let titulos = ['Clasificación','Piloto','Puntos','Equipo'];
  
-    let section = document.createElement('section');;
-    section.setAttribute('id','clasificacion');
+    let section = document.getElementById('clasificacion');
 
     let tabla = document.createElement('table');
     tabla.setAttribute('id','tablaClasificacion')
@@ -151,8 +148,7 @@ function devolverNombresPilotos(){
 // Genera la seccion de equipos
 function mostrarEquipos(){
 
-    let section = document.createElement('section');
-    section.setAttribute('id','equipos');
+    let section = document.getElementById('equipos');
 
     let card;
 
@@ -339,7 +335,7 @@ function generarCopyright(){
     div.setAttribute('id','copyright');
 
     let p = document.createElement('p');
-    p.innerHTML = '© Copyright';
+    p.innerHTML = '© Copyright 2023';
 
     div.appendChild(p);
 
