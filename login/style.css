@@ -23,9 +23,19 @@ form{
     background-color: gainsboro;
 }
 
+.peticion{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px;
+}
+
 #requisitos{
+    text-align: right;
     color: gray;
+    width: 100%;
     margin-top: -5px;
+    font-size: smaller;
 }
 
 section{
@@ -41,7 +51,7 @@ h2{
 }
 
 form p{
-    text-align: center;
+    text-align: left;
     width: 80%;
     margin: 15px;
 }
@@ -135,4 +145,10 @@ nav ul a{
 
 .incorrecto{
     background-color: #f96a6aa2;
+}
+
+span{
+    text-align:right;
+    color: red;
+    width: 100%;
 }
