@@ -1,6 +1,8 @@
 let tabla = document.getElementsByTagName('table')[0];
 let thead;
 
+let body = document.getElementsByTagName('body')[0];
+
 let tablaEquipos = {
     redbullRacing: {
         posicion: 1,
@@ -33,49 +35,44 @@ let tablaEquipos = {
         pais: 'Suiza'
     },
     AstonMartin: {
-        posicion: 7,
-        puntos: 55,
-        pais: 'Reino Unido'
+        Posicion: 7,
+        Puntos: 55,
+        Pais: 'Reino Unido'
     }
 }
 
-function crearTabla() {
-    crearCabecera();
-}
-
-crearTabla();
+crearCabecera();
 
 function crearCabecera() {
     thead = document.createElement('thead');
     tabla.appendChild(thead);
     tr = document.createElement('tr');
 
-    nombres = document.createElement('th');
-    nombres.innerHTML = 'equipos';
-    accion1 = document.createElement('th');
-    accion1.innerHTML = 'acciones'
-    thead.appendChild(tr);
-    tr.appendChild(accion1);
-    tr.appendChild(nombres);
-    for (stats in tablaEquipos['AstonMartin']) {
+    let titulos = ['Acciones', 'Equipo','Posición','Puntos','Pais'];
+
+    for (let i = 0; i < titulos.length; i++) {
         th = document.createElement('th');
-        th.innerHTML = stats;
+        th.innerHTML = titulos[i];
         tr.appendChild(th);
     }
+    
+    thead.appendChild(tr);
     tbody = document.createElement('tbody');
     tabla.appendChild(tbody);
     for (equipos in tablaEquipos) {
         tuplas = document.createElement(`tr`)
         tbody.appendChild(tuplas);
+        tdbotones = document.createElement('td');
+        tuplas.appendChild(tdbotones);
         actualizar = document.createElement('button');
         borrar = document.createElement('button');
         editar = document.createElement('button');
-        actualizar.innerHTML = 'update';
-        borrar.innerHTML = 'delete';
-        editar.innerHTML = 'edit';
-        tuplas.appendChild(actualizar);
-        tuplas.appendChild(borrar);
-        tuplas.appendChild(editar);
+        actualizar.innerHTML = 'Actualizar';
+        borrar.innerHTML = 'Borrar';
+        editar.innerHTML = 'Editar';
+        tdbotones.appendChild(actualizar);
+        tdbotones.appendChild(borrar);
+        tdbotones.appendChild(editar);
         td = document.createElement('td');
         td.innerHTML = equipos;
         tuplas.appendChild(td);

@@ -149,20 +149,19 @@ th{
 }
 
 tbody tr:nth-child(2n - 1){
-    background-color: blue;
+    background-color: rgb(133, 133, 196);
     color: white;
 }
 
 tbody tr:nth-child(2n){
-    background-color: lightblue;
+    background-color: rgb(166, 166, 243);
 }
 
 td{
     text-align: center;
 
-    margin: 0;
-    padding: 0;
-    border: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 @media screen and (max-width:1000px){
@@ -204,7 +203,6 @@ td{
         justify-content: center;
         align-items: center;
 
-        /* Chat GPT */
         position: relative;
         overflow: hidden;
     }
@@ -212,12 +210,6 @@ td{
         transition: 0.7s;
         height: 220px;
         width: 30%;
-    }
-
-    #rrss img{
-        width: 10%;
-    
-        filter: invert(1);
     }
 }
 
@@ -260,7 +252,6 @@ td{
         justify-content: center;
         align-items: center;
 
-        /* Chat GPT */
         position: relative;
         overflow: hidden;
     }
@@ -270,12 +261,10 @@ td{
         height: 270px;
         width: 22%;
     }
+}
 
-    #rrss img{
-        width: 7%;
-    
-        filter: invert(1);
-    }
+#equipos{
+    margin-bottom: 35px;
 }
 
 #equipos div:hover .infoEquipos{
@@ -297,7 +286,6 @@ td{
 
     transition: 0.5s;
 
-    /* Chat GPT */
     position: absolute;
     bottom: 0;
     margin: 0;
@@ -387,6 +375,42 @@ footer div{
     align-items: center;
 
     justify-content: space-evenly;
+}
+
+@media screen and (max-width:1000px){
+    #rrss img{
+        width: 10%;
+    }
+}
+
+@media screen and (min-width:1000px){
+    #rrss img{
+        width: 7%;
+    }
+}
+
+#rrss img{
+    padding: 5px;
+
+    filter: invert(1);
+
+    transition: 0.5s;
+}
+
+@media screen and (max-width:1000px){
+    #rrss img:hover{
+    
+        width: 30px;
+        
+    }
+}
+
+@media screen and (min-width:1000px){
+    #rrss img:hover{
+    
+        width: 43px;
+        
+    }
 }
 
 #copyright{

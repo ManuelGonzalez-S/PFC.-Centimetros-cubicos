@@ -48,6 +48,7 @@ form p{
 
 button:hover{
     background-color: rgb(0, 0, 187);
+    border: 2px solid black;
 }
 
 .botones{
@@ -56,20 +57,27 @@ button:hover{
     justify-content: space-around;
     align-items: center;
     margin-top: 30px;
+
+    flex-direction: column;
+}
+
+.botones button{
+    margin: 20px;
 }
 
 input{
     margin-left: 20px;
 }
-input:hover{
+
+input:focus{
     background-color: lightblue;
 }
 
 button{
     background-color:darkblue;
-    border-radius: 12%;
+    border-radius: 12px;
     color: white;
-    border: 2px solid black;
+    border: none;
     height: 40px;
 }
 
@@ -120,4 +128,11 @@ nav ul a{
     transition: all 0.5s ease;
 }
 
+.correcto{
+    background-color: #4cff39ae;
 
+}
+
+.incorrecto{
+    background-color: #f96a6aa2;
+}
