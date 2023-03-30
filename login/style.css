@@ -107,8 +107,8 @@ ul{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     height: 100%;
-
     margin: 0;
     padding: 0;
 }
@@ -139,16 +139,22 @@ nav ul a{
 }
 
 .correcto{
-    background-color: #4cff39ae;
+    background-color: #a6ff9cae;
 
 }
 
 .incorrecto{
-    background-color: #f96a6aa2;
+    background-color: #fa8282a2;
 }
 
-span{
+.mal{
     text-align:right;
     color: red;
+    width: 100%;
+}
+
+.bien{
+    text-align:center;
+    color: green;
     width: 100%;
 }
