@@ -144,13 +144,21 @@ function verificarMail() {
     do {
         if (emailL == usuariosRegistrados[n][2]) {
             usuarioExistente = true;
+            if (usuariosRegistrados[n][3] != passL) {
+                console.log(usuariosRegistrados[n][3]);
+                mensajeLog.classList.add('mal');
+                mensajeLog.classList.remove('bien');
+                mensajeLog.innerHTML = 'combinacion incorrecta'
+            } else if (usuariosRegistrados[n][3] == passL) {
+                mensajeLog.classList.remove('mal');
+                mensajeLog.classList.add('bien');
+                mensajeLog.innerHTML = 'Inicio de sesion exitoso'
+            }
         }
         console.log(usuarioExistente);
         n++;
     } while (n < usuariosRegistrados.length && !usuarioExistente);
-    if (usuarioExistente) {
-        mensajeLog.innerHTML = 'Mail encontrado'
-    } else {
+    if (!usuarioExistente) {
         mensajeLog.innerHTML = 'Mail no encontrado'
     }
 }
