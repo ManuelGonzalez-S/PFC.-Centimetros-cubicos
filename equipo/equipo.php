@@ -60,6 +60,22 @@
             print('<img src = "../img/'.$nombreEquipo.'.jpg">');
         }
     }
+
+    function crearImagenCoche($id){
+        $baseDatos = conexion();
+
+        $query = 'SELECT * FROM equipos WHERE id =' . $id;
+
+        $sentencia = $baseDatos->query($query);
+
+        while ($baseDatos = $sentencia->fetch_assoc()){
+
+            $nombreEquipo = str_replace(' ','',$baseDatos['nombre']);
+
+            print('<img id="imagenCoche" src = "../img/'.$nombreEquipo.'.jpg">');
+
+        }
+    }
 ?>
 
 
@@ -109,7 +125,7 @@
 
              <div id="coche">
                 <?php
-                    print('<img src="../img/ferrari.jpg" >');
+                    crearImagenCoche($id);
                 ?>
             </div>
 

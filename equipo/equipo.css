@@ -81,6 +81,20 @@ main h2{
 #contenido{
     display: flex;
     justify-content: space-around;
+
+    padding-bottom: 10px;
+}
+
+#imagenCoche{
+    width: 100%;
+}
+
+#coche{
+    width: 40%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #info{
@@ -88,6 +102,8 @@ main h2{
     justify-content: space-evenly;
 
     flex-direction: column;
+
+    width: 50%;
 }
 
 #infoPrincipal{
