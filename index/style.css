@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 body{
     margin: 0;
 }
@@ -26,14 +30,6 @@ ul{
 
 nav img{
     height: 100px;
-}
-
-@media screen and (max-width:1000px){
-    
-}
-
-@media screen and (min-width:1000px){
-
 }
 
 nav ul li{
@@ -70,7 +66,7 @@ main button{
 }
 
 main section:first-child{
-    padding-top: 110px;
+    padding-top: 100px;
 }
 
 #noticias{
@@ -133,7 +129,6 @@ main section:first-child{
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -149,19 +144,20 @@ th{
 }
 
 tbody tr:nth-child(2n - 1){
-    background-color: rgb(133, 133, 196);
+    background-color: blue;
     color: white;
 }
 
 tbody tr:nth-child(2n){
-    background-color: rgb(166, 166, 243);
+    background-color: lightblue;
 }
 
 td{
     text-align: center;
 
-    padding-top: 5px;
-    padding-bottom: 5px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 @media screen and (max-width:1000px){
@@ -203,6 +199,7 @@ td{
         justify-content: center;
         align-items: center;
 
+        /* Chat GPT */
         position: relative;
         overflow: hidden;
     }
@@ -252,6 +249,7 @@ td{
         justify-content: center;
         align-items: center;
 
+        /* Chat GPT */
         position: relative;
         overflow: hidden;
     }
@@ -261,10 +259,6 @@ td{
         height: 270px;
         width: 22%;
     }
-}
-
-#equipos{
-    margin-bottom: 35px;
 }
 
 #equipos div:hover .infoEquipos{
@@ -334,7 +328,7 @@ td{
     background-image: url(../img/haas.jpg);
 }
 
-#Mclaren{
+#McLaren{
     background-image: url(../img/mclaren.jpg);
 }
 

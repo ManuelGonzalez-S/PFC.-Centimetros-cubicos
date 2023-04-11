@@ -1,8 +1,6 @@
 let tabla = document.getElementsByTagName('table')[0];
 let thead;
 
-let body = document.getElementsByTagName('body')[0];
-
 let tablaEquipos = {
     redbullRacing: {
         posicion: 1,
@@ -35,28 +33,35 @@ let tablaEquipos = {
         pais: 'Suiza'
     },
     AstonMartin: {
-        Posicion: 7,
-        Puntos: 55,
-        Pais: 'Reino Unido'
+        posicion: 7,
+        puntos: 55,
+        pais: 'Reino Unido'
     }
 }
 
-crearCabecera();
+function crearTabla() {
+    crearCabecera();
+}
+
+crearTabla();
 
 function crearCabecera() {
     thead = document.createElement('thead');
     tabla.appendChild(thead);
     tr = document.createElement('tr');
 
-    let titulos = ['Acciones', 'Equipo','Posición','Puntos','Pais'];
-
-    for (let i = 0; i < titulos.length; i++) {
+    nombres = document.createElement('th');
+    nombres.innerHTML = 'equipos';
+    accion1 = document.createElement('th');
+    accion1.innerHTML = 'acciones'
+    thead.appendChild(tr);
+    tr.appendChild(accion1);
+    tr.appendChild(nombres);
+    for (stats in tablaEquipos['AstonMartin']) {
         th = document.createElement('th');
-        th.innerHTML = titulos[i];
+        th.innerHTML = stats;
         tr.appendChild(th);
     }
-    
-    thead.appendChild(tr);
     tbody = document.createElement('tbody');
     tabla.appendChild(tbody);
     for (equipos in tablaEquipos) {
@@ -65,9 +70,9 @@ function crearCabecera() {
         actualizar = document.createElement('button');
         borrar = document.createElement('button');
         editar = document.createElement('button');
-        actualizar.innerHTML = 'Actualizar';
-        borrar.innerHTML = 'Borrar';
-        editar.innerHTML = 'Editar';
+        actualizar.innerHTML = 'update';
+        borrar.innerHTML = 'delete';
+        editar.innerHTML = 'edit';
         tuplas.appendChild(actualizar);
         tuplas.appendChild(borrar);
         tuplas.appendChild(editar);

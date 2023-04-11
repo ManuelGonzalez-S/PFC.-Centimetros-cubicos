@@ -7,11 +7,6 @@ main{
 table{
     width: 90%;
 
-    border: 3px solid black;
-    border-radius: 10px;
-
-    padding: 5px;
-
     border-collapse: separate;
     border-spacing: 0 10px;
 }
@@ -26,38 +21,17 @@ table{
 
 .acciones{
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
     width: 30%;
 }
 
-main button{
+button{
     width: 20%;
     margin: 15px;
-
-    border: none;
 }
 
 .entidad{
     width: 50%;
-
-    background-color: darkblue;
-    color: white;
-
-    padding: 5px;
-
-    border-radius: 10px;
-
-    transition: 0.5s;
-}
-
-.entidad:hover{
-    filter: brightness(1.5);
-
-    padding: 8px;
-
-    transition: 0.5s;
 }
 
 th{
@@ -74,18 +48,6 @@ tbody tr:nth-child(2n){
     background-color: lightblue;
 }
 
-tr button{
-    background-color: white;
-    border-radius: 10px;
-
-    padding: 5px;
-}
-
-tr button:hover{
-
-    filter: brightness(0.8);
-}
-
 p{
     width: 100%;
     text-align: center;
@@ -95,24 +57,4 @@ p{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-#volver{
-    text-decoration: none;
-    color: black;
-}
-
-#volver button{
-    background-color: lightblue;
-    border-radius: 10px;
-    
-    border: 1px solid black;
-
-    width: 100px;
-}
-
-#volver button:hover{
-    border: 2px solid black;
-
-    filter: brightness(0.9);
 }

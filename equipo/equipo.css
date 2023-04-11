@@ -1,0 +1,207 @@
+body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+nav{
+    background-color: darkblue;
+    padding: 0;
+
+    height: 100px;
+    width: 100%;
+}
+
+ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+nav img{
+    height: 100px;
+}
+
+nav ul li{
+    display: inline-block;
+    color: white;
+
+    font-size: 20px;
+
+    text-align: center;
+    padding: 5px;
+
+    transition: 0.5s;
+}
+
+nav ul a li:hover{
+    transition: 0.5s;
+    backdrop-filter: brightness(1.5);
+}
+
+nav ul a{
+    transition: all 0.5s ease;
+}
+
+#imagen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#imagen h1{
+    text-decoration: underline;
+}
+
+#imagen img{
+
+    width: 131px;
+
+    transition: 0.5s;
+}
+
+#imagen img:hover{
+
+    transition: 0.5s;
+
+    scale: 1.1;
+}
+
+main h2{
+
+    text-align: center;
+    width: 100%;
+}
+
+#contenido{
+    display: flex;
+    justify-content: space-around;
+}
+
+#info{
+    display: flex;
+    justify-content: space-evenly;
+
+    flex-direction: column;
+}
+
+#infoPrincipal{
+    display: flex;
+    justify-content: space-around;
+}
+
+#infoCoche{
+    width: 50%;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#infoPilotos{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#pilotos{
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+
+    text-align: center;
+}
+
+.nombrePiloto{
+    text-decoration: underline;
+}
+
+.piloto p:first-child{
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.piloto p{
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+#patrocinadores{
+    text-align: center;
+}
+
+footer{
+    background-color: darkblue;
+    color: white;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+footer div{
+    text-align: center;
+
+    width: 30%;
+}
+
+footer a{
+    color: white;
+    text-decoration: none;
+
+    transition: 0.5s;
+}
+
+footer a:hover{
+
+    transition: 0.5s;
+
+    text-decoration: underline;
+}
+
+#rrss{
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: space-evenly;
+}
+
+#rrss img{
+    padding: 5px;
+
+    filter: invert(1);
+
+    transition: 0.5s;
+
+    width: 30px;
+
+    height: 30px;
+
+    cursor: pointer;
+}
+
+#contacto p:hover{
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+}
+
+#copyright{
+    width: 100%;
+}

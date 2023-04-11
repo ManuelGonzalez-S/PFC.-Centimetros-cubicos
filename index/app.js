@@ -1,3 +1,4 @@
+
 let main = document.getElementsByTagName('main')[0];
 
 let body = document.getElementsByTagName('body')[0];
@@ -6,11 +7,11 @@ body.addEventListener('load',cargarPagina());
 
 function cargarPagina(){
 
-    generarNoticias();
+    // generarNoticias();
 
-    generarTablaClasificacionPilotos();
+    // generarTablaClasificacionPilotos();
 
-    mostrarEquipos();
+    // mostrarEquipos();
 
     generarFooter();
 }
@@ -154,7 +155,11 @@ function mostrarEquipos(){
 
     let p;
 
+    let a;
+
     let equipos = devolverEquipos();
+
+    let equiposJuntos = devolverEquiposJuntos();
 
     let idEquipos = devolverEquiposJuntos();
 
@@ -162,12 +167,14 @@ function mostrarEquipos(){
 
         card = document.createElement('div');
         p  = document.createElement('p');
-        p.setAttribute('class','infoEquipos');
 
-        p.innerHTML = equipos[i];
+        a = document.createElement('a');
+        a.setAttribute('class','infoEquipos');
+        a.setAttribute('href','../equipo/equipo.php?id=' + equiposJuntos[i])
+        a.innerHTML = equipos[i];
 
         card.setAttribute('id', idEquipos[i]);
-        card.appendChild(p);
+        card.appendChild(a);
         section.appendChild(card);
     }
 
