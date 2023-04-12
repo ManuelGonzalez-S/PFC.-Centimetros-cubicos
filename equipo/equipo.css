@@ -7,8 +7,6 @@ body{
 nav{
     background-color: darkblue;
     padding: 0;
-
-    height: 100px;
     width: 100%;
 }
 
@@ -16,6 +14,7 @@ ul{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     height: 100%;
 
     margin: 0;
@@ -60,9 +59,10 @@ nav ul a{
 
 #imagen img{
 
-    width: 131px;
+    width: 200px;
 
     transition: 0.5s;
+
 }
 
 #imagen img:hover{
@@ -70,6 +70,8 @@ nav ul a{
     transition: 0.5s;
 
     scale: 1.1;
+
+    
 }
 
 main h2{
@@ -78,51 +80,104 @@ main h2{
     width: 100%;
 }
 
-#contenido{
-    display: flex;
-    justify-content: space-around;
+@media screen and (min-width:900px){
+    #contenido{
+        display: flex;
+        justify-content: space-around;
 
-    padding-bottom: 10px;
+
+        padding-bottom: 15px;
+
+    }
+
+    #contenido h3{
+        font-size: 25px;
+    }
+
+    #coche{
+        width: 80%;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        padding-left: 5px;
+    }
+
+    #info p{
+        font-size: 18px;
+    }
+
+    #pilotos p{
+        font-size: 18px;
+    }
+
+}
+
+@media screen and (max-width:900px){
+    #contenido{
+        display: flex;
+        align-items: center;
+
+        flex-direction: column;
+
+        padding-bottom: 15px;
+    }
+
+    #coche{
+        width: 80%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 #imagenCoche{
     width: 100%;
 }
 
-#coche{
-    width: 40%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #info{
+    width: 100%;
+
     display: flex;
     justify-content: space-evenly;
 
     flex-direction: column;
-
-    width: 50%;
+    flex-wrap: wrap;
 }
 
 #infoPrincipal{
     display: flex;
     justify-content: space-around;
+
+    align-items: flex-start;
 }
 
 #infoCoche{
-    width: 50%;
 
     text-align: center;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-self: flex-start;
+}
+
+#palmares div{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-around;
+}
+
+#palmares p{
+    width: 50%;
+
+    text-align: center;
 }
 
 #infoPilotos{
-    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -143,6 +198,35 @@ main h2{
     text-decoration: underline;
 }
 
+.piloto{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width:687px) {
+
+    .imgPiloto{
+        height: 220px;
+    
+        padding: 25px;
+    }
+    
+}
+
+@media screen and (max-width:687px) {
+
+    .imgPiloto{
+        height: 170px;
+    
+        padding: 15px;
+    }
+    
+}
+
 .piloto p:first-child{
     margin-top: 16px;
     margin-bottom: 16px;
@@ -150,11 +234,15 @@ main h2{
 
 .piloto p{
     margin: 0;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
 }
 
 #patrocinadores{
     text-align: center;
+}
+
+#acercaPilotos{
+    padding-bottom: 5px;
 }
 
 footer{
@@ -208,6 +296,12 @@ footer a:hover{
     height: 30px;
 
     cursor: pointer;
+}
+
+#rrss img:hover{
+    transition: 0.5s;
+
+    scale: 1.1;
 }
 
 #contacto p:hover{
