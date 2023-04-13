@@ -33,7 +33,7 @@ create table if not exists Pilotos (
   primary key (id),
   constraint foreign key (Equipos_id) references Equipos (id)
     );
-
+    
 create table if not exists Coches (
   id int not null auto_increment,
   nombre varchar(45) not null,
