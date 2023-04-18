@@ -1,3 +1,4 @@
+
 let main = document.getElementsByTagName('main')[0];
 
 let body = document.getElementsByTagName('body')[0];
@@ -6,11 +7,13 @@ body.addEventListener('load',cargarPagina());
 
 function cargarPagina(){
 
-    generarNoticias();
+    // generarNoticias();
 
-    generarTablaClasificacionPilotos();
+    // generarTablaClasificacionPilotos();
 
-    mostrarEquipos();
+    // mostrarEquipos();
+
+    generarFooter();
 }
 
 // Genera seccion de noticias
@@ -152,7 +155,11 @@ function mostrarEquipos(){
 
     let p;
 
+    let a;
+
     let equipos = devolverEquipos();
+
+    let equiposJuntos = devolverEquiposJuntos();
 
     let idEquipos = devolverEquiposJuntos();
 
@@ -160,12 +167,14 @@ function mostrarEquipos(){
 
         card = document.createElement('div');
         p  = document.createElement('p');
-        p.setAttribute('class','infoEquipos');
 
-        p.innerHTML = equipos[i];
+        a = document.createElement('a');
+        a.setAttribute('class','infoEquipos');
+        a.setAttribute('href','../equipo/equipo.php?id=' + equiposJuntos[i])
+        a.innerHTML = equipos[i];
 
         card.setAttribute('id', idEquipos[i]);
-        card.appendChild(p);
+        card.appendChild(a);
         section.appendChild(card);
     }
 
@@ -212,4 +221,131 @@ function devolverEquiposJuntos(){
     lista.sort();
 
     return lista;
+}
+
+// Genera el footer
+function generarFooter(){
+
+    generarRRSS();
+
+    generarProteccion();
+
+    generarContacto();
+
+    generarCopyright();
+
+}
+
+function generarRRSS(){
+    let footer = document.getElementsByTagName('footer')[0];
+
+    let div;
+
+    let imagen;
+
+    let fuentes = imagenesRRSS();
+
+    div = document.createElement('div');
+    div.setAttribute('id','rrss');
+
+    let titulo = document.createElement('h3');
+    titulo.innerHTML = 'Redes Sociales';
+
+    div.appendChild(titulo);
+
+    for(let i = 0; i < 3; i++){
+        imagen = document.createElement('img');
+        imagen.setAttribute('src','../img/' + fuentes[i] +'.jpg');
+
+        div.appendChild(imagen);
+    }
+
+    footer.appendChild(div);
+}
+
+function imagenesRRSS(){
+    let imagenes = [];
+
+    imagenes.push('instagram');
+    imagenes.push('twitter');
+    imagenes.push('facebook')
+
+    return imagenes;
+}
+
+function generarProteccion(){
+
+    let footer = document.getElementsByTagName('footer')[0];
+
+    let div = document.createElement('div');
+    div.setAttribute('id','proteccion');
+
+    let titulo = document.createElement('h3');
+    titulo.innerHTML = 'Protección de datos';
+
+    div.appendChild(titulo);
+
+    let p = document.createElement('p');
+    p.innerHTML = 'Politica de cookies';
+
+    div.appendChild(p);
+
+    p = document.createElement('p');
+    p.innerHTML = 'Politica de privacidad';
+
+    div.appendChild(p);
+
+    p = document.createElement('p');
+    p.innerHTML = 'Aviso legal';
+
+    div.appendChild(p);
+
+    footer.appendChild(div);
+}
+
+function generarContacto(){
+
+    let footer = document.getElementsByTagName('footer')[0];
+
+    let div;
+
+    div = document.createElement('div');
+    div.setAttribute('id','contacto');
+
+    let titulo = document.createElement('h3');
+    titulo.innerHTML = 'Contacto';
+
+    div.appendChild(titulo);
+
+    let p = document.createElement('p');
+    p.innerHTML = 'ejemplo@gmail.com';
+
+    div.appendChild(p);
+
+    p = document.createElement('p');
+    p.innerHTML = 'tel: 913 64 51 57';
+
+    div.appendChild(p);
+
+    footer.appendChild(div);
+
+
+}
+
+function generarCopyright(){
+
+    let footer = document.getElementsByTagName('footer')[0];
+
+    let div;
+
+    div = document.createElement('div');
+    div.setAttribute('id','copyright');
+
+    let p = document.createElement('p');
+    p.innerHTML = '© Copyright 2023';
+
+    div.appendChild(p);
+
+    footer.appendChild(div);
+
 }

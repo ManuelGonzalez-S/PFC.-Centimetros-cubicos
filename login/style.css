@@ -23,9 +23,19 @@ form{
     background-color: gainsboro;
 }
 
+.peticion{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px;
+}
+
 #requisitos{
+    text-align: right;
     color: gray;
+    width: 100%;
     margin-top: -5px;
+    font-size: smaller;
 }
 
 section{
@@ -41,7 +51,7 @@ h2{
 }
 
 form p{
-    text-align: center;
+    text-align: left;
     width: 80%;
     margin: 15px;
 }
@@ -85,6 +95,8 @@ nav{
     background-color: darkblue;
     padding: 0;
 
+    height: 100px;
+
     position: fixed;
     width: 100%;
 
@@ -95,17 +107,14 @@ ul{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
     flex-wrap: wrap;
-
     height: 100%;
-
     margin: 0;
     padding: 0;
 }
 
 nav img{
-    width: 100px;
+    height: 100px;
 }
 
 nav ul li{
@@ -127,4 +136,25 @@ nav ul a li:hover{
 
 nav ul a{
     transition: all 0.5s ease;
+}
+
+.correcto{
+    background-color: #a6ff9cae;
+
+}
+
+.incorrecto{
+    background-color: #fa8282a2;
+}
+
+.mal{
+    text-align:right;
+    color: red;
+    width: 100%;
+}
+
+.bien{
+    text-align:center;
+    color: green;
+    width: 100%;
 }
