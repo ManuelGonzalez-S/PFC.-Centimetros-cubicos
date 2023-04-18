@@ -1,11 +1,18 @@
 <?php
 
 $id = $_GET['idEquipo'];
-$nombreEquipo = $_GET['nombreEquipo'];
 
 require_once('../database.php');
 
 $database = new Database();
+
+function cogerNombreEquipo($id,$database){
+
+    $nombre = $database->getTablaSegunCampoID('equipos','id',$id,1);
+
+    return $nombre;
+
+}
 
 function crearImagen($id,$database)
 {
@@ -134,7 +141,13 @@ function crearPalmares($id,$database){
 
             <?php
 
-            print('<h1>' . $nombreEquipo . '</h1>');
+            $nombreEquipo = cogerNombreEquipo($id,$database);
+
+            print('<h1>');
+            foreach ($nombreEquipo as $nombre) {
+                print($nombre['nombre']);
+            }
+            print ('</h1>');
 
             crearImagen($id,$database);
             ?>
