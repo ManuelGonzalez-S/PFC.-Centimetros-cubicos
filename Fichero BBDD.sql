@@ -90,7 +90,6 @@ insert into equipos (nombre, poles, podios, titulos, victorias) values ('Alphata
 insert into equipos (nombre, poles, podios, titulos, victorias) values ('Ferrari', 242,798,16,242);
 insert into equipos (nombre, poles, podios, titulos, victorias) values ('Alfa Romeo', 12 , 36 , 0, 10);
 insert into equipos (nombre, poles, podios, titulos, victorias) values ('Williams', 128, 313, 9 , 114);
-select * from equipos;
 /*
 	INSERCIONES PILOTOS
     
@@ -762,8 +761,6 @@ insert into patrocinadores (Nombre, Equipos_id) values ('Umbro', 10);
 	ASIGNACIONES DE PUNTOS (TIEMPO REAL)
 */
 
-select * from PATROCINADORES;
-
 /* Lewis Hamilton
 */
 update pilotos set Puntos = 38 where id= 1;
@@ -844,10 +841,6 @@ update pilotos set Puntos = 1 where id= 19;
 */
 update pilotos set Puntos = 0 where id= 20;
 
-select *,pilotos.puntos as 'puntosPil', Equipos.nombre as 'nombreEquipo' from pilotos inner join Equipos on equipos.id = pilotos.Equipos_id order by pilotos.Puntos desc;
-
-select * from pilotos;
-
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 1) where id = 1;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 2) where id = 2;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 3) where id = 3;
@@ -859,8 +852,19 @@ update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 9) where id = 9;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 10) where id = 10;
 
-select * from pilotos inner join equipos on equipos.id = pilotos.equipos_id order by pilotos.Puntos desc;
+drop function if exists verEquipo;
+delimiter $$
+create function verEquipo(num1 int)
+returns varchar(45)
+begin
 
-select * from pilotos;
+declare nombreEquipo varchar(45);
 
-select * from coches where equipos_id = 1 limit 1;
+select nombre into nombreEquipo from equipos where id = num1;
+
+return nombreEquipo;
+
+end
+$$
+
+select verEquipo(8) as 'equipo';
