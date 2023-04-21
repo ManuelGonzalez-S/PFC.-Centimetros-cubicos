@@ -2,6 +2,8 @@ body{
     margin: 0;
     padding: 0;
     border: 0;
+
+    background-color: darkblue;
 }
 
 nav{
@@ -46,6 +48,14 @@ nav ul a{
     transition: all 0.5s ease;
 }
 
+h1.tituloError{
+    text-align: center;
+}
+
+h2.tituloError{
+    width: 80%;
+}
+
 #imagen{
     display: flex;
     flex-direction: column;
@@ -74,9 +84,21 @@ nav ul a{
     cursor: pointer;
 }
 
+main{
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    flex-direction:column ;
+}
+
 main h2{
 
     text-align: center;
+    width: 100%;
+}
+
+#contenido{
     width: 100%;
 }
 
@@ -243,6 +265,7 @@ main h2{
 
 #acercaPilotos{
     padding-bottom: 5px;
+    width: 80%;
 }
 
 footer{

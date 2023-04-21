@@ -42,20 +42,22 @@ $database = new Database();
         <section id="noticias">
             <?php
 
-            $noticias = ['AlfaRomeo', 'Alphatauri','Alpine'];
+            $noticias = ['AstonMartin', 'Alphatauri', 'Alpine'];
+            $noticiasTitulo = ['Alonso ilusiona', 'Alphatauri en problemas', 'Alpine en busca de mejorar su coche'];
+            $noticiasDescripcion = ['Alonso busca la 33 en el próximo GP de Azerbaiyán', 'El equipo ha perdido su patrocinador más importante', 'El equipo busca conseguir más puntos que el año pasado y ser aspirante al titulo el año que viene'];
 
-                for ($i=0; $i < 3; $i++) { 
-                    print('<div class= "noticia">');
-                    print('<img src= "../img/'.$noticias[$i]. '.jpg">');
+            for ($i = 0; $i < 3; $i++) {
+                print '<div class= "noticia">';
+                print '<img src= "../img/' . $noticias[$i] . '.jpg">';
 
-                    print('<div class="info">');
-                    print('<h2>Titulo de la noticia</h2>');
-                    print('<p>Descripción de la noticia</p>');
-                    print('</div>');
+                print '<div class="info">';
+                print "<h2>$noticiasTitulo[$i]</h2>";
+                print "<p>$noticiasDescripcion[$i]</p>";
+                print '</div>';
 
 
-                    print('</div>');
-                }
+                print '</div>';
+            }
             ?>
         </section>
         <section id="clasificacion">
@@ -66,47 +68,47 @@ $database = new Database();
 
             $titulos = ['Clasificación', 'Puntos', 'Piloto', 'Nacionalidad', 'Equipo'];
 
-            print('<table id="tablaClasificacion">');
-            print('<thead>');
-            print('<tr>');
+            print '<table id="tablaClasificacion">';
+            print '<thead>';
+            print '<tr>';
             for ($i = 0; $i < sizeof($titulos); $i++) {
-                print('<th>');
-                print($titulos[$i]);
-                print('</th>');
+                print '<th>';
+                print $titulos[$i];
+                print '</th>';
             }
-            print('</tr>');
-            print('</thead>');
+            print '</tr>';
+            print '</thead>';
 
             $campos = ['Puntos', 'Nombre', 'nacionalidad', 'nombreEquipo'];
 
-            print('<tbody>');
+            print '<tbody>';
 
             $contador = 1;
 
             // Genera cada fila
             foreach ($resultados as $baseDatos) {
-                print('<tr>');
+                print '<tr>';
 
-                print('<td>');
-                print($contador);
-                print('</td>');
+                print '<td>';
+                print $contador;
+                print '</td>';
 
                 // Genera cada elemento de la fila
                 for ($i = 0; $i < sizeof($campos); $i++) {
-                    print('<td>');
+                    print '<td>';
 
-                    print($baseDatos[$campos[$i]]);
+                    print $baseDatos[$campos[$i]];
 
-                    print('</td>');
+                    print '</td>';
                 }
-                print('</tr>');
+                print '</tr>';
 
-                $contador ++;
+                $contador++;
             }
 
-            print('</tbody>');
+            print '</tbody>';
 
-            print('</table>');
+            print '</table>';
             ?>
         </section>
 
@@ -117,14 +119,14 @@ $database = new Database();
 
             foreach ($resultados as $baseDatos) {
 
-                $nombreEquipo = str_replace(' ','',$baseDatos['nombre']);
-                print('<div id =' . $nombreEquipo . '>');
+                $nombreEquipo = str_replace(' ', '', $baseDatos['nombre']);
+                print '<div id =' . $nombreEquipo . '>';
 
-                print('<a class=infoEquipos href= "../equipo/equipo.php?idEquipo='.$baseDatos['id'].'&nombreEquipo='.$baseDatos['nombre'].'">');
-                print($baseDatos['nombre']);
-                print('</a>');
+                print '<a class=infoEquipos href= "../equipo/equipo.php?idEquipo=' . $baseDatos['id'] . '">';
+                print $baseDatos['nombre'];
+                print '</a>';
 
-                print('</div>');
+                print '</div>';
             }
 
             ?>

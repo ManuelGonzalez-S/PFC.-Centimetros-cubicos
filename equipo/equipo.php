@@ -1,48 +1,64 @@
 <?php
 
-$id = $_GET['idEquipo'];
-
 require_once('../database.php');
 
 $database = new Database();
 
-function cogerNombreEquipo($id,$database){
+$maxValorPosible = $database->getNumeroEquipos();
 
-    $nombre = $database->getTablaSegunCampoID('equipos','id',$id,1);
+if (isset($_GET['idEquipo'])) {
+    $id = $_GET['idEquipo'];
 
-    return $nombre;
+    $id = intval($id);
 
+    foreach ($maxValorPosible as $resultado) {
+        $maxValorPosible = $resultado['suma'];
+    }
+
+    if ($id > $maxValorPosible || $id <=0) {
+        $id = null;
+    }
 }
 
-function crearImagen($id,$database)
+function cogerNombreEquipo($id, $database)
+{
+
+    $nombre = $database->getTablaSegunCampoID('equipos', 'id', $id, 1);
+
+    return $nombre;
+}
+
+function crearImagen($id, $database)
 {
 
 
-    $sentencia = $database->getTablaenBaseAID('equipos',$id,1);
+    $sentencia = $database->getTablaenBaseAID('equipos', $id, 1);
 
-    foreach($sentencia as $equipo) {
+    foreach ($sentencia as $equipo) {
 
         $nombreEquipo = str_replace(' ', '', $equipo['nombre']);
 
-        print('<img src = "../img/' . $nombreEquipo . '.jpg">');
+        print '<img src = "../img/' . $nombreEquipo . '.jpg">';
     }
 }
 
-function crearImagenCoche($id,$database){
+function crearImagenCoche($id, $database)
+{
 
-    $sentencia = $database->getTablaenBaseAID('equipos',$id,1);
+    $sentencia = $database->getTablaenBaseAID('equipos', $id, 1);
 
-    foreach($sentencia as $baseDatos) {
+    foreach ($sentencia as $baseDatos) {
 
         $nombreEquipo = str_replace(' ', '', $baseDatos['nombre']);
 
-        print('<img id="imagenCoche" src = "../img/' . $nombreEquipo . 'Coche.jpg">');
+        print '<img id="imagenCoche" src = "../img/' . $nombreEquipo . 'Coche.jpg">';
     }
 }
 
-function cogerPilotos($id,$database){
+function cogerPilotos($id, $database)
+{
 
-    $sentencia = $database->getTablaSegunCampoID('pilotos','Equipos_id',$id,2);
+    $sentencia = $database->getTablaSegunCampoID('pilotos', 'Equipos_id', $id, 2);
 
     return $sentencia;
 }
@@ -50,53 +66,54 @@ function cogerPilotos($id,$database){
 function crearImagenPiloto($id, $numero, $database)
 {
 
-    $sentencia = cogerPilotos($id,$database);
+    $sentencia = cogerPilotos($id, $database);
 
     $aux = [];
 
-    foreach($sentencia as $fila) {
+    foreach ($sentencia as $fila) {
         $aux[] = $fila;
     }
 
 
     $nombre = str_replace(' ', '', $aux[$numero]['Nombre']);
 
-    print('<img class=imgPiloto src="../img/' . $nombre . '.jpg">');
+    print '<img class=imgPiloto src="../img/' . $nombre . '.jpg">';
 }
 
-function crearPalmares($id,$database){
+function crearPalmares($id, $database)
+{
 
-    $sentencia = $database->getTablaenBaseAID('equipos',$id,1);
+    $sentencia = $database->getTablaenBaseAID('equipos', $id, 1);
 
-    foreach($sentencia as $baseDatos){
+    foreach ($sentencia as $baseDatos) {
 
-        print('<p>');
-        print('<strong>');
-        print('Poles: ');
-        print('</strong>');
-        print($baseDatos['poles']);
-        print('</p>');
+        print '<p>';
+        print '<strong>';
+        print 'Poles: ';
+        print '</strong>';
+        print $baseDatos['poles'];
+        print '</p>';
 
-        print('<p>');
-        print('<strong>');
-        print('Podios: ');
-        print('</strong>');
-        print($baseDatos['podios']);
-        print('</p>');
+        print '<p>';
+        print '<strong>';
+        print 'Podios: ';
+        print '</strong>';
+        print $baseDatos['podios'];
+        print '</p>';
 
-        print('<p>');
-        print('<strong>');
-        print('Titulos: ');
-        print('</strong>');
-        print($baseDatos['titulos']);
-        print('</p>');
+        print '<p>';
+        print '<strong>';
+        print 'Titulos: ';
+        print '</strong>';
+        print $baseDatos['titulos'];
+        print '</p>';
 
-        print('<p>');
-        print('<strong>');
-        print('Victorias: ');
-        print('</strong>');
-        print($baseDatos['victorias']);
-        print('</p>');
+        print '<p>';
+        print '<strong>';
+        print 'Victorias: ';
+        print '</strong>';
+        print $baseDatos['victorias'];
+        print '</p>';
     }
 }
 
@@ -137,165 +154,201 @@ function crearPalmares($id,$database){
     </nav>
 
     <main>
-        <div id="imagen">
+        <?php
 
-            <?php
+        if (isset($id) && gettype($id) == "integer") {
 
-            $nombreEquipo = cogerNombreEquipo($id,$database);
+            // Abre el id de la imagen del equipo y su titulo
+            print '<div id="imagen">';
 
-            print('<h1>');
+            $nombreEquipo = cogerNombreEquipo($id, $database);
+
+            // Muestra el nombre del equipo
+            print '<h1>';
             foreach ($nombreEquipo as $nombre) {
-                print($nombre['nombre']);
+                print $nombre['nombre'];
             }
-            print ('</h1>');
+            print '</h1>';
 
-            crearImagen($id,$database);
-            ?>
+            // Muestra el logo del equipo
+            crearImagen($id, $database);
 
-        </div>
+            print '</div>';
 
-        <h2>Acerca del coche:</h2>
+            // Muestra un titulo que da información acerca del coche
+            print '<h2>';
+            print 'Acerca del coche:';
+            print '</h2>';
 
-        <div id="contenido">
+            print '<div id="contenido">';
 
-            <div id="coche">
-                <?php
-                crearImagenCoche($id,$database);
-                ?>
-            </div>
+            // Muestra la imagen del coche
+            print '<div id="coche">';
+            crearImagenCoche($id, $database);
+            print '</div>';
 
-            <div id="info">
+            
+            print '<div id="info">';
 
-                <div id="infoPrincipal">
+            print '<div id="infoPrincipal">';
 
-                    <div id="infoCoche">
+            print '<div id="infoCoche">';
 
-                        <?php
+            // Muestra la imagen del coche con un bucle
+            $coche = $database->getTablaSegunCampoID('coches', 'Equipos_id', $id, 1);
 
-                        $coche = $database->getTablaSegunCampoID('coches','Equipos_id',$id,1);
+            foreach ($coche as $campo) {
 
-                        foreach($coche as $campo) {
+                print '<h3>' . 'Información del coche:' . '</h3>';
 
-                            print('<h3>' . 'Información del coche:' . '</h3>');
+                print '<p>';
+                print '<strong>';
+                print 'Nombre: ';
+                print '</strong>';
+                print $campo['nombre'];
+                print '</p>';
 
-                            print('<p>');
-                            print('<strong>');
-                            print('Nombre: ');
-                            print('</strong>');
-                            print($campo['nombre']);
-                            print('</p>');
+                print '<p>';
+                print '<strong>';
+                print 'Modelo: ';
+                print '</strong>';
+                print $campo['Modelo'];
+                print '</p>';
 
-                            print('<p>');
-                            print('<strong>');
-                            print('Modelo: ');
-                            print('</strong>');
-                            print($campo['Modelo']);
-                            print('</p>');
+                print '<p>';
+                print '<strong>';
+                print 'Motor: ';
+                print '</strong>';
+                print $campo['Motor'];
+                print '</p>';
+            }
 
-                            print('<p>');
-                            print('<strong>');
-                            print('Motor: ');
-                            print('</strong>');
-                            print($campo['Motor']);
-                            print('</p>');
-                        }
+            // Cierra el div de la informacion del coche
+            print '</div>';
 
-                        ?>
+            print '<div id="infoPatrocinadores">';
 
-                    </div>
+            print '<h3>' . 'Patrocinadores:' . '</h3>';
 
-                    <div id="infoPatrocinadores">
-                        <?php
+            // Seccion de los patrocinadores
+            print '<div id=patrocinadores>';
+            $patrocinadores = $database->getTablaSegunCampoID('patrocinadores', 'Equipos_id', $id, 20);
 
-                        print('<h3>' . 'Patrocinadores:' . '</h3>');
+            // Muestra la información de los patrocinadores
+            foreach ($patrocinadores as $patrocinador) {
+                print '<p>';
+                print $patrocinador['Nombre'];
+                print '</p>';
+            }
 
-                        print('<div id=patrocinadores>');
-                        $patrocinadores = $database->getTablaenBaseAID('patrocinadores',$id,1);
+            // Cierra el div de los patrocinadores
+            print '</div>';
 
-                        foreach($patrocinadores as $patrocinador) {
-                            print('<p>');
-                            print($patrocinador['Nombre']);
-                            print('</p>');
-                        }
-                        print('</div>');
-                        ?>
-                    </div>
-                </div>
+            // Cierra el div que contiene a los patrocinadores y el titulo
+            print '</div>';
 
-                <div id="palmares">
+            // Cierra el div con la informacion principal
+            print '</div>';
 
-                    <h2>Palmarés del equipo:</h2>
-                        <div>
-                            <?php
-                                crearPalmares($id,$database);
-                            ?>
-                        </div>
-                </div>
+            // Abre el div que contiene el palmarés del equipo
+            print '<div id="palmares">';
 
-            </div>
+            // Muestra el titulo
+            print '<h2>';
+            print 'Palmarés del equipo:';
+            print '</h2>';
 
-        </div>
+            // Crea un div con el palmarés del equipo
+            print '<div>';
+            crearPalmares($id, $database);
+            print '</div>';
 
-        <div id="acercaPilotos">
+            // Cierra el div del palmares
+            print '</div>';
 
+            // Cierra el div con la informacion del equipo
+            print '</div>';
 
-            <h2>Estadisticas de los pilotos:</h2>
+            // Cierra el div con id contenido
+            print '</div>';
 
-            <div id="infoPilotos">
-                <?php
+            // Crea el div que va a contener a los pilotos
+            print '<div id="acercaPilotos">';
 
-                $pilotos = cogerPilotos($id,$database);
+            // Crea un titulo
+            print '<h2>';
+            print 'Estadisticas de los pilotos:';
+            print '</h2>';
 
-                print('<h3>' . 'Pilotos:' . '</h3>');
+            // Crea un div con la informacion de los pilotos
+            print '<div id="infoPilotos">';
 
-                print('<div id="pilotos">');
+            // Muestra los pilotos
+            $pilotos = cogerPilotos($id, $database);
 
-                $contador = 0;
+            // Crea un div con los pilotos
+            print '<div id="pilotos">';
 
-                foreach($pilotos as $piloto) {
+            $contador = 0;
 
-                    print('<div class="piloto">');
+            // Crea un div para cada piloto
+            foreach ($pilotos as $piloto) {
 
-                    print('<div>');
-                    print('<p class=nombrePiloto>' . $piloto['Nombre'] . ':</p>');
+                print '<div class="piloto">';
 
-                    print('<p>');
-                    print('<strong>');
-                    print('Puntos: ');
-                    print('</strong>');
-                    print($piloto['Puntos']);
-                    print('</p>');
+                print '<div>';
+                print '<p class=nombrePiloto>' . $piloto['Nombre'] . ':</p>';
 
-                    print('<p>');
-                    print('<strong>');
-                    print('Dorsal: ');
-                    print('</strong>');
-                    print($piloto['Dorsal']);
-                    print('</p>');
+                print '<p>';
+                print '<strong>';
+                print 'Puntos: ';
+                print '</strong>';
+                print $piloto['Puntos'];
+                print '</p>';
 
-                    print('<p>');
-                    print('<strong>');
-                    print('Nacionalidad: ');
-                    print('</strong>');
-                    print($piloto['nacionalidad']);
-                    print('</p>');
+                print '<p>';
+                print '<strong>';
+                print 'Dorsal: ';
+                print '</strong>';
+                print $piloto['Dorsal'];
+                print '</p>';
 
-                    print('</div>');
+                print '<p>';
+                print '<strong>';
+                print 'Nacionalidad: ';
+                print '</strong>';
+                print $piloto['nacionalidad'];
+                print '</p>';
 
-                    crearImagenPiloto($id, $contador,$database);
-                    $contador++;
+                print '</div>';
 
-                    print('</div>');
-                }
+                crearImagenPiloto($id, $contador, $database);
+                $contador++;
 
-                print('</div>');
+                print '</div>';
+            }
 
-                ?>
-            </div>
+            // Cierra el div que contiene a los pilotos
+            print '</div>';
 
-        </div>
+            // Cierra el div que contiene la info de los pilotos
+            print '</div>';
 
-        </div>
+            // Cierra el div acerca de los pilotos
+            print '</div>';
+
+        }else {
+
+            // Si el id no es válido (obtenido de la url, se muestra un mensaje de error
+            print '<h1 class=tituloError>';
+            print 'No se puede cargar la página';
+            print '</h1>';
+            print '<h2 class=tituloError>';
+            print 'Porfavor vuelva a la pagina anterior y seleccione de nuevo el equipo que desea ver';
+            print '</h2>';
+        }
+
+        ?>
 
     </main>
 

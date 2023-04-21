@@ -36,13 +36,19 @@
         }
 
         function getTablaenBaseAID($tabla,$id,$limit){
-            $sql = "select * from $tabla where id = $id limit $limit";
+            $sql = "select * from $tabla where id = $id limit $limit;";
             $resultados = self::conectar()->query($sql);
             return $resultados;
         }
 
         function getTablaSegunCampoID($tabla,$campo,$id,$limit){
-            $sql = "select * from $tabla where $campo = $id limit $limit";
+            $sql = "select * from $tabla where $campo = $id limit $limit;";
+            $resultados = self::conectar()->query($sql);
+            return $resultados;
+        }
+
+        function getNumeroEquipos(){
+            $sql = "select count(*) as 'suma' from equipos;";
             $resultados = self::conectar()->query($sql);
             return $resultados;
         }

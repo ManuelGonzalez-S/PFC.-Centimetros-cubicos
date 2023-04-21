@@ -39,7 +39,9 @@ nav ul li{
     font-size: 20px;
 
     text-align: center;
-    padding: 5px;
+    padding: 8px;
+
+    border-radius: 20px;
 
     transition: 0.5s;
 }
