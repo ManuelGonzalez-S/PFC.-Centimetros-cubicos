@@ -39,7 +39,9 @@ nav ul li{
     font-size: 20px;
 
     text-align: center;
-    padding: 5px;
+    padding: 8px;
+
+    border-radius: 20px;
 
     transition: 0.5s;
 }
@@ -205,8 +207,7 @@ td{
     }
     #equipos div:hover{
         transition: 0.7s;
-        height: 220px;
-        width: 30%;
+        scale: 1.1;
     }
 }
 
@@ -256,8 +257,7 @@ td{
 
     #equipos div:hover{
         transition: 0.7s;
-        height: 270px;
-        width: 22%;
+        scale: 1.1;
     }
 }
 
@@ -391,20 +391,8 @@ footer div{
     transition: 0.5s;
 }
 
-@media screen and (max-width:1000px){
-    #rrss img:hover{
-    
-        width: 30px;
-        
-    }
-}
-
-@media screen and (min-width:1000px){
-    #rrss img:hover{
-    
-        width: 43px;
-        
-    }
+#rrss img:hover{
+    scale: 1.1;
 }
 
 #copyright{

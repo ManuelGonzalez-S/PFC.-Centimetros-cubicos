@@ -1,4 +1,3 @@
-
 drop database if exists centimetroscubicos;
 create database if not exists centimetroscubicos character set utf8;
 use centimetroscubicos;
@@ -90,7 +89,6 @@ insert into equipos (nombre, poles, podios, titulos, victorias) values ('Alphata
 insert into equipos (nombre, poles, podios, titulos, victorias) values ('Ferrari', 242,798,16,242);
 insert into equipos (nombre, poles, podios, titulos, victorias) values ('Alfa Romeo', 12 , 36 , 0, 10);
 insert into equipos (nombre, poles, podios, titulos, victorias) values ('Williams', 128, 313, 9 , 114);
-select * from equipos;
 /*
 	INSERCIONES PILOTOS
     
@@ -128,13 +126,6 @@ insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Guanyu Zhou
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Alexander Albon', 23,'Tailandia',10);
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Logan Sargeant', 2,'Estados Unidos',10);
 
-
-/*
-	INSERCIONES TEMPORADAS
-*/
-
-insert into temporada (Ganador) values (null);
-
 /*
 	INSERCIONES CIRCUITOS:
     
@@ -171,41 +162,6 @@ insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values (
 
 insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Las Vegas','Por confirmar', 14, 1);
 insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Abu Dhabi','5.554 km', 21, 1);
-
-/*
-	INSERCIONES TEMPORADAS_HAS_CIRCUITOS
-*/
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 1);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 2);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 3);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 4);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 5);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 6);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 7);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 8);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 9);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 10);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 11);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 12);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 13);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 14);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 15);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 16);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 17);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 18);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 19);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 20);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 21);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 22);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 23);
 
 /*
 	INSERCIONES PILOTOS_HAS_CIRCUITOS
@@ -804,8 +760,6 @@ insert into patrocinadores (Nombre, Equipos_id) values ('Umbro', 10);
 	ASIGNACIONES DE PUNTOS (TIEMPO REAL)
 */
 
-select * from PATROCINADORES;
-
 /* Lewis Hamilton
 */
 update pilotos set Puntos = 38 where id= 1;
@@ -886,10 +840,6 @@ update pilotos set Puntos = 1 where id= 19;
 */
 update pilotos set Puntos = 0 where id= 20;
 
-select *,pilotos.puntos as 'puntosPil', Equipos.nombre as 'nombreEquipo' from pilotos inner join Equipos on equipos.id = pilotos.Equipos_id order by pilotos.Puntos desc;
-
-select * from pilotos;
-
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 1) where id = 1;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 2) where id = 2;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 3) where id = 3;
@@ -901,6 +851,19 @@ update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 9) where id = 9;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 10) where id = 10;
 
-select * from pilotos inner join equipos on equipos.id = pilotos.equipos_id;
+drop function if exists verEquipo;
+delimiter $$
+create function verEquipo(num1 int)
+returns varchar(45)
+begin
 
-select * from coches where equipos_id = 1 limit 1;
+declare nombreEquipo varchar(45);
+
+select nombre into nombreEquipo from equipos where id = num1;
+
+return nombreEquipo;
+
+end
+$$
+
+select verEquipo(8) as 'equipo';
