@@ -1,18 +1,21 @@
-
 drop database if exists centimetroscubicos;
-create database if not exists centimetroscubicos;
+create database if not exists centimetroscubicos character set utf8;
 use centimetroscubicos;
 
 create table if not exists Equipos (
   id int not null auto_increment,
   Puntos int not null default 0,
   nombre varchar(45) not null,
+  poles int,
+  podios int,
+  titulos int,
+  victorias int,
   primary key (id)
   );
 
 create table if not exists Patrocinadores (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Equipos_id int not null,
   primary key (id),
   constraint foreign key (Equipos_id) references Equipos(id)
@@ -21,15 +24,15 @@ create table if not exists Patrocinadores (
 
 create table if not exists Pilotos (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
-  Puntos varchar(45) not null default 0,
+  nombre varchar(45) not null,
+  Puntos int not null default 0,
   Dorsal int not null,
   nacionalidad varchar(45) not null,
   Equipos_id int not null,
   primary key (id),
   constraint foreign key (Equipos_id) references Equipos (id)
     );
-
+    
 create table if not exists Coches (
   id int not null auto_increment,
   nombre varchar(45) not null,
@@ -51,7 +54,7 @@ create table if not exists Temporada (
 
 create table if not exists Circuitos (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Longitud varchar(45) not null,
   Numero_de_curvas int not null,
   Temporada_id int not null,
@@ -76,17 +79,16 @@ create table if not exists Temporada_has_circuitos (
 /*
 	INSERCIONES EQUIPOS
 */
-insert into equipos (nombre) values ('Mercedes');
-insert into equipos (nombre) values ('Alpine');
-insert into equipos (nombre) values ('Haas');
-insert into equipos (nombre) values ('McLaren');
-insert into equipos (nombre) values ('Red Bull');
-insert into equipos (nombre) values ('Aston Martin');
-insert into equipos (nombre) values ('Alphatauri');
-insert into equipos (nombre) values ('Ferrari');
-insert into equipos (nombre) values ('Alfa Romeo');
-insert into equipos (nombre) values ('Williams');
-
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Mercedes',136,281,8,125);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Alpine', 0 , 2, 0, 1);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Haas',1 , 2 , 0 , 0);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('McLaren',156 , 494 , 8 , 183);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Red Bull' ,81 , 234 , 5 , 92);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Aston Martin' ,0 ,1 ,0 ,3);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Alphatauri', 0 , 2,0,1);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Ferrari', 242,798,16,242);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Alfa Romeo', 12 , 36 , 0, 10);
+insert into equipos (nombre, poles, podios, titulos, victorias) values ('Williams', 128, 313, 9 , 114);
 /*
 	INSERCIONES PILOTOS
     
@@ -94,42 +96,35 @@ insert into equipos (nombre) values ('Williams');
     https://formula1.lne.es/pilotos-f1/
 */
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Lewis Hamilton', default, 44,'Reino Unido',1);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('George Russel', default, 63,'Reino Unido',1);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Lewis Hamilton', 44,'Reino Unido',1);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('George Russell', 63,'Reino Unido',1);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Esteban Ocon', default, 31,'Francia',2);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Pierre Gasly', default, 10,'Francia',2);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Esteban Ocon', 31,'Francia',2);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Pierre Gasly', 10,'Francia',2);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Niko Hulkenberg', default, 27,'Alemania',3);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Kevin Magnussen', default, 20,'Dinamarca',3);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Nico Hulkenberg', 27,'Alemania',3);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Kevin Magnussen', 20,'Dinamarca',3);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Lando Norris', default, 4,'Reino Unido',4);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Oscar Piastri', default, 81,'Australia',4);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Lando Norris', 4,'Reino Unido',4);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Oscar Piastri', 81,'Australia',4);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Max Verstappen', default, 1,'Holanda',5);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Sergio Pérez', default, 11,'México',5);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Max Verstappen', 1,'Holanda',5);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Sergio 'Checo' Pérez", 11,'México',5);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Fernando Alonso', default, 14,'España',6);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Lance Stroll', default, 18,'Canada',6);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Fernando Alonso 'El nano'", 14,'España',6);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Lance Stroll', 18,'Canada',6);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Yuki Tsunoda', default, 22,'Japón',7);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Nyck De Vries', default, 21,'Paises Bajos',7);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Yuki Tsunoda', 22,'Japón',7);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Nyck De Vries', 21,'Paises Bajos',7);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Charles Leclerc', default, 16,'Mónaco',8);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Carlos Sainz', default, 55,'España',8);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Charles Leclerc', 16,'Mónaco',8);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Carlos Sainz', 55,'España',8);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Valtteri Bottas', default, 77,'Finlandia',9);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Guanyu Zhou', default, 24,'China',9);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Valtteri Bottas', 77,'Finlandia',9);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Guanyu Zhou',  24,'China',9);
 
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Alexander Albon', default, 23,'Tailandia',10);
-insert into pilotos (nombre,puntos,dorsal,nacionalidad,Equipos_id) values ('Logan Sargeant', default, 2,'Estados Unidos',10);
-
-
-/*
-	INSERCIONES TEMPORADAS
-*/
-
-insert into temporada (Ganador) values (null);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Alexander Albon', 23,'Tailandia',10);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Logan Sargeant', 2,'Estados Unidos',10);
 
 /*
 	INSERCIONES CIRCUITOS:
@@ -169,47 +164,8 @@ insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values (
 insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Abu Dhabi','5.554 km', 21, 1);
 
 /*
-	INSERCIONES TEMPORADAS_HAS_CIRCUITOS
-*/
-
-select * from temporada_has_circuitos inner join circuitos where temporada_has_circuitos.circuito_id = circuitos.id;
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 1);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 2);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 3);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 4);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 5);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 6);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 7);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 8);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 9);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 10);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 11);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 12);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 13);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 14);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 15);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 16);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 17);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 18);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 19);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 20);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 21);
-
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 22);
-insert into temporada_has_circuitos (temporada_id, circuito_id) values (1 , 23);
-
-/*
 	INSERCIONES PILOTOS_HAS_CIRCUITOS
 */
-
-select * from pilotos_has_circuitos;
 
 insert into pilotos_has_circuitos values (1, 1);
 insert into pilotos_has_circuitos values (1, 2);
@@ -735,8 +691,6 @@ insert into coches (nombre,Modelo,Motor,Pilotos_id,Equipos_id) values ('Williams
     https://es.motorsport.com/f1/news/quienes-son-patrocinadores-publicidad-equipos-formula1/9250036/
 */
 
-select * from equipos;
-
 /* Mercedes */
 insert into patrocinadores (Nombre, Equipos_id) values ('Petronas', 1);
 insert into patrocinadores (Nombre, Equipos_id) values ('INEOS', 1);
@@ -801,3 +755,115 @@ insert into patrocinadores (Nombre, Equipos_id) values ('Duracell', 10);
 insert into patrocinadores (Nombre, Equipos_id) values ('Sofina', 10);
 insert into patrocinadores (Nombre, Equipos_id) values ('Dorilton Ventures', 10);
 insert into patrocinadores (Nombre, Equipos_id) values ('Umbro', 10);
+
+/*
+	ASIGNACIONES DE PUNTOS (TIEMPO REAL)
+*/
+
+/* Lewis Hamilton
+*/
+update pilotos set Puntos = 38 where id= 1;
+
+/* George Russell
+*/
+update pilotos set Puntos = 18 where id= 2;
+
+/* Esteban Ocon
+*/
+update pilotos set Puntos = 4 where id= 3;
+
+/* Pierre Gasly
+*/
+update pilotos set Puntos = 4 where id= 4;
+
+/* Niko Hulkenberg
+*/
+update pilotos set Puntos = 6 where id= 5;
+
+/* Kevin Magnussen
+*/
+update pilotos set Puntos = 1 where id= 6;
+
+/* Lando Norris
+*/
+update pilotos set Puntos = 8 where id= 7;
+
+/* Oscar Piastri
+*/
+update pilotos set Puntos = 4 where id= 8;
+
+/* Max Verstappen
+*/
+update pilotos set Puntos = 69 where id= 9;
+
+/* Sergio 'Checo' Pérez
+*/
+update pilotos set Puntos = 54 where id= 10;
+
+/* Fernando Alonso 'El nano'
+*/
+update pilotos set Puntos = 45 where id= 11;
+
+/* Lance Stroll
+*/
+update pilotos set Puntos = 20 where id= 12;
+
+/* Yuki Tsunoda
+*/
+update pilotos set Puntos = 1 where id= 13;
+
+/* Nyck De Vries
+*/
+update pilotos set Puntos = 0 where id= 14;
+
+/* Charles Leclerc
+*/
+update pilotos set Puntos = 6 where id= 15;
+
+/* Carlos Sainz
+*/
+update pilotos set Puntos = 20 where id= 16;
+
+/* Valtteri Bottas
+*/
+update pilotos set Puntos = 4 where id= 17;
+
+/* Guanyu Zhou
+*/
+update pilotos set Puntos = 2 where id= 18;
+
+/* Alexander Albon
+*/
+update pilotos set Puntos = 1 where id= 19;
+
+/* Logan Sargeant
+*/
+update pilotos set Puntos = 0 where id= 20;
+
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 1) where id = 1;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 2) where id = 2;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 3) where id = 3;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 4) where id = 4;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 5) where id = 5;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 6) where id = 6;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 7) where id =7;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 8) where id = 8;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 9) where id = 9;
+update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 10) where id = 10;
+
+drop function if exists verEquipo;
+delimiter $$
+create function verEquipo(num1 int)
+returns varchar(45)
+begin
+
+declare nombreEquipo varchar(45);
+
+select nombre into nombreEquipo from equipos where id = num1;
+
+return nombreEquipo;
+
+end
+$$
+
+select verEquipo(8) as 'equipo';
