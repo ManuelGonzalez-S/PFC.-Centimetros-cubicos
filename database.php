@@ -76,4 +76,12 @@ class database
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
+
+    function ejecutarSql($sql){
+
+        if ($sql != null) {
+            $resultados = self::conectar()->query($sql);
+        }
+
+    }
 }

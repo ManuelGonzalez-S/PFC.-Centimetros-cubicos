@@ -43,81 +43,6 @@ function cogerRelacion($aux)
     return $tablaRelacion;
 }
 
-function botonCrear($aux, $database)
-{
-
-    $columnas = labelFormularioColumnas($aux);
-
-    $cabeceras = labelFormularioCabeceras($aux);
-
-    $relacion = cogerRelacion($aux);
-
-    $relacion = $database->getTabla($relacion);
-
-    print '<!-- Botón en HTML (lanza el modal en Bootstrap) -->';
-    print '        <a href="#victorModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" id="crear">+ Crear</a>';
-
-    print '        <!-- Modal / Ventana / Overlay en HTML -->';
-    print '        <div id="victorModal" class="modal fade">';
-    print '            <div class="modal-dialog">';
-    print '                <div class="modal-content">';
-    print '                    <div class="modal-header">';
-    print "                        <h4 class='modal-title'>Añadir a $aux:</h4>";
-    print '                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-    print '                    </div>';
-    print '                    <div class="modal-body">';
-
-    for ($i = 0; $i < sizeof($cabeceras); $i++) {
-
-        $campo = $cabeceras[$i];
-
-        if($aux != 'equipos'){
-            if ($campo != 'id') {
-
-                print '                        <div class="mb-3">';
-                print "                            <label for='recipient-name' class='col-form-label'>$campo:</label>";
-                
-                if($i != sizeof($cabeceras)-1){
-                    print '                            <input type="text" class="form-control" id="recipient-name" name="nombre">';
-                }
-    
-                print '                        </div>';
-            }
-        }else{
-            if ($campo != 'id') {
-
-                print '                        <div class="mb-3">';
-                print "                            <label for='recipient-name' class='col-form-label'>$campo:</label>";
-                print '                            <input type="text" class="form-control" id="recipient-name" name="nombre">';
-                print '                        </div>';
-            }
-        }
-
-        
-    }
-
-
-    // ETIQUETA SELECT
-    if ($relacion != null) {
-        print '                        <div class="mb-3">';
-        print "                                 <select name='cars' id='cars'>";
-
-        foreach ($relacion as $campo) {
-            print "                                     <option value='" . $campo['id'] . "'>" . $campo['nombre'] . "</option>";
-        }
-        print "                             </select>";
-        print '                        </div>';
-    }
-    print '                    </div>';
-    print '                    <div class="modal-footer">';
-    print '                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>';
-    print '                        <button type="button" class="btn btn-primary">Confirmar</button>';
-    print '                    </div>';
-    print '                </div>';
-    print '            </div>';
-    print '        </div>';
-}
-
 function labelFormularioColumnas($aux)
 {
     switch ($aux) {
@@ -151,7 +76,7 @@ function labelFormularioCabeceras($aux)
             $cabeceras = ["id", "Nombre", "Puntos", "Dorsal", "Nacionalidad", "Equipo"];
             break;
         case "coches":
-            $cabeceras = ["id", "Nombre", "Modelo", "Motor", "Equipo", "Piloto"];
+            $cabeceras = ["id", "Nombre", "Modelo", "Motor", "Piloto"];
             break;
         case "circuitos":
             $cabeceras = ["id", "Nombre", "Longitud", "Numero de curvas", "Temporada"];
@@ -165,7 +90,7 @@ function labelFormularioCabeceras($aux)
 }
 
 function imprimirTabla($nombreTabla)
-{;
+{
     $database = new Database();
     $resultados = $database->getTabla($nombreTabla);
     print '<table>
@@ -197,7 +122,7 @@ function imprimirTabla($nombreTabla)
 
     foreach ($resultados as $row) {
         print '<tr><td>
-        <a><button>update</button></a>
+        <a><button value=" ' . $row['id'] . '">update</button></a>
         <a href="delete.php?id=' . $row['id'] . '"><button>delete</button></a>
         </td>';
         for ($i = 1; $i < sizeof($cabeceras); $i++) {
@@ -205,8 +130,104 @@ function imprimirTabla($nombreTabla)
         }
         print '</tr>';
     }
-    print '</tbody>
-</table>';
+    print '</tbody></table>';
+}
+
+function crearForm($aux,$database)
+{
+    $cabeceras = labelFormularioCabeceras($aux);
+
+    $relacion = cogerRelacion($aux);
+
+    $relacion = $database->getTabla($relacion);
+
+    print '<input type="text" value='. $aux . ' name=tabla hidden>';
+
+     for ($i = 0; $i < sizeof($cabeceras); $i++) {
+
+        $campo = $cabeceras[$i];
+
+        $camposNumericos = ['puntos', 'poles','podios','titulos','victorias','dorsal','numero_de_curvas'];
+
+        if ($aux != 'equipos') {
+            if ($campo != 'id') {
+
+                if(in_array(str_replace(' ', '_', strtolower(trim($campo))),$camposNumericos)){
+                    $tipo = 'number';
+                }else{
+                    $tipo = 'text';
+                }
+
+                print '<div>';
+                print " <label>$campo:</label>";
+
+                if ($i != sizeof($cabeceras) - 1) {
+                    $placeholder = strtolower(trim($campo));
+                    $campo = str_replace(' ', '_', strtolower(trim($campo)));
+                    print '<input type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder.' aqui">';
+                }
+
+                print '</div>';
+            }
+        } else {
+            if ($campo != 'id') {
+
+                if(in_array(str_replace(' ', '_', strtolower(trim($campo))),$camposNumericos)){
+                    $tipo = 'number';
+                }else{
+                    $tipo = 'text';
+                }
+
+                print '<div>';
+                print " <label>$campo:</label>";
+                $placeholder = strtolower(trim($campo));
+                $campo = str_replace(' ', '_', strtolower(trim($campo)));
+                echo ' <input type="'. $tipo .'" name="' . $campo . '" placeholder="Inserte ' . $placeholder.' aqui">';
+                print '</div>';
+            }
+        }
+    }
+
+     // ETIQUETA SELECT
+    // SI NO SE TRATA DE CREAR UN EQUIPO:
+    // SE PASA EL ID A ASOCIAR CON name='id_foranea'
+    if ($relacion != null && $aux != 'coches') {
+        print '<div>';
+        print "<select name='id_foranea'>";
+
+        foreach ($relacion as $campo) {
+            print "<option value='" . $campo['id'] . "'>" . $campo['nombre'] . "</option>";
+        }
+        print "</select>";
+        print '</div>';
+
+        // EN OTRO CASO, SE PASA COMO
+        // name='piloto_id' name='equipo_id'
+    } else if ($aux == 'coches') {
+
+        print '<div>';
+        print "<select name='piloto_id'>";
+
+        foreach ($relacion as $campo) {
+            print "<option value='" . $campo['id'] . "'>" . $campo['nombre'] . "</option>";
+        }
+        print "</select>";
+        print '</div>';
+
+        // ---------------------------------------------------
+
+        $equipos = $database->getTabla('equipos');
+
+        print '<div>';
+        print "<label>Equipo:</label>";
+        print "<select name='equipo_id'>";
+
+        foreach ($equipos as $campo) {
+            print "<option value='" . $campo['id'] . "'>" . $campo['nombre'] . "</option>";
+        }
+        print "</select>";
+        print '</div>';
+    }
 }
 ?>
 
@@ -218,7 +239,6 @@ function imprimirTabla($nombreTabla)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Document</title>
 </head>
 
@@ -250,20 +270,43 @@ function imprimirTabla($nombreTabla)
             if (!isset($aux)) {
                 print '<h1>SELECCIONA UNA TABLA PARA MOSTRAR SUS DATOS</h1>';
             } else {
-                botonCrear($aux, $database);
+                print ' <button onclick="window.modal.showModal();" id="crear">+ Crear</button>';
                 imprimirTabla($aux);
             }
             ?>
 
         </section>
 
+        <dialog id="modal">
+
+            <form action="../create/create.php" method="POST">
+
+                <?php
+
+                    print '<div id="modal-encabezado">';
+                    print " <h4>Añadir a $aux:</h4>";
+                    print '</div>';
+
+                    print '<div id="modal-cuerpo">';
+                    crearForm($aux,$database);
+                    print '</div>';
+                ?>
+
+                <div id="modal-acciones">
+                    <button onclick="window.modal.close()" type="button" id="botonCancelar"><strong>Cancelar</strong></button>
+                    <button type="submit" id="botonConfirmar"><strong>Confirmar</strong></button>
+                </div>
+                
+            </form>
+
+        </dialog>
+
     </main>
 
     <footer></footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    </body>
+
+    <!-- <script src="app.js"></script> -->
 
 </html>

@@ -1,34 +1,36 @@
-nav ul li{
+nav ul li {
     list-style: none;
 }
 
-nav img{
+nav img {
     width: 15%;
 }
 
-nav a button{
+nav a button {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-main{
+main {
     display: flex;
     justify-content: center;
-    align-items:first baseline;
+    align-items: first baseline;
 }
 
-@media screen and (max-width:1200px){
-    main{
+@media screen and (max-width:1200px) {
+    main {
         flex-direction: column;
     }
 }
 
-.close{
-    /* !important reemplaza los estilos de bootstrap para poner estos */
+#crear {
+    /* !important hace que no se puedan sobreescribir los atributos */
     transition: .5s;
-    margin: 0 !important;
-    padding: 0 !important;
+
+    margin: 5px;
+
+    padding: 5px;
 
     background-color: darkblue !important;
     color: white !important;
@@ -40,37 +42,122 @@ main{
     height: 10% !important;
 
     border-radius: 10px !important;
-}
-
-.modal-header{
-    justify-content: space-around !important;
-    align-items: center !important;
-}
-
-#crear{
-    transition: .5s;
-    background-color: darkblue;
-    color: white;
-
-    border-radius: 10px;
-
-    padding: 5px;
-
-    width: 30%;
 
     align-self: center;
 
-    margin: 5px;
-
 }
 
-#crear:hover{
+#crear:hover {
     transition: .5s;
     scale: 1.1;
     cursor: pointer;
 }
 
-table{
+#modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal {
+    width: 60%;
+
+    border: 3px solid black;
+
+    /* Borde del diálogo */
+    border-radius: 10px;
+
+    /* Borde redondeado */
+    background-color: #fff;
+
+    /* Color de fondo */
+    padding: 20px;
+
+    /* Espaciado interno */
+}
+
+#modal-encabezado {
+    display: flex;
+    justify-content: space-around;
+}
+
+#modal-encabezado h4 {
+    text-align: center;
+    line-height: 2;
+    font-size: 2em;
+}
+
+#modal-cuerpo div{
+    display: flex;
+    justify-content: space-between;
+    padding: 6px;
+}
+
+#modal-cuerpo label{
+    text-decoration: underline;
+    font-family:  Verdana, Geneva, sans-serif;
+}
+
+#modal-cuerpo div{
+    margin-bottom: 15px;
+}
+
+#modal-cuerpo input{
+    border: 2px solid black;
+    padding: 5px;
+}
+
+#modal-cuerpo div input:focus{
+    border: 3px solid blue !important;
+}
+
+#modal-cuerpo select{
+    border: 2px solid black;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.inputInvalido{
+    border: 2px solid red;
+}
+
+.botonInvalido{
+    background-color: lightgrey;
+}
+
+#modal-acciones{
+    display: flex;
+    justify-content: space-around;
+}
+
+#modal-acciones button{
+    transition: .5s;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#modal-acciones button:hover{
+    transition: .5s;
+    scale: 1.05;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+#botonCancelar{
+    background-color: red;
+}
+
+#botonCancelar:hover{
+    background-color: rgb(199, 0, 0);
+}
+
+#botonConfirmar{
+    background-color: lightgreen;
+}
+
+#botonConfirmar:hover{
+    background-color: #36b03a;
+}
+
+table {
     width: 90%;
 
     border: 3px solid black;
@@ -84,7 +171,7 @@ table{
     align-self: center;
 }
 
-.tablaDatos{
+.tablaDatos {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -92,56 +179,56 @@ table{
 
     flex-direction: column;
 
-    
-    
+
+
 }
 
-@media screen and (max-width:1000px){
-    .tablaDatos{
+@media screen and (max-width:1000px) {
+    .tablaDatos {
         width: 90%;
     }
 }
 
-@media screen and (min-width:1000px){
-    .tablaDatos{
+@media screen and (min-width:1000px) {
+    .tablaDatos {
         width: 80%;
     }
 }
 
-@media screen and (max-width:960px){
+@media screen and (max-width:960px) {
 
-    tr td:first-child{
+    tr td:first-child {
         display: flex;
         flex-direction: column;
     }
 
-    tr td:first-child button{
+    tr td:first-child button {
         width: 90px;
     }
 }
 
-tr td:first-child{
+tr td:first-child {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-.acciones{
+.acciones {
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     flex-wrap: wrap;
     width: 30%;
 }
 
-main button{
+main button {
     width: 20%;
     margin: 15px;
 
     border: none;
 }
 
-.entidad{
+.entidad {
     width: 50%;
 
     background-color: darkblue;
@@ -154,34 +241,34 @@ main button{
     transition: 0.5s;
 }
 
-.entidades a{
+.entidades a {
     display: flex;
     justify-content: center;
 }
 
 
-.entidad:hover{
+.entidad:hover {
     filter: brightness(1.5);
     scale: 1.1;
     cursor: pointer;
     transition: 0.5s;
 }
 
-th{
+th {
     text-align: center;
 }
 
 
-tbody tr:nth-child(2n - 1){
+tbody tr:nth-child(2n - 1) {
     background-color: blue;
     color: white;
 }
 
-tbody tr:nth-child(2n){
+tbody tr:nth-child(2n) {
     background-color: lightblue;
 }
 
-tr button{
+tr button {
     background-color: white;
     border-radius: 10px;
     width: max-content;
@@ -189,19 +276,19 @@ tr button{
     padding: 5px;
 }
 
-tr button:hover{
+tr button:hover {
 
     filter: brightness(0.8);
     cursor: pointer;
 }
 
 
-p{
+p {
     width: 100%;
     text-align: center;
 }
 
-.entidades{
+.entidades {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -209,21 +296,21 @@ p{
     width: 100%;
 }
 
-#volver{
+#volver {
     text-decoration: none;
     color: black;
 }
 
-#volver button{
+#volver button {
     background-color: lightblue;
     border-radius: 10px;
-    
+
     border: 1px solid black;
 
     width: 100px;
 }
 
-#volver button:hover{
+#volver button:hover {
     border: 2px solid black;
 
     filter: brightness(0.9);
