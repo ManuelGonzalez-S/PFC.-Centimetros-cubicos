@@ -131,7 +131,34 @@ main section:first-child{
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding-bottom: 10px;
+
+    flex-direction: column;
+}
+
+#cambiarClasificacion{
+
+    padding: 5px;
+
+    transition: .5s;
+    border: 0;
+    border-radius: 10px;
+
+    background-color: darkblue;
+    color: white;
+}
+
+#cambiarClasificacion:hover{
+
+    cursor: pointer;
+    scale: 1.1;
+
+    transition: .5s;
+}
+
+#tablaClasificacionEquipos{
+    display: none;
 }
 
 table{
@@ -359,6 +386,20 @@ footer div{
     width: 30%;
 }
 
+footer a{
+    text-decoration: none;
+
+    color: white;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}
+
+footer p:hover{
+    cursor: pointer;
+}
+
 #rrss{
     padding: 5px;
 
@@ -393,6 +434,8 @@ footer div{
 
 #rrss img:hover{
     scale: 1.1;
+
+    cursor: pointer;
 }
 
 #copyright{

@@ -81,7 +81,28 @@ class database
 
         if ($sql != null) {
             $resultados = self::conectar()->query($sql);
+
+            return $resultados;
         }
 
+    }
+
+    function getTablaID($tabla, $id)
+    {
+        $sql = "select * from $tabla where id = $id;";
+        $resultados = self::conectar()->query($sql);
+        return $resultados->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function getMaxId($tabla){
+        $sql = "select max(id) from $tabla;";
+        $resultados = self::conectar()->query($sql);
+        return $resultados->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function getIds($tabla){
+        $sql = "select id from $tabla;";
+        $resultados = self::conectar()->query($sql);
+        return $resultados->fetch(PDO::FETCH_ASSOC);
     }
 }
