@@ -2,6 +2,16 @@
 
 use function PHPSTORM_META\type;
 
+session_start();
+
+if(isset($_SESSION['user'])){
+
+    if($_SESSION['user']['permisos'] == '0'){
+        header('Location../index/index.php');
+    }
+
+}
+
 require_once('../database.php');
 $database = new Database();
 $cabeceras = [];
@@ -167,7 +177,7 @@ function crearForm($aux, $database)
                 if ($i != sizeof($cabeceras)) {
                     $placeholder = strtolower(trim($campo));
                     $campo = str_replace(' ', '_', strtolower(trim($campo)));
-                    print '<input type="text" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui" onblur="validarInput('.$i.')">';
+                    print '<input type="text" class="inputTexto" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui" onblur="validarInputTexto('.$i.')">';
 
                 }
                 print '</div>';

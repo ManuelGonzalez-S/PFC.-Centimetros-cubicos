@@ -1,12 +1,12 @@
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
+body {
     margin: 0;
 }
 
-nav{
+nav {
     background-color: darkblue;
     padding: 0;
 
@@ -18,7 +18,7 @@ nav{
     z-index: 2;
 }
 
-ul{
+ul {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -28,11 +28,12 @@ ul{
     padding: 0;
 }
 
-nav img{
-    height: 100px;
+nav img {
+    max-width: 40px;
+    height: auto;
 }
 
-nav ul li{
+nav ul li {
     display: inline-block;
     color: white;
 
@@ -46,32 +47,81 @@ nav ul li{
     transition: 0.5s;
 }
 
-nav ul a li:hover{
-    transition: 0.5s;
+nav ul a li:hover {
+    transition: .5s;
     backdrop-filter: brightness(1.5);
 }
 
-nav ul a{
+nav ul a {
     transition: all 0.5s ease;
 }
 
-main{
+#menuUsuario {
+    position: relative;
+    display: inline-block;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#menuUsuario:hover{
+    transition: .5s;
+    backdrop-filter: brightness(1.5);
+    cursor: pointer;
+}
+
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+}
+
+.submenu.visible{
+    display: block;
+}
+
+#menu button{
+    transition: .5s;
+    border: 0px;
+    background-color: rgb(21, 21, 21);
+    color: white;
+    border-radius: 20px;
+    padding: 7px;
+    font-size: 70%;
+}
+
+#menu button:hover{
+    transition: .5s;
+    background-color: rgb(52, 52, 52);
+    cursor: pointer;
+}
+
+#usuario {
+    border: inherit;
+    color: inherit;
+    font-size: inherit;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 20px;
+}
+
+main {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-main button{
+main button {
     width: 30%;
     margin: 10px;
 }
 
-main section:first-child{
+main section:first-child {
     padding-top: 100px;
 }
 
-#noticias{
+#noticias {
     width: 100%;
     padding-bottom: 10px;
 
@@ -81,7 +131,7 @@ main section:first-child{
     flex-wrap: wrap;
 }
 
-.noticia{
+.noticia {
     border: 2px solid black;
 
     width: 80%;
@@ -93,24 +143,25 @@ main section:first-child{
     align-items: center;
 }
 
-.noticia:hover{
+.noticia:hover {
     border: 5px solid black;
+    cursor: pointer;
 }
 
-#noticias div img{
+#noticias div img {
     width: 25%;
     height: 80%;
 
     padding: 5px;
 }
 
-#noticias div h2{
+#noticias div h2 {
     width: 100%;
     margin: 0;
     margin-top: 5px;
 }
 
-.info{
+.info {
     flex-direction: column;
 
     text-align: center;
@@ -119,15 +170,15 @@ main section:first-child{
     justify-content: center;
 }
 
-.info h2{
+.info h2 {
     font-size: 30px;
 }
 
-.info p{
+.info p {
     font-size: 20px;
 }
 
-#clasificacion{
+#clasificacion {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -137,7 +188,7 @@ main section:first-child{
     flex-direction: column;
 }
 
-#cambiarClasificacion{
+#cambiarClasificacion {
 
     padding: 5px;
 
@@ -147,9 +198,11 @@ main section:first-child{
 
     background-color: darkblue;
     color: white;
+
+    font-size: 95%;
 }
 
-#cambiarClasificacion:hover{
+#cambiarClasificacion:hover {
 
     cursor: pointer;
     scale: 1.1;
@@ -157,31 +210,31 @@ main section:first-child{
     transition: .5s;
 }
 
-#tablaClasificacionEquipos{
+#tablaClasificacionEquipos {
     display: none;
 }
 
-table{
+table {
     width: 80%;
 
     border-collapse: separate;
     border-spacing: 0 10px;
 }
 
-th{
+th {
     text-align: center;
 }
 
-tbody tr:nth-child(2n - 1){
+tbody tr:nth-child(2n - 1) {
     background-color: blue;
     color: white;
 }
 
-tbody tr:nth-child(2n){
+tbody tr:nth-child(2n) {
     background-color: lightblue;
 }
 
-td{
+td {
     text-align: center;
 
     margin: 0;
@@ -189,18 +242,18 @@ td{
     border: 0;
 }
 
-@media screen and (max-width:1000px){
+@media screen and (max-width:1000px) {
     /* Cambia el section donde se encuentran las cards */
 
-    thead{
+    thead {
         font-size: 20px;
     }
 
-    tbody{
+    tbody {
         font-size: 18px;
     }
 
-    #equipos{
+    #equipos {
         padding-top: 20px;
         width: 100%;
 
@@ -213,7 +266,7 @@ td{
     }
 
     /* Cambia los estilos de las cards */
-    #equipos div{
+    #equipos div {
         border: 1px solid black;
         margin: 10px;
         width: 27%;
@@ -232,24 +285,25 @@ td{
         position: relative;
         overflow: hidden;
     }
-    #equipos div:hover{
+
+    #equipos div:hover {
         transition: 0.7s;
         scale: 1.1;
     }
 }
 
-@media screen and (min-width:1000px){
+@media screen and (min-width:1000px) {
     /* Cambia el section donde se encuentran las cards */
 
-    thead{
+    thead {
         font-size: 27px;
     }
 
-    tbody{
+    tbody {
         font-size: 20px;
     }
 
-    #equipos{
+    #equipos {
         padding-top: 20px;
         width: 100%;
 
@@ -262,7 +316,7 @@ td{
     }
 
     /* Cambia los estilos de las cards */
-    #equipos div{
+    #equipos div {
         border: 1px solid black;
         margin: 10px;
         width: 20%;
@@ -282,23 +336,23 @@ td{
         overflow: hidden;
     }
 
-    #equipos div:hover{
+    #equipos div:hover {
         transition: 0.7s;
         scale: 1.1;
     }
 }
 
-#equipos div:hover .infoEquipos{
+#equipos div:hover .infoEquipos {
     opacity: 1;
     transform: translateY(0%);
 }
 
-.infoEquipos{
+.infoEquipos {
     opacity: 0;
 
     width: 100%;
     height: 100%;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -317,7 +371,7 @@ td{
     color: white;
 }
 
-.infoEquipos:hover{
+.infoEquipos:hover {
     opacity: 1;
 
     text-shadow: black 0px 0px 4px;
@@ -331,47 +385,47 @@ td{
     cursor: hand;
 }
 
-#AlfaRomeo{
+#AlfaRomeo {
     background-image: url(../img/AlfaRomeo.jpg);
 }
 
-#Alphatauri{
+#Alphatauri {
     background-image: url(../img/Alphatauri.jpg);
 }
 
-#Alpine{
+#Alpine {
     background-image: url(../img/alpine.jpg);
 }
 
-#AstonMartin{
+#AstonMartin {
     background-image: url(../img/astonmartin.jpg);
 }
 
-#Ferrari{
+#Ferrari {
     background-image: url(../img/ferrari.jpg);
 }
 
-#Haas{
+#Haas {
     background-image: url(../img/haas.jpg);
 }
 
-#McLaren{
+#McLaren {
     background-image: url(../img/mclaren.jpg);
 }
 
-#Mercedes{
+#Mercedes {
     background-image: url(../img/mercedes.jpg);
 }
 
-#RedBull{
+#RedBull {
     background-image: url(../img/redbull.jpg);
 }
 
-#Williams{
+#Williams {
     background-image: url(../img/williams.jpg);
 }
 
-footer{
+footer {
     background-color: darkblue;
     color: white;
 
@@ -380,27 +434,27 @@ footer{
     flex-wrap: wrap;
 }
 
-footer div{
+footer div {
     text-align: center;
 
     width: 30%;
 }
 
-footer a{
+footer a {
     text-decoration: none;
 
     color: white;
 }
 
-footer a:hover{
+footer a:hover {
     text-decoration: underline;
 }
 
-footer p:hover{
+footer p:hover {
     cursor: pointer;
 }
 
-#rrss{
+#rrss {
     padding: 5px;
 
     display: flex;
@@ -412,19 +466,19 @@ footer p:hover{
     justify-content: space-evenly;
 }
 
-@media screen and (max-width:1000px){
-    #rrss img{
+@media screen and (max-width:1000px) {
+    #rrss img {
         width: 10%;
     }
 }
 
-@media screen and (min-width:1000px){
-    #rrss img{
+@media screen and (min-width:1000px) {
+    #rrss img {
         width: 7%;
     }
 }
 
-#rrss img{
+#rrss img {
     padding: 5px;
 
     filter: invert(1);
@@ -432,12 +486,12 @@ footer p:hover{
     transition: 0.5s;
 }
 
-#rrss img:hover{
+#rrss img:hover {
     scale: 1.1;
 
     cursor: pointer;
 }
 
-#copyright{
+#copyright {
     width: 100%;
 }

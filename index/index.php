@@ -4,7 +4,10 @@ require_once('../database.php');
 
 $database = new Database();
 
-function crearNoticia($titulo,$descripcion,$rutaImagen){
+session_start();
+
+function crearNoticia($titulo, $descripcion, $rutaImagen)
+{
 
     print '<div class= "noticia">';
     print '<img src= "../img/' . $rutaImagen . '">';
@@ -18,39 +21,37 @@ function crearNoticia($titulo,$descripcion,$rutaImagen){
     print '</div>';
 }
 
-function obtenerNoticiasAleatorias($conexion) {
-    
-   // Obtener el número total de noticias
-   $consultaTotal = "SELECT COUNT(*) as total FROM noticias";
-   $resultadoTotal = $conexion->ejecutarSql($consultaTotal);
-   $filaTotal = $resultadoTotal->fetch(PDO::FETCH_ASSOC);
-   $totalNoticias = $filaTotal['total'];
+function obtenerNoticiasAleatorias($conexion)
+{
 
-   // Obtener tres números aleatorios distintos
-   $numerosAleatorios = array();
-   while (count($numerosAleatorios) < 3) {
-       $numeroAleatorio = rand(1, $totalNoticias);
-       if (!in_array($numeroAleatorio, $numerosAleatorios)) {
-           $numerosAleatorios[] = $numeroAleatorio;
-       }
-   }
+    // Obtener las noticias que tienen el campo "mostrar" con valor 1
+    $consultaNoticias = "SELECT * FROM noticias WHERE mostrar = 1";
+    $resultadoNoticias = $conexion->ejecutarSql($consultaNoticias);
+    $noticiasDisponibles = $resultadoNoticias->fetchAll(PDO::FETCH_ASSOC);
 
-   // Consulta para obtener las noticias aleatorias
-   $idsNoticias = implode(",", $numerosAleatorios);
-   $consultaNoticias = "SELECT * FROM noticias WHERE id IN ($idsNoticias)";
-   $resultadoNoticias = $conexion->ejecutarSql($consultaNoticias);
+    // Obtener el número total de noticias disponibles
+    $totalNoticias = count($noticiasDisponibles);
 
-   // Recorrer los resultados y guardar los valores en un array
-   $noticias = array();
-   while ($filaNoticia = $resultadoNoticias->fetch(PDO::FETCH_ASSOC)) {
-       $noticias[] = $filaNoticia;
-   }
+    // Obtener tres números aleatorios distintos
+    $numerosAleatorios = array();
+    while (count($numerosAleatorios) < 3) {
+        $numeroAleatorio = rand(0, $totalNoticias - 1);
+        if (!in_array($numeroAleatorio, $numerosAleatorios)) {
+            $numerosAleatorios[] = $numeroAleatorio;
+        }
+    }
 
-   // Cerrar la conexión
-   $conexion = null;
+    // Obtener las noticias aleatorias seleccionadas
+    $noticiasAleatorias = array();
+    foreach ($numerosAleatorios as $numero) {
+        $noticiasAleatorias[] = $noticiasDisponibles[$numero];
+    }
 
-   // Devolver el array de noticias aleatorias
-   return $noticias;
+    // Cerrar la conexión
+    $conexion = null;
+
+    // Devolver el array de noticias aleatorias
+    return $noticiasAleatorias;
 }
 
 ?>
@@ -82,9 +83,40 @@ function obtenerNoticiasAleatorias($conexion) {
             <a href="#equipos">
                 <li>EQUIPOS</li>
             </a>
-            <a href="../login/login.html">
-                <li>LOGIN</li>
-            </a>
+            <?php
+            if (isset($_SESSION['user'])) {
+
+                print '<li id="menuUsuario">';
+                print '<button id="usuario">';
+                print $_SESSION['user']['nombre'];
+                print '</button>';
+                print '<div>';
+                print '<img src="../img/user.png" alt="Opciones de usuario">';
+                print '</div>';
+                print '<ul id="menu" class="submenu">';
+                if ($_SESSION['user']['permisos'] == '1') {
+                    print '<a href=../admin/admin.php>';
+                    print '<button>';
+                    print 'Ir a administración';
+                    print '</button>';
+                    print '</a>';
+                }
+                print '<a href=../login/logout.php>';
+                print '<button>';
+                print 'Cerrar sesión';
+                print '</button>';
+                print '</a>';
+                print '</ul>';
+
+                print '</li>';
+            } else {
+                print '<a href="../login/login.html
+                ">
+                            <li>LOGIN</li>
+                        </a>';
+            }
+            ?>
+
         </ul>
     </nav>
     <main>
@@ -94,10 +126,9 @@ function obtenerNoticiasAleatorias($conexion) {
             $noticiasAleatorias = obtenerNoticiasAleatorias($database);
 
             foreach ($noticiasAleatorias as $noticia) {
-                
-                
-                crearNoticia($noticia['titulo'],$noticia['descripcion'],'../'.$noticia['rutaImagen']);
-                
+
+
+                crearNoticia($noticia['titulo'], $noticia['descripcion'], '../' . $noticia['rutaImagen']);
             }
 
             ?>
@@ -153,17 +184,17 @@ function obtenerNoticiasAleatorias($conexion) {
 
             print '</table>';
 
-            $resultados = $database -> getEquiposClasi();
+            $resultados = $database->getEquiposClasi();
 
             $titulos = ['Clasificación', 'Nombre', 'Puntos', 'Podios', 'Poles', 'Victorias', 'Titulos'];
 
-            $campos = ['nombre', 'Puntos', 'podios','poles','victorias','titulos'];
+            $campos = ['nombre', 'Puntos', 'podios', 'poles', 'victorias', 'titulos'];
 
             print '<table id= tablaClasificacionEquipos>';
 
             print '<thead>';
             print '<tr>';
-            for($i = 0; $i < sizeof($titulos);$i++){
+            for ($i = 0; $i < sizeof($titulos); $i++) {
                 print '<th>';
                 print $titulos[$i];
                 print '</th>';
@@ -176,7 +207,7 @@ function obtenerNoticiasAleatorias($conexion) {
 
             $contador = 1;
 
-            foreach($resultados as $equipo){
+            foreach ($resultados as $equipo) {
 
                 print '<tr>';
 
@@ -184,7 +215,7 @@ function obtenerNoticiasAleatorias($conexion) {
                 print $contador;
                 print '</td>';
 
-                for($i = 0; $i< sizeof($campos);$i++){
+                for ($i = 0; $i < sizeof($campos); $i++) {
                     print '<td>';
                     print $equipo[$campos[$i]];
                     print '</td>';
@@ -193,7 +224,6 @@ function obtenerNoticiasAleatorias($conexion) {
                 $contador++;
 
                 print '</tr>';
-
             }
 
             print '</tbody>';
