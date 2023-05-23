@@ -1,4 +1,3 @@
-
 drop database if exists centimetroscubicos;
 create database if not exists centimetroscubicos character set utf8;
 use centimetroscubicos;
@@ -16,7 +15,7 @@ create table if not exists Equipos (
 
 create table if not exists Patrocinadores (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Equipos_id int not null,
   primary key (id),
   constraint foreign key (Equipos_id) references Equipos(id)
@@ -25,7 +24,7 @@ create table if not exists Patrocinadores (
 
 create table if not exists Pilotos (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Puntos int not null default 0,
   Dorsal int not null,
   nacionalidad varchar(45) not null,
@@ -49,13 +48,14 @@ create table if not exists Coches (
 create table if not exists Temporada (
   id int not null auto_increment,
   Ganador int,
+  nombre varchar(50),
   primary key (id),
   constraint foreign key (Ganador) references Pilotos (id)
   );
 
 create table if not exists Circuitos (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Longitud varchar(45) not null,
   Numero_de_curvas int not null,
   Temporada_id int not null,
@@ -76,6 +76,28 @@ create table if not exists Temporada_has_circuitos (
     constraint foreign key (Temporada_id) references Temporada (id),
     constraint foreign key (Circuito_id) references Circuitos (id)
 );
+
+create table if not exists noticias (
+	id int primary key auto_increment,
+    titulo text,
+    descripcion text,
+    rutaImagen text,
+    mostrar TINYINT(1) not null
+);
+
+/*
+	INSERCIONES NOTICIAS
+*/
+insert into noticias (titulo, descripcion, rutaImagen, mostrar) values
+('Fernando ilusiona', 'Fernando lleva una racha de podios que ilusiona a sus fans', 'img/FernandoAlonso.jpg',1),
+('Red Bull adquiere ventaja esta temporada','Se espera que Red Bull gane con facilidad esta temporada al ritmo especulado. Sin embargo, hay mal ambiente entre los pilotos','img/redbull.jpg', 1),
+('Aston Martin busca mejorar en Mónaco','El equipo de "El nano" instalará un alerón delantero específico para el circuito buscando la 33', 'img/astonmartin.jpg', 1);
+
+select * from noticias;
+/*
+	INSERCIONES TEMPORADAS
+*/
+insert into temporada (nombre) values ('2023');
 
 /*
 	INSERCIONES EQUIPOS
@@ -112,7 +134,7 @@ insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Oscar Piast
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Max Verstappen', 1,'Holanda',5);
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Sergio 'Checo' Pérez", 11,'México',5);
 
-insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Fernando 'Magic' Alonso", 14,'España',6);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Fernando Alonso 'El nano'", 14,'España',6);
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Lance Stroll', 18,'Canada',6);
 
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Yuki Tsunoda', 22,'Japón',7);
