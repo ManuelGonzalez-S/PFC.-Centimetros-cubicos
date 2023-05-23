@@ -85,13 +85,30 @@ create table if not exists noticias (
     mostrar TINYINT(1) not null
 );
 
+create table if not exists usuarios(
+	id int primary key auto_increment,
+    nombre varchar(50),
+    contraseña varchar(50),
+    permisos TINYINT(1) not null
+);
+
+/*
+	INSERCIONES USUARIOS
+*/
+insert into usuarios (nombre, contraseña, permisos) values ('admin','admin',1);
+insert into usuarios (nombre, contraseña, permisos) values ('Pepe','pepito',0);
+insert into usuarios (nombre, contraseña, permisos) values ('Lola','lolita',0);
+select * from usuarios;
+
 /*
 	INSERCIONES NOTICIAS
 */
 insert into noticias (titulo, descripcion, rutaImagen, mostrar) values
 ('Fernando ilusiona', 'Fernando lleva una racha de podios que ilusiona a sus fans', 'img/FernandoAlonso.jpg',1),
 ('Red Bull adquiere ventaja esta temporada','Se espera que Red Bull gane con facilidad esta temporada al ritmo especulado. Sin embargo, hay mal ambiente entre los pilotos','img/redbull.jpg', 1),
-('Aston Martin busca mejorar en Mónaco','El equipo de "El nano" instalará un alerón delantero específico para el circuito buscando la 33', 'img/astonmartin.jpg', 1);
+('Aston Martin busca mejorar en Mónaco','El equipo de "El nano" instalará un alerón delantero específico para el circuito buscando la 33', 'img/astonmartin.jpg', 1),
+('Hamilton y la suculenta oferta que manejaría Ferrari para ficharle','Según el "Daily Mail", el cuadro de Maranello piensa convencer a Lewis ofreciéndole más de 40 millones de contrato','img/ferrari.jpg',1),
+('¿Fórmula Uno en Madrid? Hay muchas pistas que demuestran que la cosa va en serio','Madrid ya tiene diseñado su circuito de F1: de IFEMA a Valdebebas pasando por debajo de la M-11 y entre muros','img/f1Madrid.jpg',1);
 
 select * from noticias;
 /*
@@ -785,19 +802,19 @@ insert into patrocinadores (Nombre, Equipos_id) values ('Umbro', 10);
 
 /* Lewis Hamilton
 */
-update pilotos set Puntos = 38 where id= 1;
+update pilotos set Puntos = 56 where id= 1;
 
 /* George Russell
 */
-update pilotos set Puntos = 18 where id= 2;
+update pilotos set Puntos = 40 where id= 2;
 
 /* Esteban Ocon
 */
-update pilotos set Puntos = 4 where id= 3;
+update pilotos set Puntos = 6 where id= 3;
 
 /* Pierre Gasly
 */
-update pilotos set Puntos = 4 where id= 4;
+update pilotos set Puntos = 8 where id= 4;
 
 /* Niko Hulkenberg
 */
@@ -805,11 +822,11 @@ update pilotos set Puntos = 6 where id= 5;
 
 /* Kevin Magnussen
 */
-update pilotos set Puntos = 1 where id= 6;
+update pilotos set Puntos = 2 where id= 6;
 
 /* Lando Norris
 */
-update pilotos set Puntos = 8 where id= 7;
+update pilotos set Puntos = 10 where id= 7;
 
 /* Oscar Piastri
 */
@@ -817,23 +834,23 @@ update pilotos set Puntos = 4 where id= 8;
 
 /* Max Verstappen
 */
-update pilotos set Puntos = 69 where id= 9;
+update pilotos set Puntos = 119 where id= 9;
 
 /* Sergio 'Checo' Pérez
 */
-update pilotos set Puntos = 54 where id= 10;
+update pilotos set Puntos = 105 where id= 10;
 
 /* Fernando Alonso 'El nano'
 */
-update pilotos set Puntos = 45 where id= 11;
+update pilotos set Puntos = 75 where id= 11;
 
 /* Lance Stroll
 */
-update pilotos set Puntos = 20 where id= 12;
+update pilotos set Puntos = 27 where id= 12;
 
 /* Yuki Tsunoda
 */
-update pilotos set Puntos = 1 where id= 13;
+update pilotos set Puntos = 2 where id= 13;
 
 /* Nyck De Vries
 */
@@ -841,11 +858,11 @@ update pilotos set Puntos = 0 where id= 14;
 
 /* Charles Leclerc
 */
-update pilotos set Puntos = 6 where id= 15;
+update pilotos set Puntos = 34 where id= 15;
 
 /* Carlos Sainz
 */
-update pilotos set Puntos = 20 where id= 16;
+update pilotos set Puntos = 44 where id= 16;
 
 /* Valtteri Bottas
 */
