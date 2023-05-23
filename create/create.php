@@ -18,6 +18,9 @@ function camposBD($tabla)
         case "patrocinadores":
             $cabeceras = ["nombre", "Equipos_id"];
             break;
+        case 'noticias':
+            $cabeceras = ['titulo','descripcion','rutaImagen'];
+            break;
     };
 
     return $cabeceras;
@@ -40,6 +43,9 @@ function cogerValores($tabla){
             break;
         case "patrocinadores":
             $cabeceras = ["'".$_POST['nombre']."'", $_POST['id_foranea']];
+            break;
+        case "noticias":
+            $cabeceras = ["'".$_POST['titulo']."'","'". $_POST['descripcion']."'", "'". $_POST['rutaimagen']."'"];
             break;
     };
 

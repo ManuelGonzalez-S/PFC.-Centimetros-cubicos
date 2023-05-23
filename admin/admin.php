@@ -5,7 +5,7 @@ use function PHPSTORM_META\type;
 require_once('../database.php');
 $database = new Database();
 $cabeceras = [];
-$tablas = ["equipos", "pilotos", "coches", "patrocinadores", "circuitos"];
+$tablas = ["equipos", "pilotos", "coches", "patrocinadores", "circuitos", 'noticias'];
 
 if (isset($_GET['tabla'])) {
     $aux = $_GET['tabla'];
@@ -37,6 +37,9 @@ function cogerRelacion($aux)
 
         case "circuitos":
             $tablaRelacion = 'temporada';
+            break;
+        case 'noticias':
+            $tablaRelacion = null;
             break;
     }
 
@@ -84,6 +87,9 @@ function labelFormularioCabeceras($aux)
         case "patrocinadores":
             $cabeceras = ["id", "Nombre", "Equipo"];
             break;
+        case "noticias":
+            $cabeceras = ['id', 'Titulo', 'Descripcion', 'rutaImagen'];
+            break;
     };
 
     return $cabeceras;
@@ -112,6 +118,9 @@ function imprimirTabla($nombreTabla)
         case "patrocinadores":
             $cabeceras = ["Acciones", "id", "nombre", "Equipos_id"];
             break;
+        case "noticias":
+            $cabeceras = ['Acciones', 'id', 'titulo', 'descripcion', 'rutaImagen'];
+            break;
     };
     foreach ($cabeceras as $campo) {
         print '<th>' . $campo . '</th>';
@@ -133,7 +142,7 @@ function imprimirTabla($nombreTabla)
     print '</tbody></table>';
 }
 
-function crearForm($aux,$database)
+function crearForm($aux, $database)
 {
     $cabeceras = labelFormularioCabeceras($aux);
 
@@ -141,21 +150,40 @@ function crearForm($aux,$database)
 
     $relacion = $database->getTabla($relacion);
 
-    print '<input type="text" value='. $aux . ' name=tabla hidden>';
+    print '<input type="text" value=' . $aux . ' name=tabla hidden>';
 
-     for ($i = 0; $i < sizeof($cabeceras); $i++) {
+    for ($i = 0; $i < sizeof($cabeceras); $i++) {
 
         $campo = $cabeceras[$i];
 
-        $camposNumericos = ['puntos', 'poles','podios','titulos','victorias','dorsal','numero_de_curvas'];
+        $camposNumericos = ['puntos', 'poles', 'podios', 'titulos', 'victorias', 'dorsal', 'numero_de_curvas'];
 
-        if ($aux != 'equipos') {
+        if ($aux == 'noticias') {
+
+            if ($campo != 'id') {
+                print '<div>';
+                print " <label>$campo:</label>";
+
+                if ($i != sizeof($cabeceras)) {
+                    $placeholder = strtolower(trim($campo));
+                    $campo = str_replace(' ', '_', strtolower(trim($campo)));
+                    print '<input type="text" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui" onblur="validarInput('.$i.')">';
+
+                }
+                print '</div>';
+            }
+
+
+            
+        } else if ($aux != 'equipos') {
             if ($campo != 'id') {
 
-                if(in_array(str_replace(' ', '_', strtolower(trim($campo))),$camposNumericos)){
+                if (in_array(str_replace(' ', '_', strtolower(trim($campo))), $camposNumericos)) {
                     $tipo = 'number';
-                }else{
+                    $clase = 'inputNumero';
+                } else {
                     $tipo = 'text';
+                    $clase = 'inputTexto';
                 }
 
                 print '<div>';
@@ -164,7 +192,7 @@ function crearForm($aux,$database)
                 if ($i != sizeof($cabeceras) - 1) {
                     $placeholder = strtolower(trim($campo));
                     $campo = str_replace(' ', '_', strtolower(trim($campo)));
-                    print '<input type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder.' aqui">';
+                    print '<input class="'. $clase .'" type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui">';
                 }
 
                 print '</div>';
@@ -172,23 +200,25 @@ function crearForm($aux,$database)
         } else {
             if ($campo != 'id') {
 
-                if(in_array(str_replace(' ', '_', strtolower(trim($campo))),$camposNumericos)){
+                if (in_array(str_replace(' ', '_', strtolower(trim($campo))), $camposNumericos)) {
                     $tipo = 'number';
-                }else{
+                    $clase = 'inputNumero';
+                } else {
                     $tipo = 'text';
+                    $clase = 'inputTexto';
                 }
 
                 print '<div>';
                 print " <label>$campo:</label>";
                 $placeholder = strtolower(trim($campo));
                 $campo = str_replace(' ', '_', strtolower(trim($campo)));
-                echo ' <input type="'. $tipo .'" name="' . $campo . '" placeholder="Inserte ' . $placeholder.' aqui">';
+                echo ' <input class="'. $clase .'" type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui">';
                 print '</div>';
             }
         }
     }
 
-     // ETIQUETA SELECT
+    // ETIQUETA SELECT
     // SI NO SE TRATA DE CREAR UN EQUIPO:
     // SE PASA EL ID A ASOCIAR CON name='id_foranea'
     if ($relacion != null && $aux != 'coches') {
@@ -279,24 +309,24 @@ function crearForm($aux,$database)
 
         <dialog id="modal">
 
-            <form action="../create/create.php" method="POST">
+            <form id="formulario" action="../create/create.php" method="POST">
 
                 <?php
 
-                    print '<div id="modal-encabezado">';
-                    print " <h4>Añadir a $aux:</h4>";
-                    print '</div>';
+                print '<div id="modal-encabezado">';
+                print " <h4>Añadir a $aux:</h4>";
+                print '</div>';
 
-                    print '<div id="modal-cuerpo">';
-                    crearForm($aux,$database);
-                    print '</div>';
+                print '<div id="modal-cuerpo">';
+                crearForm($aux, $database);
+                print '</div>';
                 ?>
 
                 <div id="modal-acciones">
                     <button onclick="window.modal.close()" type="button" id="botonCancelar"><strong>Cancelar</strong></button>
                     <button type="submit" id="botonConfirmar"><strong>Confirmar</strong></button>
                 </div>
-                
+
             </form>
 
         </dialog>
@@ -305,8 +335,8 @@ function crearForm($aux,$database)
 
     <footer></footer>
 
-    </body>
+</body>
 
-    <!-- <script src="app.js"></script> -->
+<script src="app.js"></script>
 
 </html>
