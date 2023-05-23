@@ -1,84 +1,77 @@
-let tabla = document.getElementsByTagName('table')[0];
-let thead;
+let dialog = document.getElementsByTagName('dialog')[0];
 
-let body = document.getElementsByTagName('body')[0];
+let inputs = document.getElementsByTagName('input');
 
-let tablaEquipos = {
-    redbullRacing: {
-        posicion: 1,
-        puntos: 759,
-        pais: 'Austria'
-    },
-    ferrari: {
-        posicion: 2,
-        puntos: 554,
-        pais: 'Italia'
-    },
-    mercedes: {
-        posicion: 3,
-        puntos: 515,
-        pais: 'Alemania'
-    },
-    bwt: {
-        posicion: 4,
-        puntos: 173,
-        pais: 'Francia'
-    },
-    mcLaren: {
-        posicion: 5,
-        puntos: 159,
-        pais: 'Reino Unido'
-    },
-    AlfaRomeo: {
-        posicion: 6,
-        puntos: 55,
-        pais: 'Suiza'
-    },
-    AstonMartin: {
-        Posicion: 7,
-        Puntos: 55,
-        Pais: 'Reino Unido'
+let inputsNumeros = document.getElementsByClassName('inputNumero');
+let inputsTextos = document.getElementsByClassName('inputTexto');
+
+let botonConfirmar = document.getElementById('botonConfirmar');
+
+function validarBoton(){
+
+    let inputsValidos = document.getElementsByClassName('inputValido');
+
+    if(inputsValidos.length == inputs.length - 1){
+        botonConfirmar.setAttribute('id','botonConfirmar');
+        botonConfirmar.disabled = false;
+    }else{
+        botonConfirmar.setAttribute('id','botonInvalido');
+        botonConfirmar.disabled = true;
+    }
+
+}
+
+cargar();
+
+validarBoton();
+
+function cargar() {
+
+    for (let i = 0; i < inputsNumeros.length; i++) {
+        inputsNumeros[i].setAttribute('onkeyup', 'validarInputNumero(' + i + ')');
+    }
+
+    for (let i = 0; i < inputsTextos.length; i++) {
+        inputsTextos[i].setAttribute('onkeyup', 'validarInputTexto(' + i + ')');
     }
 }
 
-crearCabecera();
+let regex = /^\d+$/;
 
-function crearCabecera() {
-    thead = document.createElement('thead');
-    tabla.appendChild(thead);
-    tr = document.createElement('tr');
+function validarInputNumero(posicion) {
 
-    let titulos = ['Acciones', 'Equipo','Posición','Puntos','Pais'];
+    let input = inputsNumeros[posicion];
 
-    for (let i = 0; i < titulos.length; i++) {
-        th = document.createElement('th');
-        th.innerHTML = titulos[i];
-        tr.appendChild(th);
+    let regex = /^\d+$/;
+
+    let esNumerico = regex.test(input.value);
+
+    if (esNumerico) {
+        input.classList.remove("inputInvalido");
+        input.classList.add("inputValido");
+    } else {
+        input.classList.remove("inputValido");
+        input.classList.add("inputInvalido");
     }
-    
-    thead.appendChild(tr);
-    tbody = document.createElement('tbody');
-    tabla.appendChild(tbody);
-    for (equipos in tablaEquipos) {
-        tuplas = document.createElement(`tr`)
-        tbody.appendChild(tuplas);
-        actualizar = document.createElement('button');
-        borrar = document.createElement('button');
-        editar = document.createElement('button');
-        actualizar.innerHTML = 'Actualizar';
-        borrar.innerHTML = 'Borrar';
-        editar.innerHTML = 'Editar';
-        tuplas.appendChild(actualizar);
-        tuplas.appendChild(borrar);
-        tuplas.appendChild(editar);
-        td = document.createElement('td');
-        td.innerHTML = equipos;
-        tuplas.appendChild(td);
-        for (datos in tablaEquipos[equipos]) {
 
-            tdDatos = document.createElement('td');
-            tdDatos.innerHTML = tablaEquipos[equipos][datos];
-            tuplas.appendChild(tdDatos);
-        }
+    validarBoton();
+}
+
+function validarInputTexto(posicion) {
+
+    let input = inputsTextos[posicion];
+
+    let valor = input.value.trim();
+    let contieneNumeros = /[0-9]/.test(valor); // Verifica si el valor contiene números
+    let letras = valor.match(/[a-zA-Z]/g); // Busca todas las letras en el valor
+
+    if (!contieneNumeros && letras && letras.length >= 4) {
+        input.classList.remove("inputInvalido");
+        input.classList.add("inputValido");
+    } else {
+        input.classList.remove("inputValido");
+        input.classList.add("inputInvalido");
     }
+
+    validarBoton();
 }

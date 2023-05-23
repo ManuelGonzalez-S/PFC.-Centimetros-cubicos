@@ -1,10 +1,186 @@
-main{
+nav ul li {
+    list-style: none;
+}
+
+nav img {
+    width: 15%;
+}
+
+nav a button {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
-table{
+nav a button:hover{
+    cursor: pointer;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: first baseline;
+}
+
+@media screen and (max-width:1200px) {
+    main {
+        flex-direction: column;
+    }
+}
+
+#crear {
+    /* !important hace que no se puedan sobreescribir los atributos */
+    transition: .5s;
+
+    margin: 5px;
+
+    padding: 5px;
+
+    background-color: darkblue !important;
+    color: white !important;
+
+    text-align: center !important;
+    line-height: 2 !important;
+
+    width: 10% !important;
+    height: 10% !important;
+
+    border-radius: 10px !important;
+
+    align-self: center;
+
+}
+
+#crear:hover {
+    transition: .5s;
+    scale: 1.1;
+    cursor: pointer;
+}
+
+#modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (min-width:950px) {
+    #modal{
+        width: 40%;
+    }
+}
+
+@media screen and (max-width:950px) {
+    #modal{
+        width: 60%;
+    }
+}
+
+#modal {
+    
+
+    border: 3px solid black;
+
+    /* Borde del diálogo */
+    border-radius: 10px;
+
+    /* Borde redondeado */
+    background-color: #fff;
+
+    /* Color de fondo */
+    padding: 20px;
+
+    /* Espaciado interno */
+}
+
+#modal-encabezado {
+    display: flex;
+    justify-content: space-around;
+}
+
+#modal-encabezado h4 {
+    text-align: center;
+    line-height: 2;
+    font-size: 2em;
+}
+
+#modal-cuerpo div{
+    display: flex;
+    justify-content: space-between;
+    padding: 6px;
+}
+
+#modal-cuerpo label{
+    text-decoration: underline;
+    font-family:  Verdana, Geneva, sans-serif;
+}
+
+#modal-cuerpo div{
+    margin-bottom: 15px;
+}
+
+#modal-cuerpo input{
+    border: 2px solid black;
+    padding: 5px;
+}
+
+#modal-cuerpo div input:focus{
+    border: 3px solid blue !important;
+}
+
+#modal-cuerpo select{
+    border: 2px solid black;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.inputInvalido{
+    border: 3px solid red !important;
+    color: red;
+}
+
+.inputValido{
+    border: 3px solid green !important;
+    color: rgb(0, 164, 0);
+}
+
+#modal-acciones{
+    display: flex;
+    justify-content: space-around;
+}
+
+#modal-acciones button{
+    transition: .5s;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#botonCancelar{
+    background-color: red;
+}
+
+#botonCancelar:hover{
+    background-color: rgb(199, 0, 0);
+    transition: .5s;
+    scale: 1.05;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+#botonConfirmar{
+    background-color: lightgreen;
+}
+
+#botonConfirmar:hover{
+    background-color: #36b03a;
+    transition: .5s;
+    scale: 1.05;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+#botonInvalido{
+    background-color: lightgrey;
+}
+
+table {
     width: 90%;
 
     border: 3px solid black;
@@ -14,17 +190,53 @@ table{
 
     border-collapse: separate;
     border-spacing: 0 10px;
+
+    align-self: center;
 }
 
-.tablaDatos{
+.tablaDatos {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-    width: 70%;
+
+    flex-direction: column;
+
+
+
 }
 
-.acciones{
+@media screen and (max-width:1000px) {
+    .tablaDatos {
+        width: 90%;
+    }
+}
+
+@media screen and (min-width:1000px) {
+    .tablaDatos {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:960px) {
+
+    tr td:first-child {
+        display: flex;
+        flex-direction: column;
+    }
+
+    tr td:first-child button {
+        width: 90px;
+    }
+}
+
+tr td:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.acciones {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,14 +244,14 @@ table{
     width: 30%;
 }
 
-main button{
+main button {
     width: 20%;
     margin: 15px;
 
     border: none;
 }
 
-.entidad{
+.entidad {
     width: 50%;
 
     background-color: darkblue;
@@ -52,66 +264,76 @@ main button{
     transition: 0.5s;
 }
 
-.entidad:hover{
+.entidades a {
+    display: flex;
+    justify-content: center;
+}
+
+
+.entidad:hover {
     filter: brightness(1.5);
-
-    padding: 8px;
-
+    scale: 1.1;
+    cursor: pointer;
     transition: 0.5s;
 }
 
-th{
+th {
     text-align: center;
 }
 
 
-tbody tr:nth-child(2n - 1){
+tbody tr:nth-child(2n - 1) {
     background-color: blue;
     color: white;
 }
 
-tbody tr:nth-child(2n){
+tbody tr:nth-child(2n) {
     background-color: lightblue;
 }
 
-tr button{
+tr button {
     background-color: white;
     border-radius: 10px;
+    width: max-content;
 
     padding: 5px;
 }
 
-tr button:hover{
+tr button:hover {
 
     filter: brightness(0.8);
+    cursor: pointer;
 }
 
-p{
+
+p {
     width: 100%;
     text-align: center;
 }
 
-.entidades{
+.entidades {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
+    width: 100%;
 }
 
-#volver{
+#volver {
     text-decoration: none;
     color: black;
 }
 
-#volver button{
+#volver button {
     background-color: lightblue;
     border-radius: 10px;
-    
+
     border: 1px solid black;
 
     width: 100px;
 }
 
-#volver button:hover{
+#volver button:hover {
     border: 2px solid black;
 
     filter: brightness(0.9);
