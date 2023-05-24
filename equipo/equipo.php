@@ -6,6 +6,8 @@ $database = new Database();
 
 $maxValorPosible = $database->getNumeroEquipos();
 
+session_start();
+
 if (isset($_GET['idEquipo'])) {
     $id = $_GET['idEquipo'];
 
@@ -15,7 +17,7 @@ if (isset($_GET['idEquipo'])) {
         $maxValorPosible = $resultado['suma'];
     }
 
-    if ($id > $maxValorPosible || $id <=0) {
+    if ($id > $maxValorPosible || $id <= 0) {
         $id = null;
     }
 }
@@ -150,6 +152,39 @@ function crearPalmares($id, $database)
             <a href="../login/login.html">
                 <li>LOGIN</li>
             </a>
+            <?php
+            if (isset($_SESSION['user'])) {
+
+                print '<li id="menuUsuario">';
+                print '<button id="usuario">';
+                print $_SESSION['user']['nombre'];
+                print '</button>';
+                print '<div>';
+                print '<img id="userImg" src="../img/user.png" alt="Opciones de usuario">';
+                print '</div>';
+                print '<ul id="menu" class="submenu">';
+                if ($_SESSION['user']['permisos'] == '1') {
+                    print '<a href=../admin/admin.php>';
+                    print '<button>';
+                    print 'Ir a administración';
+                    print '</button>';
+                    print '</a>';
+                }
+                print '<a href=../login/logout.php>';
+                print '<button>';
+                print 'Cerrar sesión';
+                print '</button>';
+                print '</a>';
+                print '</ul>';
+
+                print '</li>';
+            } else {
+                print '<a href="../login/login.html
+                ">
+                            <li>LOGIN</li>
+                        </a>';
+            }
+            ?>
         </ul>
     </nav>
 
@@ -187,7 +222,7 @@ function crearPalmares($id, $database)
             crearImagenCoche($id, $database);
             print '</div>';
 
-            
+
             print '<div id="info">';
 
             print '<div id="infoPrincipal">';
@@ -336,8 +371,7 @@ function crearPalmares($id, $database)
 
             // Cierra el div acerca de los pilotos
             print '</div>';
-
-        }else {
+        } else {
 
             // Si el id no es válido (obtenido de la url, se muestra un mensaje de error
             print '<h1 class=tituloError>';
@@ -381,5 +415,5 @@ function crearPalmares($id, $database)
         </div>
     </footer>
 </body>
-
+<script src="app.js"></script>
 </html>

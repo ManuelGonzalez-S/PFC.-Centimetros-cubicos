@@ -27,6 +27,60 @@ nav img{
     height: 100px;
 }
 
+#userImg{
+    height: auto;
+    max-width: 50px;
+}
+
+#menuUsuario {
+    position: relative;
+    display: inline-block;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#menuUsuario:hover{
+    transition: .5s;
+    backdrop-filter: brightness(1.5);
+    cursor: pointer;
+}
+
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+}
+
+.submenu.visible{
+    display: block;
+}
+
+#menu button{
+    transition: .5s;
+    border: 0px;
+    background-color: rgb(21, 21, 21);
+    color: white;
+    border-radius: 20px;
+    padding: 7px;
+    font-size: 70%;
+}
+
+#menu button:hover{
+    transition: .5s;
+    background-color: rgb(52, 52, 52);
+    cursor: pointer;
+}
+
+#usuario {
+    border: inherit;
+    color: inherit;
+    font-size: inherit;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 20px;
+}
+
 nav ul li{
     display: inline-block;
     color: white;
@@ -35,6 +89,8 @@ nav ul li{
 
     text-align: center;
     padding: 5px;
+
+    border-radius: 20px;
 
     transition: 0.5s;
 }

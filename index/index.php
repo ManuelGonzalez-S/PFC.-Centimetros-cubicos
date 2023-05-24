@@ -25,7 +25,7 @@ function obtenerNoticiasAleatorias($conexion)
 {
 
     // Obtener las noticias que tienen el campo "mostrar" con valor 1
-    $consultaNoticias = "SELECT * FROM noticias WHERE mostrar = 1";
+    $consultaNoticias = "SELECT * FROM noticias";
     $resultadoNoticias = $conexion->ejecutarSql($consultaNoticias);
     $noticiasDisponibles = $resultadoNoticias->fetchAll(PDO::FETCH_ASSOC);
 
