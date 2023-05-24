@@ -56,7 +56,7 @@ if($accion == 'login'){
 
 }else{
 
-    $sql = "INSERT INTO usuarios (nombre,contraseña,permisos) VALUES ( '$nombre', '$pass',0);";
+    $sql = "INSERT INTO usuarios (nombre,contraseña,permisos) VALUES ( '$nombre', '$pass','0');";
 
     var_dump($sql);
 
