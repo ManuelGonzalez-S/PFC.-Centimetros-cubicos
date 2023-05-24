@@ -15,7 +15,7 @@ create table if not exists Equipos (
 
 create table if not exists Patrocinadores (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Equipos_id int not null,
   primary key (id),
   constraint foreign key (Equipos_id) references Equipos(id)
@@ -24,7 +24,7 @@ create table if not exists Patrocinadores (
 
 create table if not exists Pilotos (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Puntos int not null default 0,
   Dorsal int not null,
   nacionalidad varchar(45) not null,
@@ -54,7 +54,7 @@ create table if not exists Temporada (
 
 create table if not exists Circuitos (
   id int not null auto_increment,
-  Nombre varchar(45) not null,
+  nombre varchar(45) not null,
   Longitud varchar(45) not null,
   Numero_de_curvas int not null,
   Temporada_id int not null,
@@ -111,7 +111,7 @@ insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Oscar Piast
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Max Verstappen', 1,'Holanda',5);
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Sergio 'Checo' Pérez", 11,'México',5);
 
-insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Fernando 'Magic' Alonso", 14,'España',6);
+insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ("Fernando Alonso 'El nano'", 14,'España',6);
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Lance Stroll', 18,'Canada',6);
 
 insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Yuki Tsunoda', 22,'Japón',7);
@@ -863,7 +863,19 @@ select nombre into nombreEquipo from equipos where id = num1;
 
 return nombreEquipo;
 
-end
-$$
+end $$
+delimiter ;
+
+delimiter $$
+Create trigger eliminarConductorBD before delete on equipos
+for each row
+begin
+	-- Codigo SQL necesario (Acciones)
+    UPDATE pilotos set Equipos_id = null WHERE Equipos_id = old.id;
+end $$
+
+delimiter ;
+
+select * from pilotos where Equipos_id = 0;
 
 select verEquipo(8) as 'equipo';

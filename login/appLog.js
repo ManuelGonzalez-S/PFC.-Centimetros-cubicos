@@ -1,12 +1,12 @@
 let body = document.getElementsByTagName('body')[0];
-let admin = document.getElementById('admin');
 let main = document.getElementsByTagName('main')[0];
 let formularios = document.forms;
 let formulario1 = formularios[0];
 let formulario2 = formularios[1];
-let valMail = /^\w+@[a-zA-Z]+[.][[a-zA-Z]+$/;
+
 let valPass = /(?=.*\d{2})(?=.*[A-Z])+((?=.*[. - _ , =])+).{7,}/;
 let valString = /^[a-zA-Z]{3,25}$/;
+
 let correcto = false;
 let nombreVal = false;
 let apellidoVal = false;
@@ -15,24 +15,20 @@ let passVal = false;
 let pass2Val = false;
 mensaje = document.getElementsByTagName('span')[1];
 mensajeLog = document.getElementsByTagName('span')[0];
-let usuariosRegistrados = [
-    ['admin', 'admin', 'admin@admin.com', 'admin']
-];
 let usuarioExistente = false;
 
 function registrar() {
-    main.removeChild(admin);
     main.appendChild(formulario2);
     main.removeChild(formulario1);
-    main.appendChild(admin);
+
+    validarBoton();
 }
 
 function volverLogin() {
-    main.removeChild(admin);
     main.appendChild(formulario1);
     main.removeChild(formulario2);
-    main.appendChild(admin);
 
+    validarBoton();
 }
 
 function cargarLogin() {
@@ -57,19 +53,6 @@ function validarString(indice, nombre) {
         } else {
             apellidoVal = false;
         }
-    }
-}
-
-function validarMail(indice) {
-    emailR = formulario2['elements']['emailR']['value']
-    if (valMail.test(emailR)) {
-        formulario2[indice].classList.remove('incorrecto');
-        formulario2[indice].classList.add('correcto');
-        emailVal = true;
-    } else {
-        formulario2[indice].classList.remove('correcto');
-        formulario2[indice].classList.add('incorrecto');
-        emailVal = false;
     }
 }
 
@@ -137,28 +120,49 @@ function esCorrecto() {
     }
 }
 
-function verificarMail() {
-    let n = 0;
-    emailL = formularios[0]['elements']['emailL']['value'];
-    passL = formularios[0]['elements']['passL']['value'];
-    do {
-        if (emailL == usuariosRegistrados[n][2]) {
-            usuarioExistente = true;
-            if (usuariosRegistrados[n][3] != passL) {
-                console.log(usuariosRegistrados[n][3]);
-                mensajeLog.classList.add('mal');
-                mensajeLog.classList.remove('bien');
-                mensajeLog.innerHTML = 'combinacion incorrecta'
-            } else if (usuariosRegistrados[n][3] == passL) {
-                mensajeLog.classList.remove('mal');
-                mensajeLog.classList.add('bien');
-                mensajeLog.innerHTML = 'Inicio de sesion exitoso'
-            }
+const botonConfirmar = document.getElementsByClassName('botonconfirmar');
+
+function validarBoton(){
+
+    let inputsValidos = document.getElementsByClassName('inputValido');
+
+    let inputs = document.getElementsByTagName('input');
+
+    for (boton in botonConfirmar) {
+
+        if(inputsValidos.length == inputs.length){
+            boton.setAttribute('class','botonValido');
+            boton.disabled = false;
+        }else{
+            boton.setAttribute('class','botonInvalido');
+            boton.disabled = true;
         }
-        console.log(usuarioExistente);
-        n++;
-    } while (n < usuariosRegistrados.length && !usuarioExistente);
-    if (!usuarioExistente) {
-        mensajeLog.innerHTML = 'Mail no encontrado'
+
     }
+
+}
+
+let inputsLogin = document.getElementsByClassName('inputLogin');
+
+for (let i = 0; i < inputsLogin.length; i++) {
+    inputsLogin[i].setAttribute('onkeyup', 'validarInputTexto(' + i + ')');
+}
+
+function validarInputLogin(posicion) {
+
+    let input = inputsTextos[posicion];
+
+    let valor = input.value.trim();
+    let contieneNumeros = /[0-9]/.test(valor); // Verifica si el valor contiene números
+    let letras = valor.match(/[a-zA-Z]/g); // Busca todas las letras en el valor
+
+    if (!contieneNumeros && letras && letras.length >= 4) {
+        input.classList.remove("inputInvalido");
+        input.classList.add("inputValido");
+    } else {
+        input.classList.remove("inputValido");
+        input.classList.add("inputInvalido");
+    }
+
+    validarBoton();
 }

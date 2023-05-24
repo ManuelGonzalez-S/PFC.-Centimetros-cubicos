@@ -4,7 +4,6 @@ let main = document.getElementsByTagName('main')[0];
 let formularios = document.forms;
 let formulario1 = formularios[0];
 let formulario2 = formularios[1];
-let valMail = /^\w+@[a-zA-Z]+[.][[a-zA-Z]+$/;
 let valPass = /(?=.*\d{2})(?=.*[A-Z])+((?=.*[. - _ , =])+).{7,}/;
 let valString = /^[a-zA-Z]{3,25}$/;
 let correcto = false;

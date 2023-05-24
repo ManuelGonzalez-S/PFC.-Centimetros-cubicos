@@ -1,9 +1,58 @@
-
 <?php
 
 require_once('../database.php');
 
 $database = new Database();
+
+session_start();
+
+function crearNoticia($titulo, $descripcion, $rutaImagen)
+{
+
+    print '<div class= "noticia">';
+    print '<img src= "../img/' . $rutaImagen . '">';
+
+    print '<div class="info">';
+    print "<h2>$titulo</h2>";
+    print "<p>$descripcion</p>";
+    print '</div>';
+
+
+    print '</div>';
+}
+
+function obtenerNoticiasAleatorias($conexion)
+{
+
+    // Obtener las noticias que tienen el campo "mostrar" con valor 1
+    $consultaNoticias = "SELECT * FROM noticias WHERE mostrar = 1";
+    $resultadoNoticias = $conexion->ejecutarSql($consultaNoticias);
+    $noticiasDisponibles = $resultadoNoticias->fetchAll(PDO::FETCH_ASSOC);
+
+    // Obtener el número total de noticias disponibles
+    $totalNoticias = count($noticiasDisponibles);
+
+    // Obtener tres números aleatorios distintos
+    $numerosAleatorios = array();
+    while (count($numerosAleatorios) < 3) {
+        $numeroAleatorio = rand(0, $totalNoticias - 1);
+        if (!in_array($numeroAleatorio, $numerosAleatorios)) {
+            $numerosAleatorios[] = $numeroAleatorio;
+        }
+    }
+
+    // Obtener las noticias aleatorias seleccionadas
+    $noticiasAleatorias = array();
+    foreach ($numerosAleatorios as $numero) {
+        $noticiasAleatorias[] = $noticiasDisponibles[$numero];
+    }
+
+    // Cerrar la conexión
+    $conexion = null;
+
+    // Devolver el array de noticias aleatorias
+    return $noticiasAleatorias;
+}
 
 ?>
 
@@ -28,40 +77,64 @@ $database = new Database();
             <a href="#noticias">
                 <li>NOTICIAS</li>
             </a>
-            <a href="#clasificacion">
+            <a href="#cambiarClasificacion">
                 <li>CLASIFICACIÓN</li>
             </a>
             <a href="#equipos">
                 <li>EQUIPOS</li>
             </a>
-            <a href="../login/login.html">
-                <li>LOGIN</li>
-            </a>
+            <?php
+            if (isset($_SESSION['user'])) {
+
+                print '<li id="menuUsuario">';
+                print '<button id="usuario">';
+                print $_SESSION['user']['nombre'];
+                print '</button>';
+                print '<div>';
+                print '<img id="userImg" src="../img/user.png" alt="Opciones de usuario">';
+                print '</div>';
+                print '<ul id="menu" class="submenu">';
+                if ($_SESSION['user']['permisos'] == '1') {
+                    print '<a href=../admin/admin.php>';
+                    print '<button>';
+                    print 'Ir a administración';
+                    print '</button>';
+                    print '</a>';
+                }
+                print '<a href=../login/logout.php>';
+                print '<button>';
+                print 'Cerrar sesión';
+                print '</button>';
+                print '</a>';
+                print '</ul>';
+
+                print '</li>';
+            } else {
+                print '<a href="../login/login.html
+                ">
+                            <li>LOGIN</li>
+                        </a>';
+            }
+            ?>
+
         </ul>
     </nav>
     <main>
         <section id="noticias">
             <?php
 
-            $noticias = ['AstonMartin', 'Alphatauri', 'Alpine'];
-            $noticiasTitulo = ['Alonso ilusiona', 'Alphatauri en problemas', 'Alpine en busca de mejorar su coche'];
-            $noticiasDescripcion = ['Alonso busca la 33 en el próximo GP de Azerbaiyán', 'El equipo ha perdido su patrocinador más importante', 'El equipo busca conseguir más puntos que el año pasado y ser aspirante al titulo el año que viene'];
+            $noticiasAleatorias = obtenerNoticiasAleatorias($database);
 
-            for ($i = 0; $i < 3; $i++) {
-                print '<div class= "noticia">';
-                print '<img src= "../img/' . $noticias[$i] . '.jpg">';
-
-                print '<div class="info">';
-                print "<h2>$noticiasTitulo[$i]</h2>";
-                print "<p>$noticiasDescripcion[$i]</p>";
-                print '</div>';
+            foreach ($noticiasAleatorias as $noticia) {
 
 
-                print '</div>';
+                crearNoticia($noticia['titulo'], $noticia['descripcion'], '../' . $noticia['rutaImagen']);
             }
+
             ?>
         </section>
         <section id="clasificacion">
+            <button id="cambiarClasificacion" onclick="cambiarClasificacion()">Mostrar clasificación de equipos</button>
             <?php
 
             // Genera la tabla de clasificacion
@@ -69,7 +142,7 @@ $database = new Database();
 
             $titulos = ['Clasificación', 'Puntos', 'Piloto', 'Nacionalidad', 'Equipo'];
 
-            print '<table id="tablaClasificacion">';
+            print '<table id="tablaClasificacionPilotos">';
             print '<thead>';
             print '<tr>';
             for ($i = 0; $i < sizeof($titulos); $i++) {
@@ -80,14 +153,14 @@ $database = new Database();
             print '</tr>';
             print '</thead>';
 
-            $campos = ['Puntos', 'Nombre', 'nacionalidad', 'nombreEquipo'];
+            $campos = ['Puntos', 'nombre', 'nacionalidad', 'nombreEquipo'];
 
             print '<tbody>';
 
             $contador = 1;
 
             // Genera cada fila
-            foreach ($resultados as $baseDatos) {
+            foreach ($resultados as $piloto) {
                 print '<tr>';
 
                 print '<td>';
@@ -98,7 +171,7 @@ $database = new Database();
                 for ($i = 0; $i < sizeof($campos); $i++) {
                     print '<td>';
 
-                    print $baseDatos[$campos[$i]];
+                    print $piloto[$campos[$i]];
 
                     print '</td>';
                 }
@@ -110,6 +183,53 @@ $database = new Database();
             print '</tbody>';
 
             print '</table>';
+
+            $resultados = $database->getEquiposClasi();
+
+            $titulos = ['Clasificación', 'Nombre', 'Puntos', 'Podios', 'Poles', 'Victorias', 'Titulos'];
+
+            $campos = ['nombre', 'Puntos', 'podios', 'poles', 'victorias', 'titulos'];
+
+            print '<table id= tablaClasificacionEquipos>';
+
+            print '<thead>';
+            print '<tr>';
+            for ($i = 0; $i < sizeof($titulos); $i++) {
+                print '<th>';
+                print $titulos[$i];
+                print '</th>';
+            }
+
+            print '</tr>';
+            print '</thead>';
+
+            print '<tbody>';
+
+            $contador = 1;
+
+            foreach ($resultados as $equipo) {
+
+                print '<tr>';
+
+                print '<td>';
+                print $contador;
+                print '</td>';
+
+                for ($i = 0; $i < sizeof($campos); $i++) {
+                    print '<td>';
+                    print $equipo[$campos[$i]];
+                    print '</td>';
+                }
+
+                $contador++;
+
+                print '</tr>';
+            }
+
+            print '</tbody>';
+
+            print '</table>';
+
             ?>
         </section>
 
@@ -133,7 +253,34 @@ $database = new Database();
             ?>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+        <div id="rrss">
+            <h3>Redes Sociales</h3>
+            <img src="../img/instagram.jpg">
+            <img src="../img/twitter.jpg">
+            <img src="../img/facebook.jpg">
+        </div>
+        <div id="proteccion">
+            <h3>Protección de datos</h3>
+            <p>
+                <a href="https://ayudaleyprotecciondatos.es/modelo-politica-cookies/" target="_blank">Politica de cookies</a>
+            </p>
+            <p>
+                <a href="https://www.fia.com/data-privacy-notice" target="_blank">Politica de privacidad</a>
+            </p>
+            <p>
+                <a href="https://www.fia.com/es/aviso-de-proteccion-de-datos" target="_blank">Aviso legal</a>
+            </p>
+        </div>
+        <div id="contacto">
+            <h3>Contacto</h3>
+            <p>ejemplo@gmail.com</p>
+            <p>tel: 913 64 51 57</p>
+        </div>
+        <div id="copyright">
+            <p>© Copyright 2023</p>
+        </div>
+    </footer>
 </body>
 <script src="app.js"></script>
 

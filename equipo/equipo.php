@@ -75,7 +75,7 @@ function crearImagenPiloto($id, $numero, $database)
     }
 
 
-    $nombre = str_replace(' ', '', $aux[$numero]['Nombre']);
+    $nombre = str_replace(' ', '', $aux[$numero]['nombre']);
 
     print '<img class=imgPiloto src="../img/' . $nombre . '.jpg">';
 }
@@ -237,7 +237,7 @@ function crearPalmares($id, $database)
             // Muestra la información de los patrocinadores
             foreach ($patrocinadores as $patrocinador) {
                 print '<p>';
-                print $patrocinador['Nombre'];
+                print $patrocinador['nombre'];
                 print '</p>';
             }
 
@@ -297,7 +297,7 @@ function crearPalmares($id, $database)
                 print '<div class="piloto">';
 
                 print '<div>';
-                print '<p class=nombrePiloto>' . $piloto['Nombre'] . ':</p>';
+                print '<p class=nombrePiloto>' . $piloto['nombre'] . ':</p>';
 
                 print '<p>';
                 print '<strong>';

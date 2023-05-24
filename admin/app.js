@@ -1,86 +1,61 @@
-let tabla = document.getElementsByTagName('table')[0];
-let thead;
+let valStrings = /^[a-zA-Z\s]{1,}$/;
+let valNumber = /^\d+$/;
+let form = document.forms[0];
+let datos = [];
 
-let body = document.getElementsByTagName('body')[0];
-
-let tablaEquipos = {
-    redbullRacing: {
-        posicion: 1,
-        puntos: 759,
-        pais: 'Austria'
-    },
-    ferrari: {
-        posicion: 2,
-        puntos: 554,
-        pais: 'Italia'
-    },
-    mercedes: {
-        posicion: 3,
-        puntos: 515,
-        pais: 'Alemania'
-    },
-    bwt: {
-        posicion: 4,
-        puntos: 173,
-        pais: 'Francia'
-    },
-    mcLaren: {
-        posicion: 5,
-        puntos: 159,
-        pais: 'Reino Unido'
-    },
-    AlfaRomeo: {
-        posicion: 6,
-        puntos: 55,
-        pais: 'Suiza'
-    },
-    AstonMartin: {
-        Posicion: 7,
-        Puntos: 55,
-        Pais: 'Reino Unido'
-    }
-}
-
-crearCabecera();
-
-function crearCabecera() {
-    thead = document.createElement('thead');
-    tabla.appendChild(thead);
-    tr = document.createElement('tr');
-
-    let titulos = ['Acciones', 'Equipo','Posición','Puntos','Pais'];
-
-    for (let i = 0; i < titulos.length; i++) {
-        th = document.createElement('th');
-        th.innerHTML = titulos[i];
-        tr.appendChild(th);
-    }
+function recogerInputs() {
+    let num;
+    let i = 2;
+    parar = false
     
-    thead.appendChild(tr);
-    tbody = document.createElement('tbody');
-    tabla.appendChild(tbody);
-    for (equipos in tablaEquipos) {
-        tuplas = document.createElement(`tr`)
-        tbody.appendChild(tuplas);
-        tdbotones = document.createElement('td');
-        tuplas.appendChild(tdbotones);
-        actualizar = document.createElement('button');
-        borrar = document.createElement('button');
-        editar = document.createElement('button');
-        actualizar.innerHTML = 'Actualizar';
-        borrar.innerHTML = 'Borrar';
-        editar.innerHTML = 'Editar';
-        tdbotones.appendChild(actualizar);
-        tdbotones.appendChild(borrar);
-        tdbotones.appendChild(editar);
-        td = document.createElement('td');
-        td.innerHTML = equipos;
-        tuplas.appendChild(td);
-        for (datos in tablaEquipos[equipos]) {
-
-            tdDatos = document.createElement('td');
-            tdDatos.innerHTML = tablaEquipos[equipos][datos];
-            tuplas.appendChild(tdDatos);
+    while (!parar) {
+        num = form[i];
+        i++;
+        if (num.tagName == 'BUTTON') {
+            parar = true;
+        } else if (num.tagName == 'INPUT') {
+            datos.push(num)
         }
     }
+    return datos
 }
+
+recogerInputs();
+console.log(document.getElementsByTagName('input').length);
+
+function addRegex(){
+    for (i =0; i <datos.length;i++){
+        console.log(datos[i])
+        datos[i].setAttribute('onkeyup', `validar(name)`)
+    }
+}
+
+function validar(nombre){
+    nombreAux = form['elements'][nombre]['value'];
+    dato = form['elements'][nombre]['type'];
+    let regexEval = /^$/;
+    if (dato == 'text'){
+        regexEval = valStrings;
+    } else if (dato == 'number'){
+        regexEval = valNumber;
+    }
+    if (regexEval.test(nombreAux)){
+        form['elements'][nombre].classList.add('correcto');
+        form['elements'][nombre].classList.remove('incorrecto');
+    } else if (!regexEval.test(nombreAux)){
+        form['elements'][nombre].classList.add('incorrecto');
+        form['elements'][nombre].classList.remove('correcto');
+    }
+    
+}
+console.log(form[0]['elements']);
+
+
+
+// continuar();
+
+// regexInput();
+addRegex();
+// console.log((form[0][7].tagName))
+
+
