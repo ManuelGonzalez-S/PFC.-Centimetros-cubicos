@@ -38,6 +38,8 @@ if($accion == 'login'){
     // Si se encuentra el usuario registrado
     if(isset($pepe['id'])){
 
+        
+
         session_start();
         $_SESSION['user'] = $pepe;
 
@@ -51,7 +53,8 @@ if($accion == 'login'){
 
         // Si no, se devuelve al login
     }else{
-        header('Location:login.html');
+
+        header('Location:login.php');
     }
 
 }else{

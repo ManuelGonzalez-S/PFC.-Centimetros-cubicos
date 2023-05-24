@@ -9,7 +9,7 @@ function crearFormulario($accion)
         print '<div>';
         print "<label for='emailL'>Nombre:</label>";
         print '<div class="divOjo">';
-        print "<input id='nombre' type='text' name='emailL' placeholder='Noobmaster' required>";
+        print "<input id='nombre' autocomplete='off' type='text' name='emailL' placeholder='Noobmaster' required>";
         print '</div>';
         print '</div>';
 
@@ -43,7 +43,7 @@ function crearFormulario($accion)
         print '<div>';
         print "<label for='nombreR'>Nombre:</label>";
         print '<div class="divOjo">';
-        print "<input id='nombre' type='text' name='nombreR' placeholder='Noobmaster' required>";
+        print "<input id='nombre' autocomplete='off' type='text' name='nombreR' placeholder='Noobmaster' required>";
         print '</div>';
         print '</div>';
 
