@@ -1,5 +1,4 @@
 let body = document.getElementsByTagName('body')[0];
-let admin = document.getElementById('admin');
 let main = document.getElementsByTagName('main')[0];
 let formularios = document.forms;
 let formulario1 = formularios[0];
@@ -20,17 +19,14 @@ let usuariosRegistrados = [
 let usuarioExistente = false;
 
 function registrar() {
-    main.removeChild(admin);
     main.appendChild(formulario2);
     main.removeChild(formulario1);
-    main.appendChild(admin);
 }
 
 function volverLogin() {
-    main.removeChild(admin);
     main.appendChild(formulario1);
     main.removeChild(formulario2);
-    main.appendChild(admin);
+
 
 }
 

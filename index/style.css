@@ -3,10 +3,12 @@ html {
 }
 
 body {
+    background-color: rgb(204, 204, 204);
     margin: 0;
 }
 
 nav {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: darkblue;
     padding: 0;
 
@@ -110,6 +112,7 @@ nav ul a {
 }
 
 main {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,7 +140,7 @@ main section:first-child {
 
 .noticia {
     border: 2px solid black;
-
+    background-color: aliceblue;
     width: 80%;
 
     margin: 5px;
@@ -230,12 +233,12 @@ th {
 }
 
 tbody tr:nth-child(2n - 1) {
-    background-color: blue;
+    background-color: rgb(80, 80, 255);
     color: white;
 }
 
 tbody tr:nth-child(2n) {
-    background-color: lightblue;
+    background-color: rgb(133, 216, 244);
 }
 
 td {

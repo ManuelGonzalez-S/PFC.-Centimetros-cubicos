@@ -23,14 +23,7 @@ class database
         return $gbd;
     }
 
-    public function getTablaToArray($tabla)
-    {
-        if ($tabla != null) {
-            $sql = "SELECT * FROM $tabla";
-            $resultados = self::conectar()->query($sql);
-            return $resultados->fetchAll(PDO::FETCH_ASSOC);
-        }
-    }
+
     public function getTabla($tabla)
     {
         if ($tabla != null) {
@@ -111,12 +104,11 @@ class database
 
     function getEquipoCircuito()
     {
-        $sql = "SELECT circuitos.*, temporadas.nombre as 'temporada' FROM circuitos
+        $sql = "SELECT circuitos.*, temporadas.nombre as 'Temporada' FROM circuitos
             INNER JOIN temporadas on circuitos.temporadas_id = temporadas.id;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
-
 
     function getTablaenBaseAID($tabla, $id, $limit)
     {
@@ -148,34 +140,10 @@ class database
 
     function ejecutarSql($sql)
     {
-
         if ($sql != null) {
             $resultados = self::conectar()->query($sql);
-
             return $resultados;
         }
-
-    }
-
-    function getTablaID($tabla, $id)
-    {
-        $sql = "select * from $tabla where id = $id;";
-        $resultados = self::conectar()->query($sql);
-        return $resultados->fetch(PDO::FETCH_ASSOC);
-    }
-
-    function getMaxId($tabla)
-    {
-        $sql = "select max(id) from $tabla;";
-        $resultados = self::conectar()->query($sql);
-        return $resultados->fetch(PDO::FETCH_ASSOC);
-    }
-
-    function getIds($tabla)
-    {
-        $sql = "select id from $tabla;";
-        $resultados = self::conectar()->query($sql);
-        return $resultados->fetch(PDO::FETCH_ASSOC);
     }
 
     public function delete($tabla, $id)
