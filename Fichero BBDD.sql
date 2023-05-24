@@ -45,9 +45,10 @@ create table if not exists Coches (
   constraint foreign key (Equipos_id) references Equipos (id)
     );
 
-create table if not exists Temporada (
+create table if not exists Temporadas (
   id int not null auto_increment,
   Ganador int,
+  nombre varchar(50),
   primary key (id),
   constraint foreign key (Ganador) references Pilotos (id)
   );
@@ -59,7 +60,7 @@ create table if not exists Circuitos (
   Numero_de_curvas int not null,
   Temporada_id int not null,
   primary key (id),
-  constraint foreign key(Temporada_id) references Temporada (id)
+  constraint foreign key(Temporada_id) references Temporadas (id)
     );
 
 create table if not exists Pilotos_has_Circuitos (
@@ -72,9 +73,47 @@ create table if not exists Pilotos_has_Circuitos (
 create table if not exists Temporada_has_circuitos (
 	Temporada_id int not null,
     Circuito_id int not null,
-    constraint foreign key (Temporada_id) references Temporada (id),
+    constraint foreign key (Temporada_id) references Temporadas (id),
     constraint foreign key (Circuito_id) references Circuitos (id)
 );
+
+create table if not exists noticias (
+	id int primary key auto_increment,
+    titulo text,
+    descripcion text,
+    rutaImagen text
+);
+
+create table if not exists usuarios(
+	id int primary key auto_increment,
+    nombre varchar(50),
+    contraseña varchar(50),
+    permisos TINYINT(1) not null
+);
+
+/*
+	INSERCIONES USUARIOS
+*/
+insert into usuarios (nombre, contraseña, permisos) values ('admin','Asdasd12.',1);
+insert into usuarios (nombre, contraseña, permisos) values ('Pepe','Pepito34.',0);
+insert into usuarios (nombre, contraseña, permisos) values ('Lola','Lolita34.',0);
+select * from usuarios;
+
+/*
+	INSERCIONES NOTICIAS
+*/
+insert into noticias (titulo, descripcion, rutaImagen) values
+('Fernando ilusiona', 'Fernando lleva una racha de podios que ilusiona a sus fans', "img/FernandoAlonso'Elnano'.jpg"),
+('Red Bull adquiere ventaja esta temporada','Se espera que Red Bull gane con facilidad esta temporada al ritmo especulado. Sin embargo, hay mal ambiente entre los pilotos','img/redbull.jpg'),
+('Aston Martin busca mejorar en Mónaco','El equipo de "El nano" instalará un alerón delantero específico para el circuito buscando la 33', 'img/astonmartin.jpg'),
+('Hamilton y la suculenta oferta que manejaría Ferrari para ficharle','Según el "Daily Mail", el cuadro de Maranello piensa convencer a Lewis ofreciéndole más de 40 millones de contrato','img/ferrari.jpg'),
+('¿Fórmula Uno en Madrid? Hay muchas pistas que demuestran que la cosa va en serio','Madrid ya tiene diseñado su circuito de F1: de IFEMA a Valdebebas pasando por debajo de la M-11 y entre muros','img/f1Madrid.jpg');
+
+select * from noticias;
+/*
+	INSERCIONES TEMPORADAS
+*/
+insert into temporadas (nombre) values ('2023');
 
 /*
 	INSERCIONES EQUIPOS
@@ -762,19 +801,19 @@ insert into patrocinadores (Nombre, Equipos_id) values ('Umbro', 10);
 
 /* Lewis Hamilton
 */
-update pilotos set Puntos = 38 where id= 1;
+update pilotos set Puntos = 56 where id= 1;
 
 /* George Russell
 */
-update pilotos set Puntos = 18 where id= 2;
+update pilotos set Puntos = 40 where id= 2;
 
 /* Esteban Ocon
 */
-update pilotos set Puntos = 4 where id= 3;
+update pilotos set Puntos = 6 where id= 3;
 
 /* Pierre Gasly
 */
-update pilotos set Puntos = 4 where id= 4;
+update pilotos set Puntos = 8 where id= 4;
 
 /* Niko Hulkenberg
 */
@@ -782,11 +821,11 @@ update pilotos set Puntos = 6 where id= 5;
 
 /* Kevin Magnussen
 */
-update pilotos set Puntos = 1 where id= 6;
+update pilotos set Puntos = 2 where id= 6;
 
 /* Lando Norris
 */
-update pilotos set Puntos = 8 where id= 7;
+update pilotos set Puntos = 10 where id= 7;
 
 /* Oscar Piastri
 */
@@ -794,23 +833,23 @@ update pilotos set Puntos = 4 where id= 8;
 
 /* Max Verstappen
 */
-update pilotos set Puntos = 69 where id= 9;
+update pilotos set Puntos = 119 where id= 9;
 
 /* Sergio 'Checo' Pérez
 */
-update pilotos set Puntos = 54 where id= 10;
+update pilotos set Puntos = 105 where id= 10;
 
 /* Fernando Alonso 'El nano'
 */
-update pilotos set Puntos = 45 where id= 11;
+update pilotos set Puntos = 75 where id= 11;
 
 /* Lance Stroll
 */
-update pilotos set Puntos = 20 where id= 12;
+update pilotos set Puntos = 27 where id= 12;
 
 /* Yuki Tsunoda
 */
-update pilotos set Puntos = 1 where id= 13;
+update pilotos set Puntos = 2 where id= 13;
 
 /* Nyck De Vries
 */
@@ -818,11 +857,11 @@ update pilotos set Puntos = 0 where id= 14;
 
 /* Charles Leclerc
 */
-update pilotos set Puntos = 6 where id= 15;
+update pilotos set Puntos = 34 where id= 15;
 
 /* Carlos Sainz
 */
-update pilotos set Puntos = 20 where id= 16;
+update pilotos set Puntos = 44 where id= 16;
 
 /* Valtteri Bottas
 */
@@ -851,6 +890,8 @@ update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 9) where id = 9;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 10) where id = 10;
 
+select * from usuarios;
+
 drop function if exists verEquipo;
 delimiter $$
 create function verEquipo(num1 int)
@@ -863,7 +904,24 @@ select nombre into nombreEquipo from equipos where id = num1;
 
 return nombreEquipo;
 
-end
-$$
+end $$
+delimiter ;
+
+delimiter $$
+Create trigger eliminarConductorBD before delete on equipos
+for each row
+begin
+	-- Codigo SQL necesario (Acciones)
+    UPDATE pilotos set Equipos_id = null WHERE Equipos_id = old.id;
+end $$
+
+delimiter ;
+
+select * from pilotos where Equipos_id = 0;
 
 select verEquipo(8) as 'equipo';
+select * from temporadas;
+select * from circuitos;
+
+SELECT circuitos.*, temporadas.nombre as 'temporada' FROM circuitos
+INNER JOIN temporadas on circuitos.Temporada_id = temporadas.id;
