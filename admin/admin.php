@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 session_start();
 
 if(isset($_SESSION['user'])){
@@ -143,7 +141,7 @@ function imprimirTabla($nombreTabla)
 
     foreach ($resultados as $row) {
         print '<tr><td>
-        <a><button value=" ' . $row['id'] . '">update</button></a>
+        <a href="../update/edit.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button value=" ' . $row['id'] . '">update</button></a>
         <a href="delete.php?id=' . $row['id'] . '"><button>delete</button></a>
         </td>';
         for ($i = 1; $i < sizeof($cabeceras); $i++) {

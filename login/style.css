@@ -17,11 +17,12 @@ form{
     width: 60%;
     padding: 50px;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     margin-top: 140px;
     margin-bottom: 20px;
     background-color: gainsboro;
+
+    flex-direction: column;
 }
 
 .peticion{
@@ -43,6 +44,8 @@ section{
     width: 100%;
     text-align: center;
     margin: 60px;
+
+    padding-bottom: 15px;
 }
 
 h2{
@@ -57,39 +60,8 @@ form p{
     margin: 15px;
 }
 
-button:hover{
-    background-color: rgb(0, 0, 187);
-    border: 2px solid black;
-}
-
-.botones{
-    display: flex;
-    width: 90%;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 30px;
-
-    flex-direction: column;
-}
-
-.botones button{
-    margin: 20px;
-}
-
 input{
     margin-left: 20px;
-}
-
-input:focus{
-    background-color: lightblue;
-}
-
-button{
-    background-color:darkblue;
-    border-radius: 12px;
-    color: white;
-    border: none;
-    height: 40px;
 }
 
 nav{
@@ -139,23 +111,193 @@ nav ul a{
     transition: all 0.5s ease;
 }
 
-.correcto{
-    background-color: #a6ff9cae;
-
+main{
+    display: flex;
+    flex-direction: column;
 }
 
-.incorrecto{
-    background-color: #fa8282a2;
+form div{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 10px;
 }
 
-.mal{
-    text-align:right;
+form button{
+    margin-bottom: 10px;
+}
+
+label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form div input{
+    padding: 5px;
+
+    border: none;
+
+    background-color: rgba(0, 0, 0, 0);
+
+    width: 100%;
+
+    height: 100%;
+}
+
+form section{
+    margin: 0;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputInvalido{
     color: red;
-    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.bien{
-    text-align:center;
-    color: green;
-    width: 100%;
+.inputValido{
+    color: darkgreen;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+button{
+
+    border: none;
+
+    margin-top: 10px;
+    padding: 12px;
+
+    border-radius: 12px;
+
+}
+
+button:enabled{
+
+    background-color:darkblue;
+    
+    color: white;
+
+    transition: .5s;
+    
+}
+
+button:enabled:hover{
+    transition: .5s;
+    background-color: rgb(0, 0, 187);
+    scale: 1.1;
+    cursor: pointer;
+}
+
+button:disabled{
+    background-color: grey;
+}
+
+button:disabled:hover{
+    cursor: not-allowed;
+}
+
+button[type="button"]{
+    padding: 5px;
+
+    background-color: rgba(0, 0, 0, 0);
+
+    margin-left: 4px;
+}
+
+button[type="button"]:hover{
+    transition: .5s;
+    cursor: pointer;
+
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#ojoVisible{
+    max-height: 29px;
+}
+
+#visibleContra{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    align-self: right;
+}
+
+#visibleContraCopia{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    align-self: right;
+}
+
+#ojoVisibleCopia{
+    max-height: 29px;
+}
+
+#mensajeContra{
+    color: red;
+    margin: 10px;
+
+    text-align: center;
+}
+
+#mensajeNombre{
+    color: red;
+    margin: 10px;
+
+    text-align: center;
+
+    padding-bottom: 10px;
+}
+
+input:focus{
+    outline: none;
+}
+
+.divOjo{
+
+    padding-right: 10px;
+
+    background-color: antiquewhite;
+
+    border: 1px solid black;
+
+    border-radius: 20px;
+
+    width: 250px;
+}
+
+div p{
+    text-align: center;
+}
+
+input[name="nombreR"]{
+
+    padding: 10px;
+
+    background-color: antiquewhite;
+
+    border-radius: 20px;
+
+}
+
+#botonEnviar{
+    width: 20%;
+
+    align-self: center;
+}
+
+#ultimo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    padding-bottom: 30px;
 }

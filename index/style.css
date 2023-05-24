@@ -109,6 +109,10 @@ nav ul a {
     border-radius: 20px;
 }
 
+#usuario:hover{
+    cursor: inherit;
+}
+
 main {
     display: flex;
     justify-content: center;

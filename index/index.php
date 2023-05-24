@@ -110,7 +110,7 @@ function obtenerNoticiasAleatorias($conexion)
 
                 print '</li>';
             } else {
-                print '<a href="../login/login.html
+                print '<a href="../login/login.php?accion=login
                 ">
                             <li>LOGIN</li>
                         </a>';

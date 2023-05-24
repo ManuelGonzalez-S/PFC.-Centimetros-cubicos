@@ -1,168 +1,161 @@
-let body = document.getElementsByTagName('body')[0];
-let main = document.getElementsByTagName('main')[0];
-let formularios = document.forms;
-let formulario1 = formularios[0];
-let formulario2 = formularios[1];
+let regexText= /^[^\d]{4,}$/;
 
-let valPass = /(?=.*\d{2})(?=.*[A-Z])+((?=.*[. - _ , =])+).{7,}/;
-let valString = /^[a-zA-Z]{3,25}$/;
+let nombre = document.getElementById('nombre');
 
-let correcto = false;
-let nombreVal = false;
-let apellidoVal = false;
-let emailVal = false;
-let passVal = false;
-let pass2Val = false;
-mensaje = document.getElementsByTagName('span')[1];
-mensajeLog = document.getElementsByTagName('span')[0];
-let usuarioExistente = false;
+nombre.setAttribute('onkeyup', 'validarInputNombre()');
 
-function registrar() {
-    main.appendChild(formulario2);
-    main.removeChild(formulario1);
+let mensajeNombre = document.getElementById('mensajeNombre');
 
-    validarBoton();
-}
+function validarInputNombre(){
 
-function volverLogin() {
-    main.appendChild(formulario1);
-    main.removeChild(formulario2);
+    if(nombre.value.length > 0){
+        console.log('Tiene contenido');
+        if(regexText.test(nombre.value)){
+            nombre.classList.remove('inputInvalido');
+            nombre.classList.add('inputValido');
 
-    validarBoton();
-}
+            mensajeNombre.innerHTML = '';
+        }else{
+            nombre.classList.remove('inputValido');
+            nombre.classList.add('inputInvalido');
 
-function cargarLogin() {
-    main.removeChild(formulario2);
-}
-
-function validarString(indice, nombre) {
-    nombreR = formulario2['elements'][nombre]['value']
-    if (valString.test(nombreR)) {
-        formulario2[indice].classList.remove('incorrecto');
-        formulario2[indice].classList.add('correcto');
-        if (indice == 0) {
-            nombreVal = true;
-        } else {
-            apellidoVal = true;
+            mensajeNombre.innerHTML = 'No se admiten numeros ni nombres de menos de 4 letras';
+    
         }
-    } else {
-        formulario2[indice].classList.remove('correcto');
-        formulario2[indice].classList.add('incorrecto');
-        if (indice == 0) {
-            nombreVal = false;
-        } else {
-            apellidoVal = false;
+        validarBoton();
+    }else{
+        nombre.classList.remove('inputValido');
+        nombre.classList.remove('inputInvalido');
+
+        mensajeNombre.innerHTML = '';
+    }
+    
+}
+
+let contraseña = document.getElementById('contraseña');
+
+contraseña.setAttribute('onkeyup','validarInputContra()');
+
+let regexPass= /(?=.*\d{2})(?=.*[A-Z])+((?=.*[. - _ , =])+).{7,}/;
+
+function validarInputContra(){
+
+    if(contraseña.value.length > 0){
+        if(regexPass.test(contraseña.value)){
+            contraseña.classList.remove('inputInvalido');
+            contraseña.classList.add('inputValido');
+
+            if(contraseñaCopia != null){
+                validarInputContraIguales();
+            }else{
+                mensajeContra.innerHTML = '';
+            }
+            
+        }else{
+            contraseña.classList.remove('inputValido');
+            contraseña.classList.add('inputInvalido');
+    
+            if(contraseñaCopia == null){
+                mensajeContra.innerHTML = 'La contraseña no cumple los requisitos';
+            }
         }
+    
+        validarBoton();
+    }else{
+        contraseña.classList.remove('inputValido');
+        contraseña.classList.remove('inputInvalido');
+
+        mensajeContra.innerHTML = '';
     }
+    
+
 }
 
-function validarPass(indice, n, nombre) {
-    if (valPass.test(formularios[n]['elements'][nombre]['value'])) {
-        formularios[n][indice].classList.remove('incorrecto');
-        formularios[n][indice].classList.add('correcto');
-        mensaje.innerHTML = ""
-        passVal = true;
-    } else {
-        formularios[n][indice].classList.remove('correcto');
-        formularios[n][indice].classList.add('incorrecto');
-        passVal = false;
-    }
-    if (formulario2['elements']['passR']['value'] != formulario2['elements']['pass2R']['value']) {
-        formularios[n][indice + 1].classList.remove('correcto');
-        formularios[n][indice + 1].classList.add('incorrecto');
-        mensaje.classList.remove('bien');
-        mensaje.classList.add('mal');
-        mensaje.innerHTML = 'Las contraseñas no coinciden';
-        pass2Val = false;
-    } else {
-        formulario2[indice + 1].classList.remove('incorrecto');
-        formulario2[indice + 1].classList.add('correcto');
-        mensaje.classList.add('bien');
-        mensaje.classList.remove('mal');
-        mensaje.innerHTML = "";
-        pass2Val = true;
-    }
-}
 
-function validarRepetirPass(indice) {
+let inputs = document.getElementsByTagName('input');
 
-    if (!(formulario2['elements']['passR']['value'] == formulario2['elements']['pass2R']['value'])) {
-        formulario2[indice].classList.remove('correcto');
-        formulario2[indice].classList.add('incorrecto');
-        mensaje.classList.remove('bien');
-        mensaje.classList.add('mal');
-        mensaje.innerHTML = 'Las contraseñas no coinciden';
-        pass2Val = false;
-    } else {
-        formulario2[indice].classList.remove('incorrecto');
-        formulario2[indice].classList.add('correcto');
-        mensaje.classList.add('bien');
-        mensaje.classList.remove('mal');
-        mensaje.innerHTML = ""
-        pass2Val = true;
-    }
-}
-
-function esCorrecto() {
-    if (nombreVal && apellidoVal && emailVal && passVal && pass2Val) {
-        nom = formulario2['elements']['nombreR']['value'];
-        ape = formulario2['elements']['apellidoR']['value'];
-        user = formulario2['elements']['emailR']['value'];
-        pas = formulario2['elements']['passR']['value'];
-        correcto = true;
-        usuariosRegistrados.push([nom, ape, user, pas]);
-        console.log(usuariosRegistrados);
-        mensaje.classList.remove('mal');
-        mensaje.classList.add('bien');
-        mensaje.innerHTML = "Registro exitoso";
-    } else {
-        correcto = false;
-    }
-}
-
-const botonConfirmar = document.getElementsByClassName('botonconfirmar');
+let botonEnviar = document.getElementById('botonEnviar');
 
 function validarBoton(){
 
     let inputsValidos = document.getElementsByClassName('inputValido');
 
-    let inputs = document.getElementsByTagName('input');
-
-    for (boton in botonConfirmar) {
-
-        if(inputsValidos.length == inputs.length){
-            boton.setAttribute('class','botonValido');
-            boton.disabled = false;
-        }else{
-            boton.setAttribute('class','botonInvalido');
-            boton.disabled = true;
-        }
-
+    if(inputsValidos.length == inputs.length - 1){
+        botonEnviar.disabled = false;
+    }else{
+        botonEnviar.disabled = true;
     }
-
 }
 
-let inputsLogin = document.getElementsByClassName('inputLogin');
+let botonVisibilidad = document.getElementById('visibleContra');
 
-for (let i = 0; i < inputsLogin.length; i++) {
-    inputsLogin[i].setAttribute('onkeyup', 'validarInputTexto(' + i + ')');
-}
+let imagen = document.getElementById('ojoVisible');
 
-function validarInputLogin(posicion) {
-
-    let input = inputsTextos[posicion];
-
-    let valor = input.value.trim();
-    let contieneNumeros = /[0-9]/.test(valor); // Verifica si el valor contiene números
-    let letras = valor.match(/[a-zA-Z]/g); // Busca todas las letras en el valor
-
-    if (!contieneNumeros && letras && letras.length >= 4) {
-        input.classList.remove("inputInvalido");
-        input.classList.add("inputValido");
+botonVisibilidad.addEventListener("click", function() {
+    if (contraseña.type === "password") {
+        contraseña.type = "text";
+        imagen.src= "../img/ojoAbierto.png";
     } else {
-        input.classList.remove("inputValido");
-        input.classList.add("inputInvalido");
+        contraseña.type = "password";
+        imagen.src= "../img/ojoCerrado.png";
     }
+});
 
-    validarBoton();
+
+
+// SOLO APARECE EN REGISTER
+let contraseñaCopia = document.getElementById('contraseñaCopia');
+
+let imagenCopia = document.getElementById('ojoVisibleCopia');
+
+let botonVisibilidadCopia = document.getElementById('visibleContraCopia');
+
+if(botonVisibilidadCopia != null){
+    botonVisibilidadCopia.addEventListener("click", function() {
+        if (contraseñaCopia.type === "password") {
+            contraseñaCopia.type = "text";
+            imagenCopia.src= "../img/ojoAbierto.png";
+        } else {
+            contraseñaCopia.type = "password";
+            imagenCopia.src= "../img/ojoCerrado.png";
+        }
+    });
+}
+
+
+if(contraseñaCopia != null){
+    contraseñaCopia.setAttribute('onkeyup','validarInputContraIguales()');
+}
+
+let mensajeContra = document.getElementById('mensajeContra');
+
+function validarInputContraIguales(){
+
+    if(contraseña.value.length > 0 || contraseñaCopia.value.length > 0){
+        if(regexPass.test(contraseñaCopia.value) && (contraseña.value == contraseñaCopia.value)){
+            contraseñaCopia.classList.remove('inputInvalido');
+            contraseñaCopia.classList.add('inputValido');
+
+            mensajeContra.innerHTML = '';
+            
+        }else{
+            contraseñaCopia.classList.remove('inputValido');
+            contraseñaCopia.classList.add('inputInvalido');
+
+            mensajeContra.innerHTML = 'Las contraseñas no coiciden o no cumplen los requisitos';
+    
+        }
+    
+        validarBoton();
+
+    }else{
+
+        contraseñaCopia.classList.remove('inputValido');
+        contraseñaCopia.classList.remove('inputInvalido');
+
+        mensajeContra.innerHTML = '';
+
+    }
+    
+
 }
