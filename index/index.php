@@ -91,7 +91,7 @@ function obtenerNoticiasAleatorias($conexion)
                 print $_SESSION['user']['nombre'];
                 print '</button>';
                 print '<div>';
-                print '<img src="../img/user.png" alt="Opciones de usuario">';
+                print '<img id="userImg" src="../img/user.png" alt="Opciones de usuario">';
                 print '</div>';
                 print '<ul id="menu" class="submenu">';
                 if ($_SESSION['user']['permisos'] == '1') {

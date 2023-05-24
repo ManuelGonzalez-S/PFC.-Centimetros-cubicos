@@ -7,9 +7,11 @@ session_start();
 if(isset($_SESSION['user'])){
 
     if($_SESSION['user']['permisos'] == '0'){
-        header('Location../index/index.php');
+        header('Location: ../index/index.php');
     }
 
+}else{
+    header('Location: ../index/index.php');
 }
 
 require_once('../database.php');
