@@ -130,7 +130,7 @@ function crearPalmares($id, $database)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="equipo.css">
-    <title>Document</title>
+    <title>Equipos</title>
 </head>
 
 <body>
@@ -148,9 +148,6 @@ function crearPalmares($id, $database)
             </a>
             <a href="../index/index.php#equipos">
                 <li>EQUIPOS</li>
-            </a>
-            <a href="../login/login.html">
-                <li>LOGIN</li>
             </a>
             <?php
             if (isset($_SESSION['user'])) {
@@ -179,7 +176,7 @@ function crearPalmares($id, $database)
 
                 print '</li>';
             } else {
-                print '<a href="../login/login.html
+                print '<a href="../login/login.php?accion=login
                 ">
                             <li>LOGIN</li>
                         </a>';
