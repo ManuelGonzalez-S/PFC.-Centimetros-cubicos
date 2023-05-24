@@ -130,7 +130,7 @@ function imprimirTabla($nombreTabla)
             break;
         case "circuitos":
             $resultados = $database->getEquipoCircuito();
-            $cabeceras = ["Acciones", "id", "nombre", "Longitud", "Numero_de_curvas", "Temporada"];
+            $cabeceras = ["Acciones", "id", "nombre", "Longitud", "Numero_de_curvas", "temporada"];
             break;
         case "patrocinadores":
             $resultados = $database->getEquipoPatrocinado();
@@ -411,6 +411,6 @@ function crearForm($aux, $database)
     <footer></footer>
 
 </body>
-<script src="admin.js"></script>
+<script src="app.js"></script>
 
 </html>

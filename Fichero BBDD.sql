@@ -58,9 +58,9 @@ create table if not exists Circuitos (
   nombre varchar(45) not null,
   Longitud varchar(45) not null,
   Numero_de_curvas int not null,
-  Temporada_id int not null,
+  Temporadas_id int not null,
   primary key (id),
-  constraint foreign key(Temporada_id) references Temporadas (id)
+  constraint foreign key(Temporadas_id) references Temporadas (id)
     );
 
 create table if not exists Pilotos_has_Circuitos (
@@ -71,9 +71,9 @@ create table if not exists Pilotos_has_Circuitos (
     );
     
 create table if not exists Temporada_has_circuitos (
-	Temporada_id int not null,
+	Temporadas_id int not null,
     Circuito_id int not null,
-    constraint foreign key (Temporada_id) references Temporadas (id),
+    constraint foreign key (Temporadas_id) references Temporadas (id),
     constraint foreign key (Circuito_id) references Circuitos (id)
 );
 
@@ -103,7 +103,7 @@ select * from usuarios;
 	INSERCIONES NOTICIAS
 */
 insert into noticias (titulo, descripcion, rutaImagen) values
-('Fernando ilusiona', 'Fernando lleva una racha de podios que ilusiona a sus fans', "img/FernandoAlonso'Elnano'.jpg"),
+('Fernando ilusiona', 'Fernando lleva una racha de podios que ilusiona a sus fans', 'img/FernandoAlonso.jpg'),
 ('Red Bull adquiere ventaja esta temporada','Se espera que Red Bull gane con facilidad esta temporada al ritmo especulado. Sin embargo, hay mal ambiente entre los pilotos','img/redbull.jpg'),
 ('Aston Martin busca mejorar en Mónaco','El equipo de "El nano" instalará un alerón delantero específico para el circuito buscando la 33', 'img/astonmartin.jpg'),
 ('Hamilton y la suculenta oferta que manejaría Ferrari para ficharle','Según el "Daily Mail", el cuadro de Maranello piensa convencer a Lewis ofreciéndole más de 40 millones de contrato','img/ferrari.jpg'),
@@ -171,36 +171,36 @@ insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Logan Sarge
     FUENTE: https://www.caranddriver.com/es/formula-1/calendario/g41289401/formula-1-calendario-2023/
 */
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Bahréin','5.412 km', 15, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Arabia Saudi','6.175 km', 27, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Australia','5.303 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Bahréin','5.412 km', 15, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Arabia Saudi','6.175 km', 27, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Australia','5.303 km', 16, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Azerbaiyán','6.003 km', 20, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Miami','5.41 km', 19, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Emilia Romaña','4.908 km', 20, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Azerbaiyán','6.003 km', 20, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Miami','5.41 km', 19, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Emilia Romaña','4.908 km', 20, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Mónaco','3.34 km', 19, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de España','4.655 km', 16, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Canadá','4.361 km', 12, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Mónaco','3.34 km', 19, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de España','4.655 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Canadá','4.361 km', 12, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Austria','4.326 km', 10, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Gran Bretaña','5.891 km', 18, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Hungría','4.381 km', 14, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Austria','4.326 km', 10, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Gran Bretaña','5.891 km', 18, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Hungría','4.381 km', 14, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Bélgica','7.004 km', 19, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de los Países Bajos','4.259 km', 14, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Italia','5.793 km', 11, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Bélgica','7.004 km', 19, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de los Países Bajos','4.259 km', 14, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Italia','5.793 km', 11, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Singapur','5.073 km', 23, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Japón','5.807 km', 18, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Qatar','5.380 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Singapur','5.073 km', 23, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Japón','5.807 km', 18, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Qatar','5.380 km', 16, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de los Estados Unidos','5.513 km', 20, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de México','4.421 km', 16, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Sao Paulo','4.309 km', 15, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de los Estados Unidos','5.513 km', 20, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de México','4.421 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Sao Paulo','4.309 km', 15, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Las Vegas','Por confirmar', 14, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Abu Dhabi','5.554 km', 21, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Las Vegas','Por confirmar', 14, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Abu Dhabi','5.554 km', 21, 1);
 
 /*
 	INSERCIONES PILOTOS_HAS_CIRCUITOS
@@ -908,20 +908,32 @@ end $$
 delimiter ;
 
 delimiter $$
-Create trigger eliminarConductorBD before delete on equipos
+Create trigger UpdatePilotosBD before delete on equipos
 for each row
 begin
 	-- Codigo SQL necesario (Acciones)
     UPDATE pilotos set Equipos_id = null WHERE Equipos_id = old.id;
+    UPDATE coches set Equipos_id = null WHERE Equipos_id = old.id;
+    UPDATE patrocinadores set Equipos_id = null WHERE Equipos_id = old.id;
 end $$
 
 delimiter ;
 
-select * from pilotos where Equipos_id = 0;
+delimiter $$
+Create trigger UpdateCochesBD before delete on pilotos
+for each row
+begin
+	-- Codigo SQL necesario (Acciones)
+    UPDATE coches set Pilotos_id = null WHERE Pilotos_id = old.id;
+end $$
 
+delimiter ;
+
+select * from coches;
+use centimetroscubicos;
 select verEquipo(8) as 'equipo';
 select * from temporadas;
-select * from circuitos;
+select * from usuarios;
 
 SELECT circuitos.*, temporadas.nombre as 'temporada' FROM circuitos
-INNER JOIN temporadas on circuitos.Temporada_id = temporadas.id;
+INNER JOIN temporadas on circuitos.temporadas_id = temporadas.id;
