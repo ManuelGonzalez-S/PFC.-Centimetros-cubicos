@@ -909,16 +909,28 @@ end $$
 delimiter ;
 
 delimiter $$
-Create trigger eliminarConductorBD before delete on equipos
+Create trigger UpdatePilotosBD before delete on equipos
 for each row
 begin
 	-- Codigo SQL necesario (Acciones)
     UPDATE pilotos set Equipos_id = null WHERE Equipos_id = old.id;
+    UPDATE coches set Equipos_id = null WHERE Equipos_id = old.id;
+    UPDATE patrocinadores set Equipos_id = null WHERE Equipos_id = old.id;
 end $$
 
 delimiter ;
 
-select * from pilotos where Equipos_id = 0;
+delimiter $$
+Create trigger UpdateCochesBD before delete on pilotos
+for each row
+begin
+	-- Codigo SQL necesario (Acciones)
+    UPDATE coches set Pilotos_id = null WHERE Pilotos_id = old.id;
+end $$
+
+delimiter ;
+
+select * from coches;
 
 select verEquipo(8) as 'equipo';
 select * from temporadas;

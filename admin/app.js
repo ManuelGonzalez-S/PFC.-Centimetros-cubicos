@@ -1,61 +1,77 @@
-let valStrings = /^[a-zA-Z\s]{1,}$/;
-let valNumber = /^\d+$/;
-let form = document.forms[0];
-let datos = [];
+let dialog = document.getElementsByTagName('dialog')[0];
 
-function recogerInputs() {
-    let num;
-    let i = 2;
-    parar = false
-    
-    while (!parar) {
-        num = form[i];
-        i++;
-        if (num.tagName == 'BUTTON') {
-            parar = true;
-        } else if (num.tagName == 'INPUT') {
-            datos.push(num)
-        }
+let inputs = document.getElementsByTagName('input');
+
+let inputsNumeros = document.getElementsByClassName('inputNumero');
+let inputsTextos = document.getElementsByClassName('inputTexto');
+
+let botonConfirmar = document.getElementById('botonConfirmar');
+
+function validarBoton(){
+
+    let inputsValidos = document.getElementsByClassName('inputValido');
+
+    if(inputsValidos.length == inputs.length - 2){
+        botonConfirmar.setAttribute('id','botonConfirmar');
+        botonConfirmar.disabled = false;
+    }else{
+        botonConfirmar.setAttribute('id','botonInvalido');
+        botonConfirmar.disabled = true;
     }
-    return datos
+
 }
 
-recogerInputs();
-console.log(document.getElementsByTagName('input').length);
+cargar();
 
-function addRegex(){
-    for (i =0; i <datos.length;i++){
-        console.log(datos[i])
-        datos[i].setAttribute('onkeyup', `validar(name)`)
+validarBoton();
+
+function cargar() {
+
+    for (let i = 0; i < inputsNumeros.length; i++) {
+        inputsNumeros[i].setAttribute('onkeyup', 'validarInputNumero(' + i + ')');
+    }
+
+    for (let i = 0; i < inputsTextos.length; i++) {
+        inputsTextos[i].setAttribute('onkeyup', 'validarInputTexto(' + i + ')');
     }
 }
 
-function validar(nombre){
-    nombreAux = form['elements'][nombre]['value'];
-    dato = form['elements'][nombre]['type'];
-    let regexEval = /^$/;
-    if (dato == 'text'){
-        regexEval = valStrings;
-    } else if (dato == 'number'){
-        regexEval = valNumber;
+let regex = /^\d+$/;
+
+function validarInputNumero(posicion) {
+
+    let input = inputsNumeros[posicion];
+
+    let regex = /^\d+$/;
+
+    let esNumerico = regex.test(input.value);
+
+    if (esNumerico) {
+        input.classList.remove("inputInvalido");
+        input.classList.add("inputValido");
+    } else {
+        input.classList.remove("inputValido");
+        input.classList.add("inputInvalido");
     }
-    if (regexEval.test(nombreAux)){
-        form['elements'][nombre].classList.add('correcto');
-        form['elements'][nombre].classList.remove('incorrecto');
-    } else if (!regexEval.test(nombreAux)){
-        form['elements'][nombre].classList.add('incorrecto');
-        form['elements'][nombre].classList.remove('correcto');
-    }
-    
+
+    validarBoton();
 }
-console.log(form[0]['elements']);
 
+function validarInputTexto(posicion) {
 
+    let input = inputsTextos[posicion];
 
-// continuar();
+    let valor = input.value.trim();
+    let contieneNumeros = /[0-9]/.test(valor); // Verifica si el valor contiene números
+    let letras = valor.match(/[a-zA-Z]/g); // Busca todas las letras en el valor
 
-// regexInput();
-addRegex();
-// console.log((form[0][7].tagName))
+    if (!contieneNumeros && letras && letras.length >= 4) {
+        input.classList.remove("inputInvalido");
+        input.classList.add("inputValido");
+    } else {
+        input.classList.remove("inputValido");
+        input.classList.add("inputInvalido");
+    }
 
-
+    validarBoton();
+}

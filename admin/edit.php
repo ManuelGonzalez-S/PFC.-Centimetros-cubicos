@@ -106,6 +106,6 @@ $cabeceras = $database->switchTabla($tabla);
         ?>
     </form>
 </body>
-<script src="admin.js"></script>
+<script src="app.js"></script>
 
 </html>
