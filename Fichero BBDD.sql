@@ -45,9 +45,10 @@ create table if not exists Coches (
   constraint foreign key (Equipos_id) references Equipos (id)
     );
 
-create table if not exists Temporada (
+create table if not exists Temporadas (
   id int not null auto_increment,
   Ganador int,
+  nombre varchar(50),
   primary key (id),
   constraint foreign key (Ganador) references Pilotos (id)
   );
@@ -57,9 +58,9 @@ create table if not exists Circuitos (
   nombre varchar(45) not null,
   Longitud varchar(45) not null,
   Numero_de_curvas int not null,
-  Temporada_id int not null,
+  Temporadas_id int not null,
   primary key (id),
-  constraint foreign key(Temporada_id) references Temporada (id)
+  constraint foreign key(Temporadas_id) references Temporadas (id)
     );
 
 create table if not exists Pilotos_has_Circuitos (
@@ -70,11 +71,50 @@ create table if not exists Pilotos_has_Circuitos (
     );
     
 create table if not exists Temporada_has_circuitos (
-	Temporada_id int not null,
+	Temporadas_id int not null,
     Circuito_id int not null,
-    constraint foreign key (Temporada_id) references Temporada (id),
+    constraint foreign key (Temporadas_id) references Temporadas (id),
     constraint foreign key (Circuito_id) references Circuitos (id)
 );
+
+create table if not exists noticias (
+	id int primary key auto_increment,
+    titulo text,
+    descripcion text,
+    rutaImagen text,
+    mostrar TINYINT(1) not null
+);
+
+create table if not exists usuarios(
+	id int primary key auto_increment,
+    nombre varchar(50),
+    contraseña varchar(50),
+    permisos TINYINT(1) not null
+);
+
+/*
+	INSERCIONES USUARIOS
+*/
+insert into usuarios (nombre, contraseña, permisos) values ('admin','admin',1);
+insert into usuarios (nombre, contraseña, permisos) values ('Pepe','pepito',0);
+insert into usuarios (nombre, contraseña, permisos) values ('Lola','lolita',0);
+select * from usuarios;
+
+/*
+	INSERCIONES NOTICIAS
+*/
+insert into noticias (titulo, descripcion, rutaImagen, mostrar) values
+('Fernando ilusiona', 'Fernando lleva una racha de podios que ilusiona a sus fans', 'img/FernandoAlonso.jpg',1),
+('Red Bull adquiere ventaja esta temporada','Se espera que Red Bull gane con facilidad esta temporada al ritmo especulado. Sin embargo, hay mal ambiente entre los pilotos','img/redbull.jpg', 1),
+('Aston Martin busca mejorar en Mónaco','El equipo de "El nano" instalará un alerón delantero específico para el circuito buscando la 33', 'img/astonmartin.jpg', 1),
+('Hamilton y la suculenta oferta que manejaría Ferrari para ficharle','Según el "Daily Mail", el cuadro de Maranello piensa convencer a Lewis ofreciéndole más de 40 millones de contrato','img/ferrari.jpg',1),
+('¿Fórmula Uno en Madrid? Hay muchas pistas que demuestran que la cosa va en serio','Madrid ya tiene diseñado su circuito de F1: de IFEMA a Valdebebas pasando por debajo de la M-11 y entre muros','img/f1Madrid.jpg',1);
+
+select * from noticias;
+/*
+	INSERCIONES TEMPORADAS
+*/
+insert into temporadas (nombre) values ('2023');
 
 /*
 	INSERCIONES EQUIPOS
@@ -132,36 +172,36 @@ insert into pilotos (nombre,dorsal,nacionalidad,Equipos_id) values ('Logan Sarge
     FUENTE: https://www.caranddriver.com/es/formula-1/calendario/g41289401/formula-1-calendario-2023/
 */
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Bahréin','5.412 km', 15, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Arabia Saudi','6.175 km', 27, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Australia','5.303 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Bahréin','5.412 km', 15, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Arabia Saudi','6.175 km', 27, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Australia','5.303 km', 16, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Azerbaiyán','6.003 km', 20, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Miami','5.41 km', 19, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Emilia Romaña','4.908 km', 20, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Azerbaiyán','6.003 km', 20, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Miami','5.41 km', 19, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Emilia Romaña','4.908 km', 20, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Mónaco','3.34 km', 19, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de España','4.655 km', 16, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Canadá','4.361 km', 12, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Mónaco','3.34 km', 19, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de España','4.655 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Canadá','4.361 km', 12, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Austria','4.326 km', 10, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Gran Bretaña','5.891 km', 18, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Hungría','4.381 km', 14, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Austria','4.326 km', 10, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Gran Bretaña','5.891 km', 18, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Hungría','4.381 km', 14, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Bélgica','7.004 km', 19, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de los Países Bajos','4.259 km', 14, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Italia','5.793 km', 11, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Bélgica','7.004 km', 19, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de los Países Bajos','4.259 km', 14, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Italia','5.793 km', 11, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Singapur','5.073 km', 23, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Japón','5.807 km', 18, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Qatar','5.380 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Singapur','5.073 km', 23, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Japón','5.807 km', 18, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Qatar','5.380 km', 16, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de los Estados Unidos','5.513 km', 20, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de México','4.421 km', 16, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Sao Paulo','4.309 km', 15, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de los Estados Unidos','5.513 km', 20, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de México','4.421 km', 16, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Sao Paulo','4.309 km', 15, 1);
 
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Las Vegas','Por confirmar', 14, 1);
-insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporada_id) values ('Gran Premio de Abu Dhabi','5.554 km', 21, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Las Vegas','Por confirmar', 14, 1);
+insert into circuitos (Nombre, Longitud, Numero_de_curvas,Temporadas_id) values ('Gran Premio de Abu Dhabi','5.554 km', 21, 1);
 
 /*
 	INSERCIONES PILOTOS_HAS_CIRCUITOS
@@ -762,19 +802,19 @@ insert into patrocinadores (Nombre, Equipos_id) values ('Umbro', 10);
 
 /* Lewis Hamilton
 */
-update pilotos set Puntos = 38 where id= 1;
+update pilotos set Puntos = 56 where id= 1;
 
 /* George Russell
 */
-update pilotos set Puntos = 18 where id= 2;
+update pilotos set Puntos = 40 where id= 2;
 
 /* Esteban Ocon
 */
-update pilotos set Puntos = 4 where id= 3;
+update pilotos set Puntos = 6 where id= 3;
 
 /* Pierre Gasly
 */
-update pilotos set Puntos = 4 where id= 4;
+update pilotos set Puntos = 8 where id= 4;
 
 /* Niko Hulkenberg
 */
@@ -782,11 +822,11 @@ update pilotos set Puntos = 6 where id= 5;
 
 /* Kevin Magnussen
 */
-update pilotos set Puntos = 1 where id= 6;
+update pilotos set Puntos = 2 where id= 6;
 
 /* Lando Norris
 */
-update pilotos set Puntos = 8 where id= 7;
+update pilotos set Puntos = 10 where id= 7;
 
 /* Oscar Piastri
 */
@@ -794,23 +834,23 @@ update pilotos set Puntos = 4 where id= 8;
 
 /* Max Verstappen
 */
-update pilotos set Puntos = 69 where id= 9;
+update pilotos set Puntos = 119 where id= 9;
 
 /* Sergio 'Checo' Pérez
 */
-update pilotos set Puntos = 54 where id= 10;
+update pilotos set Puntos = 105 where id= 10;
 
 /* Fernando Alonso 'El nano'
 */
-update pilotos set Puntos = 45 where id= 11;
+update pilotos set Puntos = 75 where id= 11;
 
 /* Lance Stroll
 */
-update pilotos set Puntos = 20 where id= 12;
+update pilotos set Puntos = 27 where id= 12;
 
 /* Yuki Tsunoda
 */
-update pilotos set Puntos = 1 where id= 13;
+update pilotos set Puntos = 2 where id= 13;
 
 /* Nyck De Vries
 */
@@ -818,11 +858,11 @@ update pilotos set Puntos = 0 where id= 14;
 
 /* Charles Leclerc
 */
-update pilotos set Puntos = 6 where id= 15;
+update pilotos set Puntos = 34 where id= 15;
 
 /* Carlos Sainz
 */
-update pilotos set Puntos = 20 where id= 16;
+update pilotos set Puntos = 44 where id= 16;
 
 /* Valtteri Bottas
 */
@@ -850,6 +890,8 @@ update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 8) where id = 8;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 9) where id = 9;
 update equipos set Puntos = (select sum(Puntos) from pilotos where equipos_id = 10) where id = 10;
+
+select * from usuarios;
 
 drop function if exists verEquipo;
 delimiter $$
@@ -879,3 +921,8 @@ delimiter ;
 select * from pilotos where Equipos_id = 0;
 
 select verEquipo(8) as 'equipo';
+select * from temporadas;
+select * from circuitos;
+
+SELECT circuitos.*, temporadas.nombre as 'temporada' FROM circuitos
+INNER JOIN temporadas on circuitos.temporadas_id = temporadas.id;

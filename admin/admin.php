@@ -131,7 +131,7 @@ function imprimirTabla($nombreTabla)
             break;
         case "circuitos":
             $resultados = $database->getEquipoCircuito();
-            $cabeceras = ["Acciones", "id", "nombre", "Longitud", "Numero_de_curvas", "Temporadas_id"];
+            $cabeceras = ["Acciones", "id", "nombre", "Longitud", "Numero_de_curvas", "Temporada"];
             break;
         case "patrocinadores":
             $resultados = $database->getEquipoPatrocinado();

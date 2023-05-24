@@ -111,8 +111,8 @@ class database
 
     function getEquipoCircuito()
     {
-        $sql = "SELECT patrocinadores.*, equipos.nombre as 'Equipo' FROM patrocinadores
-            INNER JOIN equipos on patrocinadores.Equipos_id = equipos.id;";
+        $sql = "SELECT circuitos.*, temporadas.nombre as 'temporada' FROM circuitos
+            INNER JOIN temporadas on circuitos.temporadas_id = temporadas.id;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
