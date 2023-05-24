@@ -7,6 +7,20 @@ let inputsTextos = document.getElementsByClassName('inputTexto');
 
 let botonConfirmar = document.getElementById('botonConfirmar');
 
+function validarBoton(){
+
+    let inputsValidos = document.getElementsByClassName('inputValido');
+
+    if(inputsValidos.length == inputs.length - 1){
+        botonConfirmar.setAttribute('id','botonConfirmar');
+        botonConfirmar.disabled = false;
+    }else{
+        botonConfirmar.setAttribute('id','botonInvalido');
+        botonConfirmar.disabled = true;
+    }
+
+}
+
 cargar();
 
 validarBoton();
@@ -20,20 +34,6 @@ function cargar() {
     for (let i = 0; i < inputsTextos.length; i++) {
         inputsTextos[i].setAttribute('onkeyup', 'validarInputTexto(' + i + ')');
     }
-}
-
-function validarBoton(){
-
-    let inputsValidos = document.getElementsByClassName('inputValido');
-
-    if(inputsValidos.length == inputs.length - 1){
-        botonConfirmar.setAttribute('id','botonConfirmar');
-        botonConfirmar.disabled = false;
-    }else{
-        botonConfirmar.setAttribute('id','botonInvalido');
-        botonConfirmar.disabled = true;
-    }
-
 }
 
 let regex = /^\d+$/;

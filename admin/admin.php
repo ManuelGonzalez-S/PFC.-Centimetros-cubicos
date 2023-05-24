@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 session_start();
 
 if(isset($_SESSION['user'])){
@@ -17,7 +15,9 @@ if(isset($_SESSION['user'])){
 require_once('../database.php');
 $database = new Database();
 $cabeceras = [];
-$tablas = ["equipos", "pilotos", "coches", "patrocinadores", "circuitos", 'noticias'];
+$tablas = ["equipos", "pilotos", "coches", "patrocinadores", "circuitos", "noticias"];
+$i = 0;
+$cont = 0;
 
 if (isset($_GET['tabla'])) {
     $aux = $_GET['tabla'];
@@ -48,7 +48,7 @@ function cogerRelacion($aux)
             break;
 
         case "circuitos":
-            $tablaRelacion = 'temporada';
+            $tablaRelacion = 'temporadas';
             break;
         case 'noticias':
             $tablaRelacion = null;
@@ -71,12 +71,13 @@ function labelFormularioColumnas($aux)
             $cabeceras = ["id", "nombre", "Modelo", "Motor", "Pilotos_id", "Equipos_id"];
             break;
         case "circuitos":
-            $cabeceras = ["id", "Nombre", "Longitud", "Numero_de_curvas", "Temporada_id"];
+            $cabeceras = ["id", "Nombre", "Longitud", "Numero_de_curvas", "Temporadas_id"];
             break;
         case "patrocinadores":
             $cabeceras = ["id", "Nombre", "Equipos_id"];
             break;
-    };
+    }
+    ;
 
     return $cabeceras;
 }
@@ -94,7 +95,7 @@ function labelFormularioCabeceras($aux)
             $cabeceras = ["id", "Nombre", "Modelo", "Motor", "Piloto"];
             break;
         case "circuitos":
-            $cabeceras = ["id", "Nombre", "Longitud", "Numero de curvas", "Temporada"];
+            $cabeceras = ["id", "Nombre", "Longitud", "Numero de curvas", "Temporadas"];
             break;
         case "patrocinadores":
             $cabeceras = ["id", "Nombre", "Equipo"];
@@ -102,7 +103,8 @@ function labelFormularioCabeceras($aux)
         case "noticias":
             $cabeceras = ['id', 'Titulo', 'Descripcion', 'rutaImagen'];
             break;
-    };
+    }
+    ;
 
     return $cabeceras;
 }
@@ -119,39 +121,96 @@ function imprimirTabla($nombreTabla)
             $cabeceras = ["Acciones", "id", "Puntos", "nombre", "poles", "podios", "titulos", "victorias"];
             break;
         case "pilotos":
-            $cabeceras = ["Acciones", "id", "nombre", "Puntos", "Dorsal", "nacionalidad", "Equipos_id"];
+            $resultados = $database->getPilotosEquipos2();
+            $cabeceras = ["Acciones", "id", "nombre", "Puntos", "Dorsal", "nacionalidad", "Equipo"];
             break;
         case "coches":
-            $cabeceras = ["Acciones", "id", "nombre", "Modelo", "Motor", "Pilotos_id", "Equipos_id"];
+            $resultados = $database->getConductorEquipo();
+            $cabeceras = ["Acciones", "id", "nombre", "Modelo", "Motor", "piloto", "Equipo"];
             break;
         case "circuitos":
-            $cabeceras = ["Acciones", "id", "nombre", "Longitud", "Numero_de_curvas", "Temporada_id"];
+            $resultados = $database->getEquipoCircuito();
+            $cabeceras = ["Acciones", "id", "nombre", "Longitud", "Numero_de_curvas", "Temporada"];
             break;
         case "patrocinadores":
-            $cabeceras = ["Acciones", "id", "nombre", "Equipos_id"];
+            $resultados = $database->getEquipoPatrocinado();
+            $cabeceras = ["Acciones", "id", "nombre", "Equipo"];
             break;
         case "noticias":
             $cabeceras = ['Acciones', 'id', 'titulo', 'descripcion', 'rutaImagen'];
             break;
-    };
+    }
+    ;
     foreach ($cabeceras as $campo) {
         print '<th>' . $campo . '</th>';
-    };
+    }
+    ;
     print '</tr>
     </thead>
     <tbody>';
-
     foreach ($resultados as $row) {
-        print '<tr><td>
-        <a><button value=" ' . $row['id'] . '">update</button></a>
-        <a href="delete.php?id=' . $row['id'] . '"><button>delete</button></a>
+        print '<tr>
+        <td>';
+        echo '<a href="../update/edit.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Update</button></a>';
+        echo '<a href="../delete/delete.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Delete</button></a>
         </td>';
         for ($i = 1; $i < sizeof($cabeceras); $i++) {
             print '<td>' . $row[$cabeceras[$i]] . '</td>';
+            // $cont++;
         }
         print '</tr>';
     }
-    print '</tbody></table>';
+    print '</tbody>
+</table>';
+}
+
+function noAsignados($nombreTabla)
+{
+
+    if (!($nombreTabla == "equipos" || $nombreTabla == "noticias" || $nombreTabla == "circuitos")){
+    $database = new Database();
+    
+    if ($nombreTabla == "coches"){
+        $resultados = $database->getNullPilotos($nombreTabla);
+        $longitud = $database->getLongitudPilotosNull($nombreTabla);
+    } else {
+    $resultados = $database->getNullEquipos($nombreTabla);
+    $longitud = $database->getLongitudEquiposNull($nombreTabla);
+    }
+
+    $cabeceras = $database->switchTabla($nombreTabla);
+    
+    if($longitud > 0){
+        print '<p>DATOS NO ASIGNADOS</p>';
+        print '<table>
+    <thead>
+         <tr>';
+        foreach ($cabeceras as $campo) {
+            print '<th>' . $campo . '</th>';
+        }
+        ;
+        print '</tr>
+    </thead>
+    <tbody>';
+
+        foreach ($resultados as $row) {
+            print '<tr>
+        <td>';
+            echo '<a href="../update/edit.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Update</button></a>';
+            echo '<a href="../delete/delete.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Delete</button></a>
+        </td>';
+            for ($i = 1; $i < sizeof($cabeceras); $i++) {
+                print '<td>' . $row[$cabeceras[$i]] . '</td>';
+            }
+            print '</tr>';
+        }
+        print '</tbody>
+</table>';
+    
+    }
+    
+    }
+
 }
 
 function crearForm($aux, $database)
@@ -271,6 +330,7 @@ function crearForm($aux, $database)
         print '</div>';
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -281,7 +341,7 @@ function crearForm($aux, $database)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Administracion</title>
 </head>
 
 <body>
@@ -299,7 +359,9 @@ function crearForm($aux, $database)
             <p>Seleccionar la tabla para modificarla</p>
             <div class="entidades">
                 <?php
+
                 foreach ($tablas as $tabla) {
+                    $i++;
                     print '<a href="?tabla=' . $tabla . '"><button class="entidad">' . $tabla . '</button></a>';
                 }
                 ?>
@@ -307,27 +369,27 @@ function crearForm($aux, $database)
         </section>
         <section class="tablaDatos">
             <p>TABLA DE DATOS</p>
-
             <?php
             if (!isset($aux)) {
                 print '<h1>SELECCIONA UNA TABLA PARA MOSTRAR SUS DATOS</h1>';
             } else {
                 print ' <button onclick="window.modal.showModal();" id="crear">+ Crear</button>';
                 imprimirTabla($aux);
+                noAsignados($aux);
+
             }
             ?>
 
         </section>
-
         <dialog id="modal">
 
-            <form id="formulario" action="../create/create.php" method="POST">
+            <form action="../create/create.php" method="POST">
 
                 <?php
 
                 print '<div id="modal-encabezado">';
                 print " <h4>Añadir a $aux:</h4>";
-                print '</div>';
+                print '</div>'; 
 
                 print '<div id="modal-cuerpo">';
                 crearForm($aux, $database);
@@ -335,7 +397,8 @@ function crearForm($aux, $database)
                 ?>
 
                 <div id="modal-acciones">
-                    <button onclick="window.modal.close()" type="button" id="botonCancelar"><strong>Cancelar</strong></button>
+                    <button onclick="window.modal.close()" type="button"
+                        id="botonCancelar"><strong>Cancelar</strong></button>
                     <button type="submit" id="botonConfirmar"><strong>Confirmar</strong></button>
                 </div>
 
@@ -348,7 +411,6 @@ function crearForm($aux, $database)
     <footer></footer>
 
 </body>
-
-<script src="app.js"></script>
+<script src="admin.js"></script>
 
 </html>

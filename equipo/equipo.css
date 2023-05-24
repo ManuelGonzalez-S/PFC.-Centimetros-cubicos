@@ -1,0 +1,396 @@
+body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    background-color: darkblue;
+}
+
+nav{
+    background-color: darkblue;
+    padding: 0;
+    width: 100%;
+}
+
+ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+nav img{
+    height: 100px;
+}
+
+#userImg{
+    height: auto;
+    max-width: 50px;
+}
+
+#menuUsuario {
+    position: relative;
+    display: inline-block;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#menuUsuario:hover{
+    transition: .5s;
+    backdrop-filter: brightness(1.5);
+    cursor: pointer;
+}
+
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+}
+
+.submenu.visible{
+    display: block;
+}
+
+#menu button{
+    transition: .5s;
+    border: 0px;
+    background-color: rgb(21, 21, 21);
+    color: white;
+    border-radius: 20px;
+    padding: 7px;
+    font-size: 70%;
+}
+
+#menu button:hover{
+    transition: .5s;
+    background-color: rgb(52, 52, 52);
+    cursor: pointer;
+}
+
+#usuario {
+    border: inherit;
+    color: inherit;
+    font-size: inherit;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 20px;
+}
+
+nav ul li{
+    display: inline-block;
+    color: white;
+
+    font-size: 20px;
+
+    text-align: center;
+    padding: 5px;
+
+    border-radius: 20px;
+
+    transition: 0.5s;
+}
+
+nav ul a li:hover{
+    transition: 0.5s;
+    backdrop-filter: brightness(1.5);
+}
+
+nav ul a{
+    transition: all 0.5s ease;
+}
+
+h1.tituloError{
+    text-align: center;
+}
+
+h2.tituloError{
+    width: 80%;
+}
+
+#imagen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#imagen h1{
+    text-decoration: underline;
+}
+
+#imagen img{
+
+    width: 200px;
+
+    transition: 0.5s;
+
+}
+
+#imagen img:hover{
+
+    transition: 0.5s;
+
+    scale: 1.1;
+
+    cursor: pointer;
+}
+
+main{
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    flex-direction:column ;
+}
+
+main h2{
+
+    text-align: center;
+    width: 100%;
+}
+
+#contenido{
+    width: 100%;
+}
+
+@media screen and (min-width:900px){
+    #contenido{
+        display: flex;
+        justify-content: space-around;
+
+
+        padding-bottom: 15px;
+
+    }
+
+    #contenido h3{
+        font-size: 25px;
+    }
+
+    #coche{
+        width: 80%;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        padding-left: 5px;
+    }
+
+    #info p{
+        font-size: 18px;
+    }
+
+    #pilotos p{
+        font-size: 18px;
+    }
+
+}
+
+@media screen and (max-width:900px){
+    #contenido{
+        display: flex;
+        align-items: center;
+
+        flex-direction: column;
+
+        padding-bottom: 15px;
+    }
+
+    #coche{
+        width: 80%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+#imagenCoche{
+    width: 100%;
+}
+
+#info{
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#infoPrincipal{
+    display: flex;
+    justify-content: space-around;
+
+    align-items: flex-start;
+}
+
+#infoCoche{
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+#palmares div{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-around;
+}
+
+#palmares p{
+    width: 50%;
+
+    text-align: center;
+}
+
+#infoPilotos{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#pilotos{
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+
+    text-align: center;
+}
+
+.nombrePiloto{
+    text-decoration: underline;
+}
+
+.piloto{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width:687px) {
+
+    .imgPiloto{
+        height: 220px;
+    
+        padding: 25px;
+    }
+    
+}
+
+@media screen and (max-width:687px) {
+
+    .imgPiloto{
+        height: 170px;
+    
+        padding: 15px;
+    }
+    
+}
+
+.piloto p:first-child{
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.piloto p{
+    margin: 0;
+    padding-bottom: 15px;
+}
+
+#patrocinadores{
+    text-align: center;
+}
+
+#acercaPilotos{
+    padding-bottom: 5px;
+    width: 80%;
+}
+
+footer{
+    background-color: darkblue;
+    color: white;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+footer div{
+    text-align: center;
+
+    width: 30%;
+}
+
+footer a{
+    color: white;
+    text-decoration: none;
+
+    transition: 0.5s;
+}
+
+footer a:hover{
+
+    transition: 0.5s;
+
+    text-decoration: underline;
+}
+
+#rrss{
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: space-evenly;
+}
+
+#rrss img{
+    padding: 5px;
+
+    filter: invert(1);
+
+    transition: 0.5s;
+
+    width: 30px;
+
+    height: 30px;
+
+    cursor: pointer;
+}
+
+#rrss img:hover{
+    transition: 0.5s;
+
+    scale: 1.1;
+}
+
+#contacto p:hover{
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+}
+
+#copyright{
+    width: 100%;
+}
