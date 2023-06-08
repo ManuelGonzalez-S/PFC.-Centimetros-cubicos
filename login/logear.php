@@ -25,11 +25,9 @@ require_once('../database.php');
 
 $db = new database();
 
-print '<div>' . $accion . '</div>';
-
 if($accion == 'login'){
 
-    $sql = "SELECT * FROM usuarios WHERE nombre = '$nombre' AND contraseña = '$pass';";
+    $sql = "SELECT * FROM 15_usuarios WHERE nombre = '$nombre' AND contraseña = '$pass';";
 
     $resultado = $db -> ejecutarSql($sql);
 
@@ -46,7 +44,7 @@ if($accion == 'login'){
         if($pepe['permisos'] == '1'){
             header('Location:../admin/admin.php');
         }else{
-            header('Location:../index/index.php');
+            header('Location:login.php');
         }
         
         
@@ -54,18 +52,33 @@ if($accion == 'login'){
         // Si no, se devuelve al login
     }else{
 
-        header('Location:login.php');
+        header('Location: login.php?accion=login&error=true');
     }
 
 }else{
 
-    $sql = "INSERT INTO usuarios (nombre,contraseña,permisos) VALUES ( '$nombre', '$pass','0');";
+    $existe = $db -> ejecutarSql("SELECT * FROM 15_usuarios where nombre='".$nombre."'");
+
+    while ($fila = $existe->fetch(PDO::FETCH_ASSOC)){
+
+        foreach ($fila as $pepe) {
+            if(isset($pepe)){
+                print $pepe;
+                print 'Existe';
+                header('Location: login.php?accion=register&error=true');
+            }
+        }
+        exit();
+        
+    }
+
+    $sql = "INSERT INTO 15_usuarios (nombre,contraseña,permisos) VALUES ( '$nombre', '$pass','0');";
 
     var_dump($sql);
 
     $db -> ejecutarSql($sql);
 
-    $sql = "SELECT * FROM usuarios WHERE nombre = '$nombre' AND contraseña = '$pass';";
+    $sql = "SELECT * FROM 15_usuarios WHERE nombre = '$nombre' AND contraseña = '$pass';";
 
     $resultado = $db -> ejecutarSql($sql);
 

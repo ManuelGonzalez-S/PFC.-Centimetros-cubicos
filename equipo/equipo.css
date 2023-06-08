@@ -81,6 +81,10 @@ nav img{
     border-radius: 20px;
 }
 
+#usuario:hover{
+    cursor: pointer;
+}
+
 nav ul li{
     display: inline-block;
     color: white;
@@ -88,7 +92,7 @@ nav ul li{
     font-size: 20px;
 
     text-align: center;
-    padding: 5px;
+    padding: 10px;
 
     border-radius: 20px;
 

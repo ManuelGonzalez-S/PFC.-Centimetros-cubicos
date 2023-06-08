@@ -23,7 +23,6 @@ if (isset($_GET['id'])) {
     $tablas = $database->getByid($tabla, $id);
 
 $cabeceras = [];
-// $lista;
 
 $cabeceras = $database->switchTabla($tabla);
 } else {
@@ -40,7 +39,6 @@ $cabeceras = $database->switchTabla($tabla);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="form.css">
-    <!-- <script src="app.js"></script> -->
     <title>Document</title>
 </head>
 
@@ -51,7 +49,7 @@ $cabeceras = $database->switchTabla($tabla);
         $j = 1;
         $i = 0;
         print '<div id="encabezado">
-        <h4>Estas editando la tabla ' . $tabla . ' (ID: '. $id .')</h4>
+        <h4>Estas editando la tabla ' . str_replace('15_','',$tabla) . ' (ID: '. $id .')</h4>
     </div>';
         $camposNumericos = ['Puntos', 'poles', 'podios', 'titulos', 'victorias', 'Dorsal', 'Numero_de_curvas'];
         print '<div id="cuerpo">';
@@ -72,8 +70,9 @@ $cabeceras = $database->switchTabla($tabla);
                 } else if (in_array($cabeceras[$i], $camposNumericos)) {
                     print '<input type="number" value="' . $tablas[$cabeceras[$i]] . '" class="inputNumero" placeholder="' . $tablas[$cabeceras[$i]] . '"' . '" name="' . $cabeceras[$i] . '">';
                 } else if (str_contains($cabeceras[$i], "_id")) {
-                    $cabecerasAux[$i] = str_replace("_id", '', $cabeceras[$i]);
-                    $cabecerasAux[$i] = strtolower($cabecerasAux[$i]);
+
+                    $cabecerasAux[$i] = '15_' . strtolower(str_replace("_id", '', $cabeceras[$i]));
+
                     $lista = $database->getListaForeign($cabecerasAux[$i]);
                     print '<select name= "idAux' . $j . '">';
                     $j++;
@@ -90,7 +89,7 @@ $cabeceras = $database->switchTabla($tabla);
                     }
                     print '</select>';
                 } else {
-                    print '<input type="text" value="' . $tablas[$cabeceras[$i]] . '" class="inputTexto" placeholder="' . $tablas[$cabeceras[$i]] . '" name="' . $cabeceras[$i] . '">';
+                    print '<input type="text"  maxlength="50" value="' . $tablas[$cabeceras[$i]] . '" class="inputTexto" placeholder="' . $tablas[$cabeceras[$i]] . '" name="' . $cabeceras[$i] . '">';
                 }
             }   
             print '</div>';

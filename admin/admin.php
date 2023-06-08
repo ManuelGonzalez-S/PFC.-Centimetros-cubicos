@@ -2,20 +2,19 @@
 
 session_start();
 
-if(isset($_SESSION['user'])){
+if (isset($_SESSION['user'])) {
 
-    if($_SESSION['user']['permisos'] == '0'){
+    if ($_SESSION['user']['permisos'] == '0') {
         header('Location: ../index/index.php');
     }
-
-}else{
+} else {
     header('Location: ../index/index.php');
 }
 
 require_once('../database.php');
 $database = new Database();
 $cabeceras = [];
-$tablas = ["equipos", "pilotos", "coches", "patrocinadores", "circuitos", "noticias"];
+$tablas = ["15_equipos", "15_pilotos", "15_coches", "15_patrocinadores", "15_circuitos", "15_noticias"];
 $i = 0;
 $cont = 0;
 
@@ -31,26 +30,26 @@ function cogerRelacion($aux)
 {
 
     switch ($aux) {
-        case "equipos":
+        case "15_equipos":
             $tablaRelacion = null;
             break;
 
-        case "pilotos":
-            $tablaRelacion = 'equipos';
+        case "15_pilotos":
+            $tablaRelacion = '15_equipos';
             break;
 
-        case "coches":
-            $tablaRelacion = 'pilotos';
+        case "15_coches":
+            $tablaRelacion = '15_pilotos';
             break;
 
-        case "patrocinadores":
-            $tablaRelacion = 'equipos';
+        case "15_patrocinadores":
+            $tablaRelacion = '15_equipos';
             break;
 
-        case "circuitos":
-            $tablaRelacion = 'temporadas';
+        case "15_circuitos":
+            $tablaRelacion = '15_temporadas';
             break;
-        case 'noticias':
+        case '15_noticias':
             $tablaRelacion = null;
             break;
     }
@@ -61,23 +60,22 @@ function cogerRelacion($aux)
 function labelFormularioColumnas($aux)
 {
     switch ($aux) {
-        case "equipos":
-            $cabeceras = ["id", "Puntos", "nombre", "poles", "podios", "titulos", "victorias"];
+        case "15_equipos":
+            $cabeceras = ['Acciones',"id", "Puntos", "nombre", "poles", "podios", "titulos", "victorias"];
             break;
-        case "pilotos":
-            $cabeceras = ["id", "Nombre", "Puntos", "Dorsal", "nacionalidad", "Equipos_id"];
+        case "15_pilotos":
+            $cabeceras = ['Acciones',"id", "nombre", "Puntos", "Dorsal", "nacionalidad", "equipos_id"];
             break;
-        case "coches":
-            $cabeceras = ["id", "nombre", "Modelo", "Motor", "Pilotos_id", "Equipos_id"];
+        case "15_coches":
+            $cabeceras = ['Acciones',"id", "nombre", "Modelo", "Motor", "pilotos_id", "equipos_id"];
             break;
-        case "circuitos":
-            $cabeceras = ["id", "Nombre", "Longitud", "Numero_de_curvas", "Temporadas_id"];
+        case "15_circuitos":
+            $cabeceras = ['Acciones',"id", "nombre", "Longitud", "Numero_de_curvas", "temporadas_id"];
             break;
-        case "patrocinadores":
-            $cabeceras = ["id", "Nombre", "Equipos_id"];
+        case "15_patrocinadores":
+            $cabeceras = ['Acciones',"id", "nombre", "equipos_id"];
             break;
-    }
-    ;
+    };
 
     return $cabeceras;
 }
@@ -85,26 +83,25 @@ function labelFormularioColumnas($aux)
 function labelFormularioCabeceras($aux)
 {
     switch ($aux) {
-        case "equipos":
+        case "15_equipos":
             $cabeceras = ["id", "Puntos", "Nombre", "Poles", "Podios", "Titulos", "Victorias"];
             break;
-        case "pilotos":
+        case "15_pilotos":
             $cabeceras = ["id", "Nombre", "Puntos", "Dorsal", "Nacionalidad", "Equipo"];
             break;
-        case "coches":
-            $cabeceras = ["id", "Nombre", "Modelo", "Motor", "Piloto"];
+        case "15_coches":
+            $cabeceras = ["id", "Nombre", "Modelo", "Motor" ,"Piloto"];
             break;
-        case "circuitos":
-            $cabeceras = ["id", "Nombre", "Longitud", "Numero de curvas", "Temporadas"];
+        case "15_circuitos":
+            $cabeceras = ["id", "Nombre", "Longitud", "Numero de curvas", "Temporada"];
             break;
-        case "patrocinadores":
+        case "15_patrocinadores":
             $cabeceras = ["id", "Nombre", "Equipo"];
             break;
-        case "noticias":
-            $cabeceras = ['id', 'Titulo', 'Descripcion', 'rutaImagen'];
+        case "15_noticias":
+            $cabeceras = ['id', 'Titulo', 'Descripcion', 'Ruta de imagen'];
             break;
-    }
-    ;
+    };
 
     return $cabeceras;
 }
@@ -113,53 +110,54 @@ function imprimirTabla($nombreTabla)
 {
     $database = new Database();
     $resultados = $database->getTabla($nombreTabla);
-    print '<table>
-    <thead>
-         <tr>';
+
     switch ($nombreTabla) {
-        case "equipos":
+        case "15_equipos":
             $cabeceras = ["Acciones", "id", "Puntos", "nombre", "poles", "podios", "titulos", "victorias"];
             break;
-        case "pilotos":
+        case "15_pilotos":
             $resultados = $database->getPilotosEquipos2();
             $cabeceras = ["Acciones", "id", "nombre", "Puntos", "Dorsal", "nacionalidad", "Equipo"];
             break;
-        case "coches":
+        case "15_coches":
             $resultados = $database->getConductorEquipo();
             $cabeceras = ["Acciones", "id", "nombre", "Modelo", "Motor", "piloto", "Equipo"];
             break;
-        case "circuitos":
+        case "15_circuitos":
             $resultados = $database->getEquipoCircuito();
             $cabeceras = ["Acciones", "id", "nombre", "Longitud", "Numero_de_curvas", "Temporada"];
             break;
-        case "patrocinadores":
+        case "15_patrocinadores":
             $resultados = $database->getEquipoPatrocinado();
             $cabeceras = ["Acciones", "id", "nombre", "Equipo"];
             break;
-        case "noticias":
+        case "15_noticias":
             $cabeceras = ['Acciones', 'id', 'titulo', 'descripcion', 'rutaImagen'];
             break;
     }
-    ;
-    foreach ($cabeceras as $campo) {
-        print '<th>' . $campo . '</th>';
-    }
-    ;
-    print '</tr>
-    </thead>
-    <tbody>';
-    foreach ($resultados as $row) {
-        print '<tr>
-        <td>';
-        echo '<a href="../update/edit.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Update</button></a>';
-        echo '<a href="../delete/delete.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Delete</button></a>
-        </td>';
-        for ($i = 1; $i < sizeof($cabeceras); $i++) {
-            print '<td>' . $row[$cabeceras[$i]] . '</td>';
-            // $cont++;
+    
+    print '<table>
+    <thead>
+         <tr>';
+
+         foreach ($cabeceras as $campo) {
+            print '<th>' . $campo . '</th>';
         }
-        print '</tr>';
-    }
+        ;
+        print '</tr>
+        </thead>
+        <tbody>';
+        foreach ($resultados as $row) {
+            print '<tr>
+            <td>';
+            echo '<a href="../update/edit.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Update</button></a>';
+            echo '<a href="../delete/delete.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Delete</button></a>
+            </td>';
+            for ($i = 1; $i < sizeof($cabeceras); $i++) {
+                print '<td>' . $row[$cabeceras[$i]] . '</td>';
+            }
+            print '</tr>';
+        }
     print '</tbody>
 </table>';
 }
@@ -167,50 +165,48 @@ function imprimirTabla($nombreTabla)
 function noAsignados($nombreTabla)
 {
 
-    if (!($nombreTabla == "equipos" || $nombreTabla == "noticias" || $nombreTabla == "circuitos")){
-    $database = new Database();
-    
-    if ($nombreTabla == "coches"){
-        $resultados = $database->getNullPilotos($nombreTabla);
-        $longitud = $database->getLongitudPilotosNull($nombreTabla);
-    } else {
-    $resultados = $database->getNullEquipos($nombreTabla);
-    $longitud = $database->getLongitudEquiposNull($nombreTabla);
-    }
+    if (!($nombreTabla == "15_equipos" || $nombreTabla == "15_noticias" || $nombreTabla == "15_circuitos")) {
+        $database = new Database();
 
-    $cabeceras = $database->switchTabla($nombreTabla);
-    
-    if($longitud > 0){
-        print '<p>DATOS NO ASIGNADOS</p>';
-        print '<table>
+        if ($nombreTabla == "15_coches") {
+            $resultados = $database->getNullPilotos($nombreTabla);
+            $longitud = $database->getLongitudPilotosNull($nombreTabla);
+        } else {
+            $resultados = $database->getNullEquipos($nombreTabla);
+            $longitud = $database->getLongitudEquiposNull($nombreTabla);
+        }
+
+        $cabeceras = labelFormularioCabeceras($nombreTabla);
+
+        if ($longitud > 0) {
+            print '<p>DATOS NO ASIGNADOS</p>';
+            print '<table>
     <thead>
          <tr>';
-        foreach ($cabeceras as $campo) {
-            print '<th>' . $campo . '</th>';
-        }
-        ;
-        print '</tr>
+            foreach ($cabeceras as $campo) {
+                print '<th>' . $campo . '</th>';
+            }
+            print '</tr>
     </thead>
     <tbody>';
 
-        foreach ($resultados as $row) {
-            print '<tr>
-        <td>';
-            echo '<a href="../update/edit.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Update</button></a>';
-            echo '<a href="../delete/delete.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Delete</button></a>
-        </td>';
-            for ($i = 1; $i < sizeof($cabeceras); $i++) {
-                print '<td>' . $row[$cabeceras[$i]] . '</td>';
-            }
-            print '</tr>';
-        }
-        print '</tbody>
-</table>';
-    
-    }
-    
-    }
+            $cabeceras = labelFormularioColumnas($nombreTabla);
 
+            foreach ($resultados as $row) {
+                print '<tr>
+        <td>';
+                echo '<a href="../update/edit.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Update</button></a>';
+                echo '<a href="../delete/delete.php?tabla=' . $nombreTabla . '&&id=' . $row['id'] . '"><button>Delete</button></a>
+        </td>';
+                for ($i = 1; $i < sizeof($cabeceras); $i++) {
+                    print '<td>' . $row[$cabeceras[$i]] . '</td>';
+                }
+                print '</tr>';
+            }
+            print '</tbody>
+</table>';
+        }
+    }
 }
 
 function crearForm($aux, $database)
@@ -227,9 +223,9 @@ function crearForm($aux, $database)
 
         $campo = $cabeceras[$i];
 
-        $camposNumericos = ['puntos', 'poles', 'podios', 'titulos', 'victorias', 'dorsal', 'numero_de_curvas'];
+        $camposNumericos = ['puntos', 'poles', 'podios', 'titulos', 'victorias', 'dorsal', 'numero_de_curvas', 'longitud'];
 
-        if ($aux == 'noticias') {
+        if ($aux == '15_noticias') {
 
             if ($campo != 'id') {
                 print '<div>';
@@ -238,15 +234,11 @@ function crearForm($aux, $database)
                 if ($i != sizeof($cabeceras)) {
                     $placeholder = strtolower(trim($campo));
                     $campo = str_replace(' ', '_', strtolower(trim($campo)));
-                    print '<input type="text" class="inputTexto" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui" onblur="validarInputTexto('.$i.')">';
-
+                    print '<input type="text"  maxlength="50"  class="inputTexto" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui" onblur="validarInputTexto(' . $i . ')">';
                 }
                 print '</div>';
             }
-
-
-            
-        } else if ($aux != 'equipos') {
+        } else if ($aux != '15_equipos') {
             if ($campo != 'id') {
 
                 if (in_array(str_replace(' ', '_', strtolower(trim($campo))), $camposNumericos)) {
@@ -263,7 +255,13 @@ function crearForm($aux, $database)
                 if ($i != sizeof($cabeceras) - 1) {
                     $placeholder = strtolower(trim($campo));
                     $campo = str_replace(' ', '_', strtolower(trim($campo)));
-                    print '<input class="'. $clase .'" type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui">';
+                    print '<input class="' . $clase . '" type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui"';
+
+                    if($clase = 'inputTexto'){
+                        print ' maxlength="50" ';
+                    }
+
+                    print '>';
                 }
 
                 print '</div>';
@@ -283,7 +281,13 @@ function crearForm($aux, $database)
                 print " <label>$campo:</label>";
                 $placeholder = strtolower(trim($campo));
                 $campo = str_replace(' ', '_', strtolower(trim($campo)));
-                echo ' <input class="'. $clase .'" type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui">';
+                echo ' <input class="' . $clase . '" type="' . $tipo . '" name="' . $campo . '" placeholder="Inserte ' . $placeholder . ' aqui"';
+
+                if($clase = 'inputTexto'){
+                    print ' maxlength="50" ';
+                }
+
+                print '>';
                 print '</div>';
             }
         }
@@ -292,7 +296,7 @@ function crearForm($aux, $database)
     // ETIQUETA SELECT
     // SI NO SE TRATA DE CREAR UN EQUIPO:
     // SE PASA EL ID A ASOCIAR CON name='id_foranea'
-    if ($relacion != null && $aux != 'coches') {
+    if ($relacion != null && $aux != '15_coches') {
         print '<div>';
         print "<select name='id_foranea'>";
 
@@ -304,7 +308,8 @@ function crearForm($aux, $database)
 
         // EN OTRO CASO, SE PASA COMO
         // name='piloto_id' name='equipo_id'
-    } else if ($aux == 'coches') {
+    } else if ($aux == '15_coches') {
+
 
         print '<div>';
         print "<select name='piloto_id'>";
@@ -312,12 +317,11 @@ function crearForm($aux, $database)
         foreach ($relacion as $campo) {
             print "<option value='" . $campo['id'] . "'>" . $campo['nombre'] . "</option>";
         }
+
         print "</select>";
         print '</div>';
 
-        // ---------------------------------------------------
-
-        $equipos = $database->getTabla('equipos');
+        $equipos = $database->getTabla('15_equipos');
 
         print '<div>';
         print "<label>Equipo:</label>";
@@ -362,7 +366,8 @@ function crearForm($aux, $database)
 
                 foreach ($tablas as $tabla) {
                     $i++;
-                    print '<a href="?tabla=' . $tabla . '"><button class="entidad">' . $tabla . '</button></a>';
+
+                    print '<a href="?tabla=' . $tabla . '"><button class="entidad">' . str_replace('15_', '', $tabla) . '</button></a>';
                 }
                 ?>
             </div>
@@ -376,7 +381,6 @@ function crearForm($aux, $database)
                 print ' <button onclick="window.modal.showModal();" id="crear">+ Crear</button>';
                 imprimirTabla($aux);
                 noAsignados($aux);
-
             }
             ?>
 
@@ -388,8 +392,8 @@ function crearForm($aux, $database)
                 <?php
 
                 print '<div id="modal-encabezado">';
-                print " <h4>Añadir a $aux:</h4>";
-                print '</div>'; 
+                print " <h4>Añadir a " . str_replace('15_', '', $aux) . " :</h4>";
+                print '</div>';
 
                 print '<div id="modal-cuerpo">';
                 crearForm($aux, $database);
@@ -397,8 +401,7 @@ function crearForm($aux, $database)
                 ?>
 
                 <div id="modal-acciones">
-                    <button onclick="window.modal.close()" type="button"
-                        id="botonCancelar"><strong>Cancelar</strong></button>
+                    <button onclick="window.modal.close()" type="button" id="botonCancelar"><strong>Cancelar</strong></button>
                     <button type="submit" id="botonConfirmar"><strong>Confirmar</strong></button>
                 </div>
 
@@ -411,6 +414,6 @@ function crearForm($aux, $database)
     <footer></footer>
 
 </body>
-<script src="admin.js"></script>
+<script src="app.js"></script>
 
 </html>

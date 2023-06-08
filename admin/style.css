@@ -216,6 +216,16 @@ table {
     .tablaDatos {
         width: 80%;
     }
+
+    .acciones{
+        position: sticky;
+        top: 20px;
+    }
+
+    nav{
+        position: sticky;
+        top: 9px;
+    }
 }
 
 @media screen and (max-width:960px) {

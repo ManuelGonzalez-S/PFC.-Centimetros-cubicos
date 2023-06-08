@@ -18,7 +18,7 @@ form{
     padding: 50px;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 140px;
+    margin-top: 40px;
     margin-bottom: 20px;
     background-color: gainsboro;
 
@@ -68,9 +68,7 @@ nav{
     background-color: darkblue;
     padding: 0;
 
-    height: 100px;
-
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
 
     z-index: 2;
@@ -97,7 +95,7 @@ nav ul li{
     font-size: 20px;
 
     text-align: center;
-    padding: 5px;
+    padding: 10px;
 
     transition: 0.5s;
 
@@ -118,11 +116,15 @@ main{
     flex-direction: column;
 }
 
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 form div{
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 
     padding-bottom: 10px;
 }
@@ -269,9 +271,33 @@ input:focus{
 
     border: 1px solid black;
 
-    border-radius: 20px;
+    border-radius: 10px;
 
     width: 250px;
+}
+
+#inputNombre{
+    display: flex;
+    flex-direction: row;
+}
+
+#mensajeError{
+    background-color: rgb(255, 61, 61);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 50%;
+}
+
+#mensajeError p{
+    border: 0;
+    margin: 0;
+    padding: 0;
 }
 
 div p{
@@ -279,8 +305,6 @@ div p{
 }
 
 input[name="nombreR"]{
-
-    padding: 10px;
 
     background-color: antiquewhite;
 

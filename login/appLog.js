@@ -102,7 +102,6 @@ botonVisibilidad.addEventListener("click", function() {
 });
 
 
-
 // SOLO APARECE EN REGISTER
 let contraseñaCopia = document.getElementById('contraseñaCopia');
 

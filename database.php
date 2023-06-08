@@ -57,14 +57,14 @@ class database
 
     function getNumeroEquipos()
     {
-        $sql = "select count(*) as 'suma' from equipos;";
+        $sql = "select count(*) as 'suma' from 15_equipos;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
 
     function getEquiposClasi()
     {
-        $sql = 'select * from equipos order by puntos desc;';
+        $sql = 'select * from 15_equipos order by puntos desc;';
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
@@ -101,22 +101,22 @@ class database
     public function switchTabla($tabla)
     {
         switch ($tabla) {
-            case "equipos":
+            case "15_equipos":
                 $cabeceras = ["id", "Puntos", "nombre", "poles", "podios", "titulos", "victorias"];
                 break;
-            case "pilotos":
-                $cabeceras = ["id", "nombre", "Puntos", "Dorsal", "nacionalidad", "Equipos_id"];
+            case "15_pilotos":
+                $cabeceras = ["id", "nombre", "Puntos", "Dorsal", "nacionalidad", "equipos_id"];
                 break;
-            case "coches":
-                $cabeceras = ["id", "nombre", "Modelo", "Motor", "Pilotos_id", "Equipos_id"];
+            case "15_coches":
+                $cabeceras = ["id", "nombre", "Modelo", "Motor", "pilotos_id", "equipos_id"];
                 break;
-            case "circuitos":
+            case "15_circuitos":
                 $cabeceras = ["id", "nombre", "Longitud", "Numero_de_curvas", "Temporadas_id"];
                 break;
-            case "patrocinadores":
-                $cabeceras = ["id", "nombre", "Equipos_id"];
+            case "15_patrocinadores":
+                $cabeceras = ["id", "nombre", "equipos_id"];
                 break;
-            case "noticias":
+            case "15_noticias":
                 $cabeceras = ["id", "titulo", "descripcion", "rutaImagen"];
                 break;
         }
@@ -143,7 +143,6 @@ class database
         $i = 1;
         $sql = "UPDATE $tabla SET ";
         foreach ($cabeceras as $elemento) {
-            // echo $elemento . '|';
             if ($elemento != "id" && !(str_contains($elemento[$i], "_id"))) {
                 $sql = $sql . "$elemento='$valores[$i]',";
                 $i++;
@@ -157,14 +156,14 @@ class database
     function getPilotosEquipos()
     {
 
-        $sql = "select pilotos.*,equipos.nombre as 'nombreEquipo' from pilotos inner join equipos on equipos.id = pilotos.equipos_id order by pilotos.Puntos desc;";
+        $sql = "select 15_pilotos.*,15_equipos.nombre as 'nombreEquipo' from 15_pilotos inner join 15_equipos on 15_equipos.id = 15_pilotos.equipos_id order by 15_pilotos.Puntos desc;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
 
     function getPilotosEquipos2()
     {
-        $sql = "select pilotos.*,equipos.nombre as 'Equipo' from pilotos inner join equipos on equipos.id = pilotos.equipos_id ORDER BY id;";
+        $sql = "select 15_pilotos.*,15_equipos.nombre as 'Equipo' from 15_pilotos inner join 15_equipos on 15_equipos.id = 15_pilotos.equipos_id ORDER BY id;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
 
@@ -172,25 +171,25 @@ class database
 
     function getConductorEquipo()
     {
-        $sql = "SELECT coches.*,pilotos.nombre as 'piloto' ,equipos.nombre as 'Equipo' FROM
-            coches inner join pilotos on coches.pilotos_id = pilotos.id
-            inner join equipos on coches.equipos_id = equipos.id ORDER BY id;";
+        $sql = "SELECT 15_coches.*,15_pilotos.nombre as 'piloto' ,15_equipos.nombre as 'Equipo' FROM
+            15_coches inner join 15_pilotos on 15_coches.pilotos_id = 15_pilotos.id
+            inner join 15_equipos on 15_coches.equipos_id = 15_equipos.id ORDER BY id;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
 
     function getEquipoCircuito()
     {
-        $sql = "SELECT circuitos.*, temporadas.nombre as 'temporada' FROM circuitos
-            INNER JOIN temporadas on circuitos.temporadas_id = temporadas.id;";
+        $sql = "SELECT 15_circuitos.*, 15_temporadas.nombre as 'Temporada' FROM 15_circuitos
+            INNER JOIN 15_temporadas on 15_circuitos.temporadas_id = 15_temporadas.id;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }
 
     function getEquipoPatrocinado()
     {
-        $sql = "SELECT patrocinadores.*, equipos.nombre as 'Equipo' FROM patrocinadores
-            INNER JOIN equipos on patrocinadores.Equipos_id = equipos.id;";
+        $sql = "SELECT 15_patrocinadores.*, 15_equipos.nombre as 'Equipo' FROM 15_patrocinadores
+            INNER JOIN 15_equipos on 15_patrocinadores.Equipos_id = 15_equipos.id;";
         $resultados = self::conectar()->query($sql);
         return $resultados;
     }

@@ -3,22 +3,22 @@
 function camposBD($tabla)
 {
     switch ($tabla) {
-        case "equipos":
+        case "15_equipos":
             $cabeceras = [ "nombre", "Puntos", "poles", "podios", "titulos", "victorias"];
             break;
-        case "pilotos":
+        case "15_pilotos":
             $cabeceras = ["nombre", "Puntos", "Dorsal", "nacionalidad", "Equipos_id"];
             break;
-        case "coches":
+        case "15_coches":
             $cabeceras = ["nombre", "Modelo", "Motor", "Pilotos_id", "Equipos_id"];
             break;
-        case "circuitos":
-            $cabeceras = ["nombre", "Longitud", "Numero_de_curvas", "Temporada_id"];
+        case "15_circuitos":
+            $cabeceras = ["nombre", "Longitud", "Numero_de_curvas", "temporadas_id"];
             break;
-        case "patrocinadores":
+        case "15_patrocinadores":
             $cabeceras = ["nombre", "Equipos_id"];
             break;
-        case 'noticias':
+        case '15_noticias':
             $cabeceras = ['titulo','descripcion','rutaImagen'];
             break;
     };
@@ -29,22 +29,22 @@ function camposBD($tabla)
 function cogerValores($tabla){
 
     switch ($tabla) {
-        case "equipos":
+        case "15_equipos":
             $cabeceras = ["'".$_POST['nombre']."'",$_POST['puntos'], $_POST['poles'], $_POST['podios'], $_POST['titulos'], $_POST['victorias']];
             break;
-        case "pilotos":
+        case "15_pilotos":
             $cabeceras = ["'".$_POST['nombre']."'", $_POST['puntos'], $_POST['dorsal'],"'". $_POST['nacionalidad']."'", $_POST['id_foranea']];
             break;
-        case "coches":
+        case "15_coches":
             $cabeceras = ["'".$_POST['nombre']."'", "'".$_POST['modelo']."'", "'".$_POST['motor']."'", $_POST['piloto_id'], $_POST['equipo_id']];
             break;
-        case "circuitos":
+        case "15_circuitos":
             $cabeceras = ["'".$_POST['nombre']."'", "'".$_POST['longitud']."'", $_POST['numero_de_curvas'], $_POST['id_foranea']];
             break;
-        case "patrocinadores":
+        case "15_patrocinadores":
             $cabeceras = ["'".$_POST['nombre']."'", $_POST['id_foranea']];
             break;
-        case "noticias":
+        case "15_noticias":
             $cabeceras = ["'".$_POST['titulo']."'","'". $_POST['descripcion']."'", "'". $_POST['rutaimagen']."'"];
             break;
     };

@@ -6,12 +6,15 @@ function crearFormulario($accion)
     print "<input type='hidden' name='accion' value='$accion'>";
 
     if ($accion == 'login') {
-        print '<div>';
+        print '<section id="inputNombre">';
         print "<label for='emailL'>Nombre:</label>";
         print '<div class="divOjo">';
         print "<input id='nombre' autocomplete='off' type='text' name='emailL' placeholder='Noobmaster' required>";
         print '</div>';
-        print '</div>';
+
+        
+
+        print '</section>';
 
         print '<div>';
         print '<span id="mensajeNombre">';
@@ -34,18 +37,27 @@ function crearFormulario($accion)
         print '</span>';
         print '</div>';
 
+        if(isset($_GET['error'])){
+            print '<div id="mensajeError">';
+            print '<p>';
+            print 'El usuario no existe o la contraseña es incorrecta';
+            print '</p>';
+            print '</div>';
+        }
+
+
         print '<div>';
         print '<p>';
         print 'Recuerda que la contraseña tiene minimo 7 caracteres, 2 digitos, una mayuscula y un simbolo (. - _ , =)';
         print '</p>';
         print '</div>';
     } elseif ($accion == 'register') {
-        print '<div>';
+        print '<section>';
         print "<label for='nombreR'>Nombre:</label>";
         print '<div class="divOjo">';
         print "<input id='nombre' autocomplete='off' type='text' name='nombreR' placeholder='Noobmaster' required>";
         print '</div>';
-        print '</div>';
+        print '</section>';
 
         print '<span id="mensajeNombre">';
         print '</span>';
@@ -73,6 +85,14 @@ function crearFormulario($accion)
 
         print '<span id="mensajeContra">';
         print '</span>';
+
+        if(isset($_GET['error'])){
+            print '<div id="mensajeError">';
+            print '<p>';
+            print 'El usuario ya esta registrado';
+            print '</p>';
+            print '</div>';
+        }
 
         print '<div>';
         print '<p>';

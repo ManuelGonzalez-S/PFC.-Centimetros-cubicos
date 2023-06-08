@@ -22,8 +22,10 @@ $valores = [];
     }
 $id = $_POST['id'];
 
+var_dump($valores);
+print $tabla;
+
 
 $database->update($tabla, $cabeceras, $valores, $id);
-// print $tabla;   
 header('Location: ../admin/admin.php?tabla='. $tabla);
  ?>

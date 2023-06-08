@@ -25,7 +25,7 @@ if (isset($_GET['idEquipo'])) {
 function cogerNombreEquipo($id, $database)
 {
 
-    $nombre = $database->getTablaSegunCampoID('equipos', 'id', $id, 1);
+    $nombre = $database->getTablaSegunCampoID('15_equipos', 'id', $id, 1);
 
     return $nombre;
 }
@@ -34,7 +34,7 @@ function crearImagen($id, $database)
 {
 
 
-    $sentencia = $database->getTablaenBaseAID('equipos', $id, 1);
+    $sentencia = $database->getTablaenBaseAID('15_equipos', $id, 1);
 
     foreach ($sentencia as $equipo) {
 
@@ -47,7 +47,7 @@ function crearImagen($id, $database)
 function crearImagenCoche($id, $database)
 {
 
-    $sentencia = $database->getTablaenBaseAID('equipos', $id, 1);
+    $sentencia = $database->getTablaenBaseAID('15_equipos', $id, 1);
 
     foreach ($sentencia as $baseDatos) {
 
@@ -60,7 +60,7 @@ function crearImagenCoche($id, $database)
 function cogerPilotos($id, $database)
 {
 
-    $sentencia = $database->getTablaSegunCampoID('pilotos', 'Equipos_id', $id, 2);
+    $sentencia = $database->getTablaSegunCampoID('15_pilotos', 'Equipos_id', $id, 2);
 
     return $sentencia;
 }
@@ -85,7 +85,7 @@ function crearImagenPiloto($id, $numero, $database)
 function crearPalmares($id, $database)
 {
 
-    $sentencia = $database->getTablaenBaseAID('equipos', $id, 1);
+    $sentencia = $database->getTablaenBaseAID('15_equipos', $id, 1);
 
     foreach ($sentencia as $baseDatos) {
 
@@ -119,6 +119,9 @@ function crearPalmares($id, $database)
     }
 }
 
+$pepe = cogerNombreEquipo($id,$database);
+
+$lola = $pepe->fetchAll(PDO::FETCH_ASSOC)[0];
 ?>
 
 
@@ -130,7 +133,7 @@ function crearPalmares($id, $database)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="equipo.css">
-    <title>Equipos</title>
+    <title><?php print $lola['nombre'] ?></title>
 </head>
 
 <body>
@@ -227,7 +230,7 @@ function crearPalmares($id, $database)
             print '<div id="infoCoche">';
 
             // Muestra la imagen del coche con un bucle
-            $coche = $database->getTablaSegunCampoID('coches', 'Equipos_id', $id, 1);
+            $coche = $database->getTablaSegunCampoID('15_coches', 'Equipos_id', $id, 1);
 
             foreach ($coche as $campo) {
 
@@ -264,7 +267,7 @@ function crearPalmares($id, $database)
 
             // Seccion de los patrocinadores
             print '<div id=patrocinadores>';
-            $patrocinadores = $database->getTablaSegunCampoID('patrocinadores', 'Equipos_id', $id, 20);
+            $patrocinadores = $database->getTablaSegunCampoID('15_patrocinadores', 'Equipos_id', $id, 20);
 
             // Muestra la información de los patrocinadores
             foreach ($patrocinadores as $patrocinador) {
